@@ -6,10 +6,11 @@ app.use('/',express.static('static'));
 app.listen(8080,()=>console.log('Example listening on port 8080!'));
 
 app.get('/rest/v1/users',function(request,response){
-    response.setHeader('Content-Type','application/json');
-    response.send([
-        {}
-    ]);
+    db.collection('users').find().toArray((err,users)=>{
+        if(err) return console.log(err);
+        response.setHeader('Content-Type','application/json');
+        response.send(users);
+    }); 
 });
 
 app.post('/rest/v1/user',function(request,response){
@@ -21,28 +22,23 @@ app.post('/rest/v1/user',function(request,response){
 
 app.put('/rest/v1/user/edit',function(request,response){
     user=request.body;
-    for(i=0;i<users.length();i++){
-        if(users[i].id==user.id){
-            users[i].username=user.username;
-            users[i].firstname=user.firstname;
-            users[i].lastname=user.lastname;
-            users[i].date=user.date;
-            users[i].gen=user.gen;
-            users[i].password=user.password;
-            users[i].email=user.email;
-        }
-    }
-    console.log(users);
-    response.send('Updated');
+    db.collection('users').findOneAndUpdate({_id: new MongoId(user_id)},{
+        $set:{username: user.username,
+            firstname:user.firstname,
+            lastname:user.lastname,
+            date:user.date,
+            gen:user.gen,
+            password:user.password,
+            email:user.email}
+    },(err,result)=>{
+        if(err) return res.send(err);
+        response.send('OK')
+    })
 });
 
 app.delete('/rest/v1/user/delete/id',function(request,response){
-    var user_id=request.params.id;
-    for(i=0;i<users.length();i++){
-        if(users[i].id==user_id){
-        users.splice(i,1);
-        }
-    }
-    console.log(users);
-    response.send('Deleted');
+    db.collection('users').findOneAndDelete({_id: new MongoId(request.params.id)},(err,result)=>{
+        if(err) return res.send(500,err)
+        response.send('OK');
+    })
 });
