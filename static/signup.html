@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Modern Business - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+  </head>
+
+  <body ng-app="PMS" ng-controller="ToasterCtrl">
+
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">Patient Management System</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="services.html">Services</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact Us</a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-1-col.html">
+                  News
+                </a>
+              </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="blog-home-2.html">
+                  Blog
+                </a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="full-width.html">Log In</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Page Heading/Breadcrumbs -->
+      <h1 class="mt-4 mb-3">Full Width
+        <small>Subheading</small>
+      </h1>
+
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Full Width</li>
+      </ol>
+      <div class="container">
+          <form action="action_page.php">
+              <div class="container">
+              <div class="row">
+                <div class="personal-row col-xs-12 col-md-12 col-lg-12"><center>Personal Information</center></div>
+                <br>
+                <div class="personal-row col-xs-6 col-md-6 col-lg-6">First name<br><input type="text" ng-model="firstname"><br></div>
+                <div class="personal-row col-xs-6 col-md-6 col-lg-6">Last name<br><input type="text" ng-model="lastname"><br></div>
+                <div class="personal-row col-xs-4 col-md-4 col-lg-4">Date of Birth<br><input type="date" ng-model="dob"><br></div>
+                <div class="personal-row col-xs-4 col-md-4 col-lg-4">Place of Birth<br><input type="text" ng-model="pob"><br></div>
+                <div class="personal-row col-xs-4 col-md-4 col-lg-4">Gender<br><select ng-model="gender" maxlength="10"><option value="male">Male</option><option value="female">Female</option></select><br></div>
+              </div>
+              <div class="row">
+                <div class="acc-row col-xs-12 col-md-12 col-lg-12"><center>Account information</center></div><br>
+                <br>
+                <div class="acc-row col-xs-4 col-md-4 col-lg-4">Username<br><input type="text" ng-model="username"><br></div>
+                <div class="acc-row col-xs-4 col-md-4 col-lg-4">Enter your password<br><input type="password" ng-model="password"><br></div>
+                <div class="acc-row col-xs-4 col-md-4 col-lg-4">Reenter your password<br><input type="password" ng-model="rpassword"><br></div>
+                <div class="acc-row col-xs-6 col-md-6 col-lg-6">Email<br><input type="text" ng-model="email"><br></div>
+                <div class="acc-row col-xs-6 col-md-6 col-lg-6">Reenter your email<br><input type="text" ng-model="remail"><br></div>
+                <div class="submit col-xs-12 col-md-12 col-lg-12"><button value="submit">Sign Up</button></div>
+              </div>
+              </div>
+            </form>
+      </div>
+      </div>
+    </div>
+    <script src="//unpkg.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <link rel="stylesheet" href="//unpkg.com/angular-toastr/dist/angular-toastr.css"/>
+    <script>
+    var app=angular.module('myApp',['ngAnimate','toastr']);
+    app.controller('ToasterCtrl',function(toastr){
+      this.success=function(){
+         toastr.success('Well done','Welcome');
+      };
+    });
+    </script>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    
+
+  </body>
+
+</html>
