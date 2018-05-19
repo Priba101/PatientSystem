@@ -32,8 +32,3 @@ app.config(function($routeProvider){
     })
     .otherwise({redirectTo:'/'})
 })
-
-var app = angular.module('PMS', []);
-app.controller('selectCtrl', function($scope) {
-    $scope.docs = ["Cardiologists","Dermatologists","Hematologists","Neurologists","Ophthalmologists","Otolaryngologists","Physiatrists","Urologists"];
-});
