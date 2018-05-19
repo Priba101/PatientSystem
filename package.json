@@ -12,5 +12,13 @@
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "\"# PatientSystem\"",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Priba101/PatientSystem.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Priba101/PatientSystem/issues"
+  },
+  "homepage": "https://github.com/Priba101/PatientSystem#readme"
 }
