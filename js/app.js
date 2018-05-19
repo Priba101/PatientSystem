@@ -27,5 +27,13 @@ app.config(function($routeProvider){
     .when("/item",{
         templateUrl:"views/item.html"
     })
+    .when("/book",{
+        templateUrl:"views/book.html"
+    })
     .otherwise({redirectTo:'/'})
 })
+
+var app = angular.module('PMS', []);
+app.controller('selectCtrl', function($scope) {
+    $scope.docs = ["Cardiologists","Dermatologists","Hematologists","Neurologists","Ophthalmologists","Otolaryngologists","Physiatrists","Urologists"];
+});
