@@ -32,3 +32,7 @@ app.config(function($routeProvider){
     })
     .otherwise({redirectTo:'/'})
 })
+
+app.controller('selectCtrl', function($scope) {
+    $scope.docs = ["Cardiologists","Dermatologists","Gastroenterologists","Hematologists","Neurologists","Ophthalmologists","Physiatrists","Radiologists","Urologists"];
+});
