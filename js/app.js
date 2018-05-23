@@ -3,7 +3,7 @@ const app=express();
 const MongoClient = require('mongodb').MongoClient;
 var db;
 
-var app = angular.module('PMS',['ngRoute']);
+angular.module('PMS',['ngRoute']);
 app.config(function($routeProvider){
     $routeProvider.when("/",{
         templateUrl:"views/home.html"
