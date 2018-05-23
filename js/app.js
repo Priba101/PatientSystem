@@ -1,3 +1,8 @@
+const express = require('express');
+const app=express();
+const MongoClient = require('mongodb').MongoClient;
+var db;
+
 var app = angular.module('PMS',['ngRoute']);
 app.config(function($routeProvider){
     $routeProvider.when("/",{
@@ -36,3 +41,13 @@ app.config(function($routeProvider){
 app.controller('selectCtrl', function($scope) {
     $scope.docs = ["Cardiologists","Dermatologists","Gastroenterologists","Hematologists","Neurologists","Ophthalmologists","Physiatrists","Radiologists","Urologists"];
 });
+
+app.use('/',express.static('static'));
+
+app.listen(8080,()=>console.log('Project listening on port 8080!'));
+
+MongoClient.connect('mongodb://localhost:8080/pms',(err,database)=>{
+    if (err) return console.log(err)
+    db=database
+    app.listen(8080,()=>console.log('Project listening on port 8080!'))
+})
