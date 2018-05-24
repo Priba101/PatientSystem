@@ -21,16 +21,21 @@
             <li class="nav-item ">
               <a class="nav-link" href="#!blog">Blog</a>
             </li>
-            <li>
-              <li class="nav-item">
+            <li class="nav-item">
+            <div ng-if="!check_login()">
                 <a class="nav-link" href="#!log">Log In</a>
+            </div>            
+            </li>
+            <li class="nav-item">
+            <div ng-if="check_login()">
+                <a class="nav-link" hrenf="!#user">Profile</a>
+            </div>
               </li>
-            </li>
-            </li>
           </ul>
         </div>
       </div>
-    </nav><!-- Page Content -->
+    </nav>
+    <!-- Page Content -->
     <div class="container">
 
       <!-- Page Heading/Breadcrumbs -->
@@ -46,9 +51,9 @@
           <form>
               <div class="container">
                 <label for="uname"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="uname" required>
+                <input type="text" placeholder="Enter Username" name="uname" required ng-model="credentials.username">
                 <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
+                <input type="password" placeholder="Enter Password" name="psw" required ng-model="credentials.password">
                 <label><input type="checkbox" name="remember"> Remember me</label><br>
                 <label type="text" name="signup"><a href="#!signup">Dont have an account? Sign up now!</a></label>
               </div>

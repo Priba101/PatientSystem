@@ -1,36 +1,40 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="#!home">Patient Management System</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#!about">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#!services">Services</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#!contact">Contact Us</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#!port">News</a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="#!blog">Blog</a>
-        </li>
-        <li>
+    <div class="container">
+      <a class="navbar-brand" href="#!home">Patient Management System</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#!log">Log In</a>
+            <a class="nav-link" href="#!about">About</a>
           </li>
-        </li>
-        </li>
-      </ul>
+          <li class="nav-item">
+            <a class="nav-link" href="#!services">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!contact">Contact Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!port">News</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="#!blog">Blog</a>
+          </li>
+          <li class="nav-item">
+          <div ng-if="!check_login()">
+              <a class="nav-link" href="#!log">Log In</a>
+          </div>            
+          </li>
+          <li class="nav-item">
+          <div ng-if="check_login()">
+              <a class="nav-link" hrenf="!#user">Profile</a>
+          </div>
+            </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
     <!-- Page Content -->
     <div class="container">
 
@@ -44,26 +48,54 @@
         <li class="breadcrumb-item active">Sign Up</li>
       </ol>
       <div class="container">
-          <form>
+          <form method="POST" action="/adduser">
               <div class="container">
               <div class="row">
                 <div class="personal-row col-xs-12 col-md-12 col-lg-12"><center>Personal Information</center></div>
                 <br>
-                <div class="personal-row col-xs-6 col-md-6 col-lg-6">First name<br><input type="text" ng-model="firstname"><br></div>
-                <div class="personal-row col-xs-6 col-md-6 col-lg-6">Last name<br><input type="text" ng-model="lastname"><br></div>
-                <div class="personal-row col-xs-4 col-md-4 col-lg-4">Date of Birth<br><input type="date" ng-model="dob"><br></div>
-                <div class="personal-row col-xs-4 col-md-4 col-lg-4">Place of Birth<br><input type="text" ng-model="pob"><br></div>
+                <div class="personal-row col-xs-6 col-md-6 col-lg-6">First name<br><input type="text" ng-model="user.firstname" name="firstname"><br>
+                  <span style="color:red" ng-show="userForm.firstname.$dirty && userForm.firstname.$invalid">
+                      <span ng-show="userForm.firstname.$error.required">First name is required.</span>
+                  </span>
+                </div>
+                <div class="personal-row col-xs-6 col-md-6 col-lg-6">Last name<br><input type="text" ng-model="user.lastname" name="lastname"><br>
+                  <span style="color:red" ng-show="userForm.lastname.$dirty && userForm.lastname.$invalid">
+                      <span ng-show="userForm.lastname.$error.required">Last name is required.</span>
+                  </span>
+                </div>
+                <div class="personal-row col-xs-4 col-md-4 col-lg-4">Date of Birth<br><input type="date" ng-model="user.date" name="date"><br></div>
+                <span style="color:red" ng-show="userForm.date.$dirty && userForm.date.$invalid">
+                    <span ng-show="userForm.date.$error.required">Date is required.</span>
+                </span>
+                <div class="personal-row col-xs-4 col-md-4 col-lg-4">Place of Birth<br><input type="text" ng-model="user.place" name="pob"><br>
+                  <span style="color:red" ng-show="userForm.pob.$dirty && userForm.pob.$invalid">
+                      <span ng-show="userForm.pob.$error.required">Place of birth is required.</span>
+                  </span>
+                </div>
                 <div class="personal-row col-xs-4 col-md-4 col-lg-4">Gender<br><select ng-model="gender" maxlength="10"><option value="male">Male</option><option value="female">Female</option></select><br></div>
               </div>
               <div class="row">
                 <div class="acc-row col-xs-12 col-md-12 col-lg-12"><center>Account information</center></div><br>
                 <br>
-                <div class="acc-row col-xs-4 col-md-4 col-lg-4">Username<br><input type="text" ng-model="username"><br></div>
-                <div class="acc-row col-xs-4 col-md-4 col-lg-4">Enter your password<br><input type="password" ng-model="password"><br></div>
+                <div class="acc-row col-xs-4 col-md-4 col-lg-4">Username<br><input type="text" ng-model="user.username" name="username"><br>
+                  <span style="color:red" ng-show="userForm.username.$dirty && userForm.username.$invalid">
+                      <span ng-show="userForm.username.$error.required">Username is required.</span>
+                  </span></div>
+                <div class="acc-row col-xs-4 col-md-4 col-lg-4">Enter your password<br><input type="password" ng-model="user.password" name="password"><br>
+                  <span style="color:red" ng-show="userForm.password.$dirty && userForm.password.$invalid">
+                      <span ng-show="userForm.password.$error.required">Password is required.</span>
+                      <span ng-show="userForm.password.$error.strongPassword">Password has to have letter e.</span>
+                  </span>
+                </div>
                 <div class="acc-row col-xs-4 col-md-4 col-lg-4">Reenter your password<br><input type="password" ng-model="rpassword"><br></div>
-                <div class="acc-row col-xs-6 col-md-6 col-lg-6">Email<br><input type="text" ng-model="email"><br></div>
+                <div class="acc-row col-xs-6 col-md-6 col-lg-6">Email<br><input type="text" ng-model="user.email" name="email"><br>
+                  <span style="color:red" ng-show="userForm.email.$dirty && userForm.email.$invalid">
+                      <span ng-show="userForm.email.$error.required">Email is required.</span>
+                      <span ng-show="userForm.email.$error.email">Invalid email address.</span>
+                  </span>
+                </div>
                 <div class="acc-row col-xs-6 col-md-6 col-lg-6">Reenter your email<br><input type="text" ng-model="remail"><br></div>
-                <div class="submit col-xs-12 col-md-12 col-lg-12"><button value="submit">Sign Up</button></div>
+                <div class="submit col-xs-12 col-md-12 col-lg-12"><button value="submit" type="submit" ng-disabled="!userForm.$valid" ng-click="$ctrl.ok()">Sign Up</button></div>
               </div>
               </div>
             </form>
@@ -71,7 +103,6 @@
       </div>
     </div>
     <!-- /.container -->
-
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
@@ -79,3 +110,22 @@
       </div>
       <!-- /.container -->
     </footer>
+    <script>
+        var app = angular.module('modal-test', ['ui.bootstrap', 'ngAnimate', 'toastr']);
+        app.directive('passwordStrength', function() {
+            return {
+                require: 'ngModel',
+                link: function(scope, element, attr, mCtrl) {
+                    function validatePasswordStrength(value) {
+                        if (value.indexOf("e") > -1) {
+                            mCtrl.$setValidity('strongPassword', true);
+                        } else {
+                            mCtrl.$setValidity('strongPassword', false);
+                        }
+                        return value;
+                    }
+                    mCtrl.$parsers.push(validatePasswordStrength);
+                }
+            }
+        });
+      </script>
