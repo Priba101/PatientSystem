@@ -1,43 +1,20 @@
-var express = require('express');
-var app=express();
+const express = require('express');
+const bodyparser = require("body-parser");
+const app=express();
 const MongoClient = require('mongodb').MongoClient;
-var port = 3000;
+var reload = require('../../reload');
+var port = 8080;
 var db;
+var server = http.createServer(app);
+reload(app);
+app.set('port', process.env.PORT || 8080);
+app.use(logger('dev'));
+app.use(bodyParser.json());
+server.listen(app.get('port'), function () {
+    console.log('Web server listening on port ' + app.get('port'))
+  })
+var MongoId = require('mongodb').ObjectID;
 var bodyParser = require('body-parser');
-angular.module('PMS',['ngRoute']);
-app.config(function($routeProvider){
-    $routeProvider.when("/",{
-        templateUrl:"views/home.html"
-    })
-    .when("/about",{
-        templateUrl:"views/about.html"
-    })
-    .when("/blog",{
-        templateUrl:"views/blog.html"
-    })
-    .when("/contact",{
-        templateUrl:"views/contact.html"
-    })
-    .when("/log",{
-        templateUrl:"views/log.html"
-    })
-    .when("/port",{
-        templateUrl:"views/port.html"
-    })
-    .when("/services",{
-        templateUrl:"views/services.html"
-    })
-    .when("/signup",{
-        templateUrl:"views/signup.html"
-    })
-    .when("/item",{
-        templateUrl:"views/item.html"
-    })
-    .when("/book",{
-        templateUrl:"views/book.html"
-    })
-    .otherwise({redirectTo:'/'})
-})
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.controller('selectCtrl', function($scope) {
