@@ -1,4 +1,14 @@
-const expres = require('express');
+var express = require('express')
+var app = express()
+
+app.get('/', function (req, res) {
+  res.send('PMS')
+})
+app.listen(8000, function () {
+  console.log('Example app listening on port 8000!')
+})
+app.use('/', express.static('views'));
+/*const expres = require('express');
 const app=express();
 
 app.use('/',express.static('static'));
@@ -41,4 +51,4 @@ app.delete('/rest/v1/user/delete/id',function(request,response){
         if(err) return res.send(500,err)
         response.send('OK');
     })
-});
+});*/
