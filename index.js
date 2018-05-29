@@ -1,13 +1,13 @@
-var express = require('express')
-var app = express()
+const express = require('express')
+const app = express()
 
-app.get('/', function (req, res) {
-  res.send('PMS')
-})
+app.use('/', express.static('static'));
+app.use(express.json());
 app.listen(8000, function () {
   console.log('Example app listening on port 8000!')
 })
-app.use('/', express.static('views'));
+
+//asdadna
 /*const expres = require('express');
 const app=express();
 
