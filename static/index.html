@@ -1,23 +1,80 @@
-<!DOCTYPE html>
+<!---<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Patient Management System</title>
+    <title>Patient Management System</title>-->
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="css/modern-business.css" rel="stylesheet">
+    <!---<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+    <!---Custom styles for this template -->
+    <!---<link href="css/modern-business.css" rel="stylesheet">
     <script src ="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src =" https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js "></script>
   </head>
   <body ng-app="PMS">
     <div ng-view></div>
     <script type="text/javascript" src="js/app.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
+  Bootstrap core JavaScript -->
+    <!---<script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   </body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>Patient Management System</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="static/css/modern-business.css" rel="stylesheet">
+    <script src ="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src =" https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js "></script>
+  </head>
+
+  <body ng-app="PMS">
+    <div ng-view></div>
+    <script type="text/javascript" src="js/app.js"></script>
+  </body>
+  <script>
+  var app=angular.module("PMS",["ngRoute"]);
+  app.config(function($routeProvider){
+    $routeProvider.when("/",{
+        templateUrl:"views/home.html"
+    })
+    .when("/about",{
+        templateUrl:"views/about.html"
+    })
+    .when("/blog",{
+        templateUrl:"views/blog.html"
+    })
+    .when("/contact",{
+        templateUrl:"views/contact.html"
+    })
+    .when("/log",{
+        templateUrl:"views/log.html"
+    })
+    .when("/port",{
+        templateUrl:"views/port.html"
+    })
+    .when("/services",{
+        templateUrl:"views/services.html"
+    })
+    .when("/signup",{
+        templateUrl:"views/signup.html"
+    })
+    .when("/item",{
+        templateUrl:"views/item.html"
+    })
+    .when("/book",{
+        templateUrl:"views/book.html"
+    })
+    .otherwise({redirectTo:'/'})
+})
+  </script>
 </html>
+
