@@ -6,8 +6,6 @@ app.use(express.json());
 app.listen(8000, function () {
   console.log('Example app listening on port 8000!')
 })
-
-//asdadna
 /*const expres = require('express');
 const app=express();
 

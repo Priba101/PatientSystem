@@ -72,5 +72,11 @@
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; Patient Management System 2018</p>
     </div>
+    <script>
+    var app = angular.module('PMS', []);
+    app.controller('selectCtrl', function($scope) {
+      $scope.docs = ["Cardiologists","Dermatologists","Gastroenterologists","Hematologists","Neurologists","Ophthalmologists","Physiatrists","Radiologists","Urologists"];
+    });
+    </script>
     <!-- /.container -->
   </footer>
