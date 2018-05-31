@@ -77,6 +77,9 @@
     })
     .otherwise({redirectTo:'/'})
 })
-  </script>
+    app.controller('selectCtrl', function($scope) {
+      $scope.docs = ["Cardiologists","Dermatologists","Gastroenterologists","Hematologists","Neurologists","Ophthalmologists","Physiatrists","Radiologists","Urologists"];
+    });
+    </script>
 </html>
 
