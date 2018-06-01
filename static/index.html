@@ -34,13 +34,16 @@
     <link href="assets/css/modern-business.css" rel="stylesheet">
     <script src ="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src =" https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js "></script>
+    
   </head>
 
   <body ng-app="PMS">
     <div ng-view></div>
   </body>
+  <script src="controllers/dashboardController.js"></script>
   <script>
   var app=angular.module("PMS",["ngRoute"]);
+  app.controller('dashboardController', DashboardController);
   app.config(function($routeProvider){
     $routeProvider.when("/",{
         templateUrl:"views/home.html"
@@ -73,7 +76,9 @@
         templateUrl:"views/book.html"
     })
     .when("/dashboard",{
-        templateUrl:"views/dashboard.html"
+        templateUrl:"views/dashboard.html",
+        controller:"dashboardController"
+
     })
     .otherwise({redirectTo:'/'})
 })

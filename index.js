@@ -7,13 +7,100 @@ app.listen(8000, function () {
   console.log('Example app listening on port 8000!')
 })
 
-/*const expres = require('express');
-const app=express();
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/patientsystem";
 
-app.use('/',express.static('static'));
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  console.log("Database created!");
+  db.close();
+});
+var url1 = "mongodb://localhost:27017/";
+MongoClient.connect(url1, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("patientsystem");
+  dbo.createCollection("users", function(err, res) {
+    if (err) throw err;
+    console.log("Collection created!");
+    db.close();
+  });
+});
+/*MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("patientsystem");
+    var myobj = [
+      { _id: 3,username: 'Priba', firstname: 'Tarik', lastname: 'Pribisic', date: '8.1.1997', gen: 'Male', password: 'something', email: 'pribajaba@gmail.com'},
+      { _id: 4,username: 'Almy', firstname: 'Alma', lastname: 'Halilovic', date: '5.9.1996', gen: 'Female', password: 'somethingelse', email: 'alma.h@gmail.com'},
+    ];
+    dbo.collection("users").insertMany(myobj, function(err, res) {
+      if (err) throw err;
+      console.log("Number of documents inserted: " + res.insertedCount);
+      db.close();
+    });
+  });*/
+app.post("/adduser",(res,req)=>{
+    var myData = new User(req.body);
+    myData.save()
+        .then(item=>{
+            res.send("User saved to database");
+        })
+        .catch(err=>{
+            res.status(400).send("unable to save to database");
+        });
+});
 
-app.listen(8080,()=>console.log('Example listening on port 8080!'));
+app.post('/register', function(req, res) {
+    req.body._id = null;
+    var user = req.body;
+    patientsystem.collection('users').insert(user, function(err, data) {
+        if (err) return console.log(err);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(user);
+    })
+});
 
+app.post('/login', function(req, res) {
+    var user = req.body;
+    patientsystem.collection('users').findOne({
+        'email': user.email,
+        'password': user.password
+    }, function(error, user) {
+        if (error) {
+            throw error;
+        } else {
+            if (user) {
+                var token = jwt.sign(user, jwt_secret, {
+                    expiresIn: 20000
+                });
+                res.send({
+                    success: true,
+                    message: 'Authenticated',
+                    token: token
+                })
+                console.log("Authentication passed.");
+            }
+            else {
+                res.status(401).send('Credentials are wrong.');
+            }
+        }
+    });
+});
+app.put('/rest/v1/user/edit',function(request,response){
+    user=request.body;
+    db.collection('users').findOneAndUpdate({_id: new MongoId(user_id)},{
+        $set:{username: user.username,
+            firstname:user.firstname,
+            lastname:user.lastname,
+            date:user.date,
+            gen:user.gen,
+            password:user.password,
+            email:user.email}
+    },(err,result)=>{
+        if(err) return res.send(err);
+        response.send('OK')
+    })
+});
+/*
 app.get('/rest/v1/users',function(request,response){
     db.collection('users').find().toArray((err,users)=>{
         if(err) return console.log(err);
