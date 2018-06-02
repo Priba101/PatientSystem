@@ -2,15 +2,25 @@ const express = require('express');
 const router = express.Router();
 const app = express();
 const bodyparser = require("body-parser");
-app.use('/', express.static('static'));
-app.use(express.json());
-app.listen(8000, function () {
-  console.log('Example app listening on port 8000!')
-})
-
 var MongoClient = require('mongodb').MongoClient;
-/*var url = "mongodb://localhost:27017/patientsystem";
+const jwt_secret = 'WU5CjF8fHxG40S2t7oyk';
+var MongoId = require('mongodb').ObjectID;
+var patientsystem;
 
+app.use('/', express.static('static'));
+
+app.use(express.json());
+app.use(express.urlencoded({
+    extended: true
+}));
+MongoClient.connect('mongodb://localhost:27017', function(err, client) {
+    if (err) throw err;
+    patientsystem = client.db('patientsystem');
+    app.listen(8000, () => console.log('Example app listening on port 8000!'))
+});
+
+var url = "mongodb://localhost:27017/patientsystem";
+/*
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   console.log("Database created!");
@@ -75,30 +85,58 @@ app.post('/login', function(req, res) {
                 });
                 res.send({
                     success: true,
-                    message: 'Authenticated',
+                    message: 'Authenticated!',
                     token: token
                 })
-                console.log("Authentication passed.");
+                console.log("Authentication successful!");
             }
             else {
-                res.status(401).send('Credentials are wrong.');
+                res.status(401).send('Credentials are incorect!');
             }
         }
     });
 });
-app.put('/rest/v1/user/edit',function(request,response){
-    user=request.body;
-    db.collection('users').findOneAndUpdate({_id: new MongoId(user_id)},{
-        $set:{username: user.username,
-            firstname:user.firstname,
-            lastname:user.lastname,
-            date:user.date,
-            gen:user.gen,
-            password:user.password,
-            email:user.email}
-    },(err,result)=>{
-        if(err) return res.send(err);
-        response.send('OK')
+app.put('/emp/:emp_id', function(req, res){    
+    patientsystem.collection('emps').findAndModify(
+       {_id: new MongoId(req.params.employee_id)}, // query
+       [['_id','asc']],  // sort order
+       {$set : {username: req.body.username, salary: req.body.salary, country: req.body.country,email:req.body.email,type:req.body.typ}},
+       function(err, doc) {
+           if (err){
+               console.warn(err.message);  // returns error if no matching object found
+           }else{
+               res.json(doc);
+           }
+       });
+});
+app.post('/addEmp', function(req, res){
+    req.body._id = null;
+    var emp = req.body;
+    patientsystem.collection('emps').insert(emp, function(err, data){
+        if(err) return console.log(err);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(emp);
+    })
+});
+
+app.get('/getEmp', function(request, response) {
+    patientsystem.collection('emps').find().toArray((err, emp) => {
+        if (err) return console.log(err);
+        response.setHeader('Content-Type', 'application/json');
+        response.send(emp);
+    })
+});
+app.delete('/emp/:emp_id', function(req, res){
+    patientsystem.collection('emps').remove({_id: new MongoId(req.params.emp_id)},
+    function(err, data){
+        res.json(data);
+    });
+});
+app.get('/getUser', function(req, res){
+    patientsystem.collection('users').find().toArray((err, user) => {
+        if(err) return console.log(err);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(user);
     })
 });
 /*

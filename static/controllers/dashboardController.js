@@ -2,21 +2,8 @@ function DashboardController($scope, $rootScope, $http){
     console.log("Hello from Dashboard controller");
     refresh_emp();
     refresh_users();
-    /*var config = {headers:  {
-      'Authorization': 'Basic d2VudHdvcnRobWFuOkNoYW5nZV9tZQ==',
-      'Accept': 'application/json;odata=verbose',
-      "JWT" : localStorage.getItem('user')
-      }
-    };
-
-    var init = function(){
-      console.log($rootScope);
-      get_report();
-      get_bills();
-      get_users();
-    }*/
-$scope.edit_emp = function(employee){
-      $scope.employee ={
+$scope.edit_emp = function(emp){
+      $scope.emp ={
           _id : emp._id,
           emp_username : emp.emp_username,
           emp_salary : emp.emp_salary,
@@ -27,9 +14,9 @@ $scope.edit_emp = function(employee){
   }
 
 $scope.add_emp = function() {
-    $http.post('/addEmp', $scope.employee).then(function(data) {
+    $http.post('/addEmp', $scope.emp).then(function(data) {
         $scope.emp = null;
-        $scope.emp_list.push(data);
+        $scope.emplist.push(data);
         toastr.success('New employee added','Addition succesful!');
         refresh_emp();
     });
@@ -40,15 +27,17 @@ var get_report = function (){
       }),function(response){
         alert(response.status);
       }
-    };
+};
 var get_users = function (){
       $http.get('/rest/v1/users', config).then(function(response){
         $scope.users = response.data;
       }),function(response){
         alert(response.status);
       }
+      init();
     };
-    init();
+
+
 $scope.delete_user = function(id){
       $http.delete('/rest/v1/user/delete/'+id, config).then(function(response){
         get_users();
@@ -70,7 +59,7 @@ $scope.add_user = function(){
       }, function(error){
         console.log(error);
       });
-    }}
+}
 $scope.update_emp = function(){
     $http.put('/emp/'+$scope.emp._id, $scope.emp).then(function(data){
       refresh_emp();
@@ -101,4 +90,4 @@ function refresh_users(){
   function(res){
       alert(res.status);
   }
-};
+};}
