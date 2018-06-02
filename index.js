@@ -1,6 +1,7 @@
-const express = require('express')
-const app = express()
-
+const express = require('express');
+const router = express.Router();
+const app = express();
+const bodyparser = require("body-parser");
 app.use('/', express.static('static'));
 app.use(express.json());
 app.listen(8000, function () {
@@ -8,7 +9,7 @@ app.listen(8000, function () {
 })
 
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/patientsystem";
+/*var url = "mongodb://localhost:27017/patientsystem";
 
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
@@ -25,12 +26,12 @@ MongoClient.connect(url1, function(err, db) {
     db.close();
   });
 });
-/*MongoClient.connect(url, function(err, db) {
+MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("patientsystem");
     var myobj = [
-      { _id: 3,username: 'Priba', firstname: 'Tarik', lastname: 'Pribisic', date: '8.1.1997', gen: 'Male', password: 'something', email: 'pribajaba@gmail.com'},
-      { _id: 4,username: 'Almy', firstname: 'Alma', lastname: 'Halilovic', date: '5.9.1996', gen: 'Female', password: 'somethingelse', email: 'alma.h@gmail.com'},
+      { _id: 1, firstname: 'Tarik', lastname: 'Pribisic',date: '8.1.1997', place:'Sarajevo', gen: 'Male',username: 'Priba', password: 'something', email: 'pribajaba@gmail.com'},
+      { _id: 2, firstname: 'Alma', lastname: 'Halilovic',date: '5.9.1996', place:'Sarajevo', gen: 'Female',username: 'Almy', password: 'somethingelse', email: 'alma.h@gmail.com'},
     ];
     dbo.collection("users").insertMany(myobj, function(err, res) {
       if (err) throw err;
@@ -38,8 +39,8 @@ MongoClient.connect(url1, function(err, db) {
       db.close();
     });
   });*/
-app.post("/adduser",(res,req)=>{
-    var myData = new User(req.body);
+/*app.post("/adduser",(res,req)=>{
+    var myData = new user(req,body);
     myData.save()
         .then(item=>{
             res.send("User saved to database");
@@ -47,7 +48,7 @@ app.post("/adduser",(res,req)=>{
         .catch(err=>{
             res.status(400).send("unable to save to database");
         });
-});
+});*/
 
 app.post('/signup', function(req, res) {
     req.body._id = null;

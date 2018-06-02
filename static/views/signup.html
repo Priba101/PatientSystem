@@ -72,7 +72,7 @@
                       <span ng-show="userForm.pob.$error.required">Place of birth is required.</span>
                   </span>
                 </div>
-                <div class="personal-row col-xs-4 col-md-4 col-lg-4">Gender<br><select ng-model="gender" maxlength="10"><option value="male">Male</option><option value="female">Female</option></select><br></div>
+                <div class="personal-row col-xs-4 col-md-4 col-lg-4">Gender<br><select ng-model="user.gender" maxlength="10"><option value="male">Male</option><option value="female">Female</option></select><br></div>
               </div>
               <div class="row">
                 <div class="acc-row col-xs-12 col-md-12 col-lg-12"><center>Account information</center></div><br>
@@ -87,15 +87,15 @@
                       <span ng-show="userForm.password.$error.strongPassword">Password has to have letter e.</span>
                   </span>
                 </div>
-                <div class="acc-row col-xs-4 col-md-4 col-lg-4">Reenter your password<br><input type="password" ng-model="rpassword"><br></div>
+                <div class="acc-row col-xs-4 col-md-4 col-lg-4">Reenter your password<br><input type="password"><br></div>
                 <div class="acc-row col-xs-6 col-md-6 col-lg-6">Email<br><input type="text" ng-model="user.email" name="email"><br>
                   <span style="color:red" ng-show="userForm.email.$dirty && userForm.email.$invalid">
                       <span ng-show="userForm.email.$error.required">Email is required.</span>
                       <span ng-show="userForm.email.$error.email">Invalid email address.</span>
                   </span>
                 </div>
-                <div class="acc-row col-xs-6 col-md-6 col-lg-6">Reenter your email<br><input type="text" ng-model="remail"><br></div>
-                <div class="submit col-xs-12 col-md-12 col-lg-12"><button value="submit" type="submit" ng-disabled="!userForm.$valid" ng-click="$ctrl.ok()" ng-click="add_user()">Sign Up</button></div>
+                <div class="acc-row col-xs-6 col-md-6 col-lg-6">Reenter your email<br><input type="text"><br></div>
+                <div class="submit col-xs-12 col-md-12 col-lg-12"><button value="submit" type="submit" ng-click="add_user()">Sign Up</button></div>
               </div>
               </div>
             </form>
