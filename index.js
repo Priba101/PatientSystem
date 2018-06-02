@@ -49,7 +49,7 @@ app.post("/adduser",(res,req)=>{
         });
 });
 
-app.post('/register', function(req, res) {
+app.post('/signup', function(req, res) {
     req.body._id = null;
     var user = req.body;
     patientsystem.collection('users').insert(user, function(err, data) {

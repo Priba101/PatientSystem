@@ -41,9 +41,13 @@
     <div ng-view></div>
   </body>
   <script src="controllers/dashboardController.js"></script>
+  <script src="controllers/loginController.js"></script>
+  <script src="controllers/signupController.js"></script>
   <script>
   var app=angular.module("PMS",["ngRoute"]);
   app.controller('dashboardController', DashboardController);
+  app.controller('signupController', SignUpController);
+  app.controller('loginController', LoginController);
   app.config(function($routeProvider){
     $routeProvider.when("/",{
         templateUrl:"views/home.html"
@@ -58,7 +62,8 @@
         templateUrl:"views/contact.html"
     })
     .when("/log",{
-        templateUrl:"views/log.html"
+        templateUrl:"views/log.html",
+        controller:"loginController"
     })
     .when("/port",{
         templateUrl:"views/port.html"
@@ -67,7 +72,8 @@
         templateUrl:"views/services.html"
     })
     .when("/signup",{
-        templateUrl:"views/signup.html"
+        templateUrl:"views/signup.html",
+        controller:"signupController"
     })
     .when("/item",{
         templateUrl:"views/item.html"

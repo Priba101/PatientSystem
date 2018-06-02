@@ -1,5 +1,7 @@
 function DashboardController($scope, $rootScope, $http){
-    console.log("Hello from dashboard controller");
+    console.log("Hello from Dashboard controller");
+    refresh_emp();
+    refresh_users();
     /*var config = {headers:  {
       'Authorization': 'Basic d2VudHdvcnRobWFuOkNoYW5nZV9tZQ==',
       'Accept': 'application/json;odata=verbose',
@@ -13,6 +15,25 @@ function DashboardController($scope, $rootScope, $http){
       get_bills();
       get_users();
     }*/
+    $scope.edit_emp = function(employee){
+      $scope.employee ={
+          _id : emp._id,
+          emp_username : emp.emp_username,
+          emp_salary : emp.emp_salary,
+          emp_country : emp.emp_country,
+          emp_email : emp.emp_email,
+          emp_type : emp.emp_type
+      };
+  }
+
+  $scope.add_emp = function() {
+    $http.post('/addEmp', $scope.employee).then(function(data) {
+        $scope.emp = null;
+        $scope.emp_list.push(data);
+        toastr.success('New employee added','Addition succesful!');
+        refresh_emp();
+    });
+}
     var get_report = function (){
       $http.get('/rest/v1/report', config).then(function(response){
         $scope.report = response.data;
@@ -53,7 +74,7 @@ function DashboardController($scope, $rootScope, $http){
     $scope.update_emp = function(){
       $http.put('/emp/'+$scope.emp._id, $scope.emp).then(function(data){
         refresh_emp();
-        toastr.info('Employee updated');
+        toastr.info('Employee updated',"! employee record updated!");
         $scope.emp = null;
       });
     }
@@ -61,6 +82,23 @@ function DashboardController($scope, $rootScope, $http){
   $scope.delete_emp = function(emp_id, emp_username){
       $http.delete('/emp/'+ emp_id).then(function(data){
           refresh_emp();
-          toastr.success(emp_name + ' deleted');
+          toastr.success(emp_name + ' deleted','1 employe deleted!');
       });
   }
+
+  function refresh_emp(){
+    $http.get('/getEmp').then(function(res){
+        $scope.emp_list = res.data;
+    }),
+    function(res){
+        alert(res.status);
+    }
+}
+function refresh_users(){
+  $http.get('/getUser').then(function(res){
+      $scope.users_list = res.data;
+  }),
+  function(res){
+      alert(res.status);
+  }
+};
