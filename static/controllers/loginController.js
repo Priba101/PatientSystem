@@ -1,4 +1,4 @@
-function LoginController($scope, $http, toastr, $location){
+function LoginController($scope, $http, $location){
     console.log("Hello from Login Controller");
 
     $scope.check_login = function(){
@@ -9,16 +9,16 @@ function LoginController($scope, $http, toastr, $location){
     }
 
     $scope.login = function(credentials){
-        $http.post('/login', credentials).then(function(response){
+        $http.post('/log', credentials).then(function(response){
             localStorage.setItem('user',response.data.token)
-            toastr.success('You are now logged in!', 'Enjoy your stay!');
-            //$location.url('/');
+            //toastr.success('You are now logged in!', 'Enjoy your stay!');
+            $location.url('/');
         }),function(error){
             console.log(error);
         }
     }
     $scope.logout = function(){
         localStorage.clear();
-        toastr.info("Logged out!", "See you next time");
+        //toastr.info("Logged out!", "See you next time");
     }
 }

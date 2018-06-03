@@ -34,6 +34,8 @@
     <link href="assets/css/modern-business.css" rel="stylesheet">
     <script src ="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src =" https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js "></script>
+    <script src="//unpkg.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <link rel="stylesheet" href="//unpkg.com/angular-toastr/dist/angular-toastr.css" />
     
   </head>
 
@@ -43,23 +45,29 @@
   <script src="controllers/dashboardController.js"></script>
   <script src="controllers/loginController.js"></script>
   <script src="controllers/signupController.js"></script>
+  <script src="controllers/logController.js"></script>
   <script>
   var app=angular.module("PMS",["ngRoute"]);
   app.controller('dashboardController', DashboardController);
   app.controller('signupController', SignUpController);
   app.controller('loginController', LoginController);
+  app.controller('logController', LogController);
   app.config(function($routeProvider){
     $routeProvider.when("/",{
         templateUrl:"views/home.html"
+        ,controller:"logController"
     })
     .when("/about",{
         templateUrl:"views/about.html"
+        ,controller:"logController"
     })
     .when("/blog",{
         templateUrl:"views/blog.html"
+        ,controller:"logController"
     })
     .when("/contact",{
         templateUrl:"views/contact.html"
+        ,controller:"logController"
     })
     .when("/log",{
         templateUrl:"views/log.html",
@@ -67,9 +75,11 @@
     })
     .when("/port",{
         templateUrl:"views/port.html"
+        ,controller:"logController"
     })
     .when("/services",{
         templateUrl:"views/services.html"
+        ,controller:"logController"
     })
     .when("/signup",{
         templateUrl:"views/signup.html",
@@ -77,9 +87,11 @@
     })
     .when("/item",{
         templateUrl:"views/item.html"
+        ,controller:"logController"
     })
     .when("/book",{
         templateUrl:"views/book.html"
+        ,controller:"logController"
     })
     .when("/dashboard",{
         templateUrl:"views/dashboard.html",
