@@ -2,14 +2,15 @@ function DashboardController($scope, $rootScope, $http){
     console.log("Hello from Dashboard controller");
     refresh_emp();
     refresh_users();
+
 $scope.edit_emp = function(emp){
       $scope.emp ={
           _id : emp._id,
-          emp_username : emp.emp_username,
-          emp_salary : emp.emp_salary,
-          emp_country : emp.emp_country,
-          emp_email : emp.emp_email,
-          emp_type : emp.emp_type
+          username : emp.username,
+          salary : emp.salary,
+          country : emp.country,
+          email : emp.email,
+          type : emp.type
       };
   }
 
