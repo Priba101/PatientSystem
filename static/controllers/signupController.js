@@ -8,7 +8,7 @@ function SignUpController($scope, $http, $location){
           $location.url('/log');
           $scope.users_list.push(data);
         });
-      }
+}
       $scope.check_login = function(){
         if(localStorage.getItem('user')){
             return true;

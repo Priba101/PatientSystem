@@ -68,10 +68,7 @@
           </div>
           <div class="col-lg-12 col-md-12">
               <div class="card" style="height: auto;">
-                      <div class="card-header card-header-warning">
                          <h4 class="card-title">User Stats</h4>
-                         <p class="card-category">New users on {{date | date:'d MMMM, yyyy'}}</p>
-                      </div>
                       <div class="card-body table-responsive">
                          <table class="table">
                             <thead>
@@ -162,8 +159,8 @@
                                         <td>{{emp.type}}</td>
                                         <td>
                                            <div class="btn-group">
-                                              <button class="btn btn-warning" ng-click="edit_emp(emp)">Edit</button>
-                                              <button class="btn btn-danger" ng-click="delete_employee(emp._id, emp.username)">Delete</button>
+                                              <button class="btn btn-warning" ng-click="edit_emp()">Edit</button>
+                                              <button class="btn btn-danger" ng-click="delete_employee()">Delete</button>
                                            </div>
                                         </td>
                                      </tr>

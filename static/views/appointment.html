@@ -47,24 +47,20 @@
       <li class="breadcrumb-item active">Book</li>
     </ol>
     <div class="container">
-        <form>
-            <div class="container" ng-controller="selectCtrl">
-                <h>What specialist can help you with your problem?</h>
-                <select>
-                    <option ng-repeat="x in docs">{{x}}</option>
-                </select><br>
-                <h>Did you have problem before with you issue?</h>
-                <input type="checkbox" ng-checked="checking">Yes<input type="checkbox" ng-checked="checking">No<br>
-                <h>Enter your current address</h>
-                <input type="text" ng-model="address">
-                <h>Can you tell us something about your problem</h><br>
-                <textarea ng-model="textArea"></textarea><br>
-                <h>Medical records will be sent to the doctor</h><input type="checkbox" ng-checked="records" required>
+      <h>What specialist can help you with your problem?</h>
+        <form method="POST">
+            <div class="container"> 
+                <input type="text" placeholder="What kind of doctor are you looking for?" ng-model="book.type">
+                <br>
+                <input type="text" ng-model="book.address" name="address" placeholder="Enter your current address">
+                <input ng-model="book.add" name="add" placeholder="Can you tell us something about your problem"></input><br>
             </div>
-            <button type="submit">Submit</button>
             <div class="container" style="background-color:#f1f1f1">
             </div>
           </form>
+          <h>Did you have problem before with you issue?</h><input type="checkbox" ng-checked="checking">Yes<input type="checkbox" ng-checked="checking">No<br>
+          <h>Medical records will be sent to the doctor</h><input type="checkbox" ng-checked="records" required>
+          <button value="submit" type="submit" ng-click="add_book()">Submit</button>
     </div>
     </div>
   </div>
@@ -72,11 +68,5 @@
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; Patient Management System 2018</p>
     </div>
-    <script>
-    var app = angular.module('PMS', []);
-    app.controller('selectCtrl', function($scope) {
-      $scope.docs = ["Cardiologists","Dermatologists","Gastroenterologists","Hematologists","Neurologists","Ophthalmologists","Physiatrists","Radiologists","Urologists"];
-    });
-    </script>
     <!-- /.container -->
   </footer>

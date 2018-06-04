@@ -30,7 +30,7 @@ var url1 = "mongodb://localhost:27017/";
 MongoClient.connect(url1, function(err, db) {
   if (err) throw err;
   var dbo = db.db("patientsystem");
-  dbo.createCollection("users", function(err, res) {
+  dbo.createCollection("books", function(err, res) {
     if (err) throw err;
     console.log("Collection created!");
     db.close();
@@ -40,10 +40,9 @@ MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("patientsystem");
     var myobj = [
-      { _id: 1, firstname: 'Tarik', lastname: 'Pribisic',date: '8.1.1997', place:'Sarajevo', gen: 'Male',username: 'Priba', password: 'something', email: 'pribajaba@gmail.com'},
-      { _id: 2, firstname: 'Alma', lastname: 'Halilovic',date: '5.9.1996', place:'Sarajevo', gen: 'Female',username: 'Almy', password: 'somethingelse', email: 'alma.h@gmail.com'},
+      { _id: 7,username:'Priba',salary:2000, country:'Sarajevo',email:'pribajaba@gmail.com',type:'doctor'},
     ];
-    dbo.collection("users").insertMany(myobj, function(err, res) {
+    dbo.collection("emps").insertMany(myobj, function(err, res) {
       if (err) throw err;
       console.log("Number of documents inserted: " + res.insertedCount);
       db.close();
@@ -67,6 +66,15 @@ app.post('/signup', function(req, res) {
         if (err) return console.log(err);
         res.setHeader('Content-Type', 'application/json');
         res.send(user);
+    })
+});
+app.post('/appointment', function(req, res) {
+    req.body._id = null;
+    var book = req.body;
+    patientsystem.collection('books').insert(book, function(err, data) {
+        if (err) return console.log(err);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(book);
     })
 });
 
@@ -137,6 +145,22 @@ app.get('/getUser', function(req, res){
         if(err) return console.log(err);
         res.setHeader('Content-Type', 'application/json');
         res.send(user);
+    })
+});
+app.get('/getBook', function(req, res){
+    patientsystem.collection('books').find().toArray((err, book) => {
+        if(err) return console.log(err);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(book);
+    })
+});
+app.post('/addBook', function(req, res){
+    req.body._id = null;
+    var book = req.body;
+    patientsystem.collection('books').insert(book, function(err, data){
+        if(err) return console.log(err);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(emp);
     })
 });
 /*

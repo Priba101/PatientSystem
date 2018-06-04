@@ -2,7 +2,7 @@ function DashboardController($scope, $rootScope, $http){
     console.log("Hello from Dashboard controller");
     refresh_emp();
     refresh_users();
-
+    refresh_books();
 $scope.edit_emp = function(emp){
       $scope.emp ={
           _id : emp._id,
@@ -18,7 +18,7 @@ $scope.add_emp = function() {
     $http.post('/addEmp', $scope.emp).then(function(data) {
         $scope.emp = null;
         $scope.emplist.push(data);
-        toastr.success('New employee added','Addition succesful!');
+        //toastr.success('New employee added','Addition succesful!');
         refresh_emp();
     });
 }
@@ -53,18 +53,17 @@ $scope.edit_user = function(user){
         console.log(error);
       });
     }
-$scope.add_user = function(){
-      $http.post('/rest/v1/user', $scope.user, config).then(function(response){
+    $scope.add_user = function(){
+      $http.post('/dashboard', $scope.user).then(function(data){
         $scope.user = null;
-        get_users();
-      }, function(error){
-        console.log(error);
+        //toastr.success("Registration suuccesful","You will be redirected to the login page!");
+        $scope.users_list.push(data);
       });
-}
+    }
 $scope.update_emp = function(){
     $http.put('/emp/'+$scope.emp._id, $scope.emp).then(function(data){
       refresh_emp();
-      toastr.info('Employee updated',"! employee record updated!");
+      //toastr.info('Employee updated',"! employee record updated!");
       $scope.emp = null;
     });
 }
@@ -72,7 +71,7 @@ $scope.update_emp = function(){
 $scope.delete_emp = function(emp_id, emp_username){
       $http.delete('/emp/'+ emp_id).then(function(data){
           refresh_emp();
-          toastr.success(emp_name + ' deleted','1 employe deleted!');
+          //toastr.success(emp_name + ' deleted','1 employe deleted!');
       });
   }
 
@@ -91,4 +90,20 @@ function refresh_users(){
   function(res){
       alert(res.status);
   }
-};}
+};
+function refresh_books(){
+  $http.get('/getBook').then(function(res){
+      $scope.books_list = res.data;
+  }),
+  function(res){
+      alert(res.status);
+  }
+};
+$scope.add_book = function(){
+  $http.post('/appointment', $scope.book).then(function(data){
+    $scope.book = null;
+    //toastr.success("Registration suuccesful","You will be redirected to the login page!");
+    $scope.books_list.push(data);
+  });
+}
+}
