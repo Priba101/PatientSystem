@@ -3,6 +3,7 @@ function DashboardController($scope, $rootScope, $http){
     refresh_emp();
     refresh_users();
     refresh_books();
+
 $scope.edit_emp = function(emp){
       $scope.emp ={
           _id : emp._id,
@@ -12,12 +13,11 @@ $scope.edit_emp = function(emp){
           email : emp.email,
           type : emp.type
       };
-  }
-
+}
 $scope.add_emp = function() {
     $http.post('/addEmp', $scope.emp).then(function(data) {
         $scope.emp = null;
-        $scope.emplist.push(data);
+        $scope.emp_list.push(data);
         //toastr.success('New employee added','Addition succesful!');
         refresh_emp();
     });
@@ -39,13 +39,20 @@ var get_users = function (){
     };
 
 
-$scope.delete_user = function(id){
+/*$scope.delete_user = function(id){
       $http.delete('/rest/v1/user/delete/'+id, config).then(function(response){
         get_users();
       }, function(error){
         console.log(error);
       });
-    }
+    }*/
+    $scope.delete_user = function(_id){
+      $http.delete('/user/'+ user._id).then(function(data){
+          refresh_users();
+         // toastr.success(car_name + ' deleted');
+      });
+  }
+
 $scope.edit_user = function(user){
       $http.put('/rest/v1/user/edit', user,config).then(function(response){
         get_users();
@@ -53,13 +60,14 @@ $scope.edit_user = function(user){
         console.log(error);
       });
     }
-    $scope.add_user = function(){
-      $http.post('/dashboard', $scope.user).then(function(data){
+$scope.add_user = function(){
+      $http.post('/addUser', $scope.user).then(function(data){
         $scope.user = null;
         //toastr.success("Registration suuccesful","You will be redirected to the login page!");
+        //$location.url('/dashboard');
         $scope.users_list.push(data);
       });
-    }
+}
 $scope.update_emp = function(){
     $http.put('/emp/'+$scope.emp._id, $scope.emp).then(function(data){
       refresh_emp();
@@ -68,12 +76,16 @@ $scope.update_emp = function(){
     });
 }
 
-$scope.delete_emp = function(emp_id, emp_username){
-      $http.delete('/emp/'+ emp_id).then(function(data){
+/*$scope.delete_emp = function(emp_username){
+      $http.delete('/emp/'+ emp_username).then(function(data){
           refresh_emp();
           //toastr.success(emp_name + ' deleted','1 employe deleted!');
       });
-  }
+  }*/
+  $scope.delete_emp = function(emp_username){
+    $http.delete('/emp', $scope.emp_username).then(function(data){
+    });
+}
 
 function refresh_emp(){
     $http.get('/getEmp').then(function(res){

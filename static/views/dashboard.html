@@ -21,36 +21,26 @@
                         <th>Place</th>
                         <th>Gender</th>
                         <th>Username</th>
+                        <th>Password</th>
                         <th>Email</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>
-                           <input class="form-control" placeholder="First name" ng-model="user.firstname" />
-                        </td>
-                        <td>
-                           <input class="form-control" placeholder="Last name" ng-model="user.lastname" />
-                        </td>
-                        <td>
-                           <input class="form-control" placeholder="Date" ng-model="user.date" />
-                        </td>
-                        <td>
-                           <input class="form-control" placeholder="Place" ng-model="user.place" />
-                        </td>
-                        <td>
-                           <input class="form-control" placeholder="Gender" ng-model="user.gen" />
-                        </td>
-                        <td>
-                            <input class="form-control" placeholder="Username" ng-model="user.username" />
-                         </td>
-                         <td>
-                            <input class="form-control" placeholder="Email" ng-model="user.email" />
-                         </td>
+                        <form>
+                        <td><input class="form-control" placeholder="First name" ng-model="user.firstname" /></td>
+                        <td><input class="form-control" placeholder="Last name" ng-model="user.lastname" /></td>
+                        <td><input class="form-control" placeholder="Date" ng-model="user.date" /></td>
+                        <td><input class="form-control" placeholder="Place" ng-model="user.place" /></td>
+                        <td><input class="form-control" placeholder="Gender" ng-model="user.gen" /></td>
+                        <td><input class="form-control" placeholder="Username" ng-model="user.username" /></td>
+                        <td><input class="form-control" placeholder="Password" ng-model="user.password" /></td>
+                        <td><input class="form-control" placeholder="Email" ng-model="user.email" /></td>
+                        </form>
                             <div class="buttons">
                                 <button class="btn btn-success" style="height:50px;width:200px"  ng-click="add_user()">Add User</button>
                                 <button class="btn btn-primary" style="height:50px;width:200px" ng-click="edit_user()">Edit User</button>
-                                <button class="btn btn-danger" style="height:50px;width:200px" ng-click="delete_user()">Delete User</button>
+                                <button class="btn btn-danger" style="height:50px;width:200px" ng-click="delete_user(user._id)">Delete User</button>
                             </div>
                     </tr>
                     <tr  ng-repeat="user in user_list">
@@ -66,7 +56,7 @@
             </table>
             </div>
           </div>
-          <div class="col-lg-12 col-md-12">
+          <div>
               <div class="card" style="height: auto;">
                          <h4 class="card-title">User Stats</h4>
                       <div class="card-body table-responsive">
@@ -133,8 +123,8 @@
                                    </td>
                                    <td>
                                       <div class="btn-group">
-                                         <button class="btn btn-primary" style="height:50px;width:200px" ng-click="add_employee()">Add Employee</button>
-                                         <button class="btn btn-success" style="height:50px;width:200px" ng-click="update_employee()">Update Employee</button>
+                                         <button class="btn btn-primary" style="height:50px;width:200px" ng-click="add_emp()">Add Employee</button>
+                                         <button class="btn btn-success" style="height:50px;width:200px" ng-click="update_emp()">Update Employee</button>
                                       </div>
                                    </td>
                                 </tr>
@@ -151,7 +141,7 @@
                                      <!--</tr>-->
                                   </thead>
                                   <tbody>
-                                     <tr ng-repeat="employee in employee_list">
+                                     <tr ng-repeat="emp in emp_list">
                                         <td>{{emp.username}}</td>
                                         <td>{{emp.salary}} KM</td>
                                         <td>{{emp.country}}</td>
@@ -160,7 +150,7 @@
                                         <td>
                                            <div class="btn-group">
                                               <button class="btn btn-warning" ng-click="edit_emp()">Edit</button>
-                                              <button class="btn btn-danger" ng-click="delete_employee()">Delete</button>
+                                              <button class="btn btn-danger" ng-click="delete_emp(emp_username)">Delete</button>
                                            </div>
                                         </td>
                                      </tr>
