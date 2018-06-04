@@ -7,6 +7,7 @@ const jwt_secret = 'WU5CjF8fHxG40S2t7oyk';
 var MongoId = require('mongodb').ObjectID;
 var patientsystem;
 
+var jwt = require('jsonwebtoken');
 app.use('/', express.static('static'));
 
 app.use(express.json());
@@ -18,6 +19,28 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
     patientsystem = client.db('patientsystem');
     app.listen(8000, () => console.log('Example app listening on port 8000!'))
 });
+
+app.use('/index/', function(req, res, next) {
+    jwt.verify(req.get('JWT'), jwt_secret, function(error, decoded) {
+        if (error) {
+            res.status(401).send('Unauthorized access!');
+        } else {
+            database.collection('users').findOne({
+                '_id': new MongoId(decoded._id)
+            }, function(error, user) {
+                if (error) {
+                    throw error;
+                } else {
+                    if (user) {
+                        next();
+                    } else {
+                        res.status(401).send('Credentials are wrong.');
+                    }
+                }
+            });
+        }
+    });
+})
 
 var url = "mongodb://localhost:27017/patientsystem";
 /*
