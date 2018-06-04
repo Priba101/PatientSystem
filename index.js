@@ -106,12 +106,12 @@ app.post('/login', function(req, res) {
 });
 app.put('/emp/:emp_id', function(req, res){    
     patientsystem.collection('emps').findAndModify(
-       {_id: new MongoId(req.params.employee_id)}, // query
-       [['_id','asc']],  // sort order
-       {$set : {username: req.body.username, salary: req.body.salary, country: req.body.country,email:req.body.email,type:req.body.typ}},
+       {_id: new MongoId(req.params.employee_id)},
+       [['_id','asc']],
+       {$set : {username: req.body.username, salary: req.body.salary, country: req.body.country,email:req.body.email,type:req.body.type}},
        function(err, doc) {
            if (err){
-               console.warn(err.message);  // returns error if no matching object found
+               console.warn(err.message); 
            }else{
                res.json(doc);
            }
