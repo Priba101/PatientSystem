@@ -8,7 +8,7 @@ function LogController($scope, $http, $location){
         return false;
     }
     $scope.login = function(credentials){
-        $http.post('/log', credentials).then(function(response){
+        $http.post('/login', credentials).then(function(response){
             localStorage.setItem('user',response.data.token)
             //toastr.success('You are now logged in!', 'Enjoy your stay!');
             $location.url('/');

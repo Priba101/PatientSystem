@@ -81,7 +81,12 @@ MongoClient.connect(url, function(err, db) {
             res.status(400).send("unable to save to database");
         });
 });*/
-
+app.delete('/deleteUser',function(req,res){
+    patientsystem.collection('users').remove({_id:new MongoId(req.params.user_id)},
+    function(err,data){
+        res.json(data);
+    });
+});
 app.post('/signup', function(req, res) {
     req.body._id = null;
     var user = req.body;
@@ -140,6 +145,19 @@ app.put('/emp/:emp_id', function(req, res){
            }
        });
 });
+app.put('/updateUser', function(req, res){    
+    patientsystem.collection('users').findAndModify(
+       {_id: new MongoId(req.params.user_id)},
+       [['_id','asc']],
+       {$set : {username: req.body.username,firstname:req.body.firstname, lastname:req.body.lastname,date:req.body.date,gen:req.body.gen,password:req.body.password,email:req.body.email}},
+       function(err, doc) {
+           if (err){
+               console.warn(err.message); 
+           }else{
+               res.json(doc);
+           }
+       });
+});
 app.post('/addEmp', function(req, res){
     req.body._id = null;
     var emp = req.body;
@@ -157,7 +175,7 @@ app.get('/getEmp', function(request, response) {
         response.send(emp);
     })
 });
-app.delete('/emp/:emp_id', function(req, res){
+app.delete('/deleteEmp/:emp_id', function(req, res){
     patientsystem.collection('emps').remove({_id: new MongoId(req.params.emp_id)},
     function(err, data){
         res.json(data);

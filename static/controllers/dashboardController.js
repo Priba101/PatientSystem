@@ -18,7 +18,6 @@ $scope.add_emp = function() {
     $http.post('/addEmp', $scope.emp).then(function(data) {
         $scope.emp = null;
         $scope.emp_list.push(data);
-        //toastr.success('New employee added','Addition succesful!');
         refresh_emp();
     });
 }
@@ -30,15 +29,13 @@ var get_report = function (){
       }
 };
 var get_users = function (){
-      $http.get('/rest/v1/users', config).then(function(response){
+      $http.get('/getUser', config).then(function(response){
         $scope.users = response.data;
       }),function(response){
         alert(response.status);
       }
       init();
     };
-
-
 /*$scope.delete_user = function(id){
       $http.delete('/rest/v1/user/delete/'+id, config).then(function(response){
         get_users();
@@ -47,9 +44,8 @@ var get_users = function (){
       });
     }*/
     $scope.delete_user = function(_id){
-      $http.delete('/user/'+ user._id).then(function(data){
+      $http.delete('/deleteUser'+_id).then(function(data){
           refresh_users();
-         // toastr.success(car_name + ' deleted');
       });
   }
 
@@ -61,17 +57,14 @@ $scope.edit_user = function(user){
       });
     }
 $scope.add_user = function(){
-      $http.post('/addUser', $scope.user).then(function(data){
+      $http.post('/signup', $scope.user).then(function(data){
         $scope.user = null;
-        //toastr.success("Registration suuccesful","You will be redirected to the login page!");
-        //$location.url('/dashboard');
         $scope.users_list.push(data);
       });
 }
 $scope.update_emp = function(){
     $http.put('/emp/'+$scope.emp._id, $scope.emp).then(function(data){
       refresh_emp();
-      //toastr.info('Employee updated',"! employee record updated!");
       $scope.emp = null;
     });
 }
@@ -82,8 +75,8 @@ $scope.update_emp = function(){
           //toastr.success(emp_name + ' deleted','1 employe deleted!');
       });
   }*/
-  $scope.delete_emp = function(emp_username){
-    $http.delete('/emp', $scope.emp_username).then(function(data){
+  $scope.delete_emp = function(emp_id){
+    $http.delete('/deleteEmp'+emp_id).then(function(data){
     });
 }
 
@@ -114,7 +107,6 @@ function refresh_books(){
 $scope.add_book = function(){
   $http.post('/appointment', $scope.book).then(function(data){
     $scope.book = null;
-    //toastr.success("Registration suuccesful","You will be redirected to the login page!");
     $scope.books_list.push(data);
   });
 }

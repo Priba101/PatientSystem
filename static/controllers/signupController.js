@@ -17,7 +17,7 @@ function SignUpController($scope, $http, $location){
     }
 
     $scope.login = function(credentials){
-        $http.post('/log', credentials).then(function(response){
+        $http.post('/login', credentials).then(function(response){
             localStorage.setItem('user',response.data.token)
             //toastr.success('You are now logged in!', 'Enjoy your stay!');
             $location.url('/');
@@ -28,5 +28,12 @@ function SignUpController($scope, $http, $location){
     $scope.logout = function(){
         localStorage.clear();
         //toastr.info("Logged out!", "See you next time");
+    }
+    $scope.edit_user=function(){
+        $http.post('/updateUser',$scope.user).then(function(data){
+            $scope.user=null;
+            $location.urls('/');
+            $scope.users_list.push(data);
+        })
     }
 }
