@@ -32,44 +32,49 @@
 
     <!-- Custom styles for this template -->
     <link href="assets/css/modern-business.css" rel="stylesheet">
+    <link href="assets/css/angular-toastr.css" rel="stylesheet"/>
+    <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" rel="stylesheet">
     <script src ="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src =" https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js "></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
     <script src="//unpkg.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
-    <link rel="stylesheet" href="//unpkg.com/angular-toastr/dist/angular-toastr.css" />
     
   </head>
 
   <body ng-app="PMS">
-    <div ng-view></div>
+        <div ng-if="!check_login()">
+        <div ng-include="'frontpage.html'"></div>
+    </div>
+    <div ng-if="check_login()">
+        <div ng-include="'views/dashboard.html'"></div>
+    </div>
   </body>
   <script src="controllers/dashboardController.js"></script>
   <script src="controllers/loginController.js"></script>
   <script src="controllers/signupController.js"></script>
-  <script src="controllers/logController.js"></script>
   <script src="controllers/submitController.js"></script>
   <script>
-  var app=angular.module("PMS",["ngRoute"]);
+  var app=angular.module("PMS",["ngRoute", "toastr", "ngAnimate"]);
   app.controller('dashboardController', DashboardController);
   app.controller('signupController', SignUpController);
   app.controller('loginController', LoginController);
-  app.controller('logController', LogController);
   app.controller('submitController',SubmitController);
   app.config(function($routeProvider){
     $routeProvider.when("/",{
         templateUrl:"views/home.html"
-        ,controller:"logController"
+        ,controller:"loginController"
     })
     .when("/about",{
         templateUrl:"views/about.html"
-        ,controller:"logController"
+        ,controller:"loginController"
     })
     .when("/blog",{
         templateUrl:"views/blog.html"
-        ,controller:"logController"
+        ,controller:"loginController"
     })
     .when("/contact",{
         templateUrl:"views/contact.html"
-        ,controller:"logController"
+        ,controller:"loginController"
     })
     .when("/log",{
         templateUrl:"views/log.html",
@@ -77,11 +82,11 @@
     })
     .when("/port",{
         templateUrl:"views/port.html"
-        ,controller:"logController"
+        ,controller:"loginController"
     })
     .when("/services",{
         templateUrl:"views/services.html"
-        ,controller:"logController"
+        ,controller:"loginController"
     })
     .when("/signup",{
         templateUrl:"views/signup.html",
@@ -89,7 +94,7 @@
     })
     .when("/item",{
         templateUrl:"views/item.html"
-        ,controller:"logController"
+        ,controller:"loginController"
     })
     .when("/appointment",{
         templateUrl:"views/appointment.html"
@@ -98,7 +103,10 @@
     .when("/dashboard",{
         templateUrl:"views/dashboard.html",
         controller:"dashboardController"
-
+    })
+    .when("/profile",{
+        templateUrl:"views/user.html",
+        controller:"loginController"
     })
     .otherwise({redirectTo:'/'})
 })

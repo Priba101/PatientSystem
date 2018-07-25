@@ -109,7 +109,7 @@ app.post('/appointment', function(req, res) {
 app.post('/login', function(req, res) {
     var user = req.body;
     patientsystem.collection('users').findOne({
-        'email': user.email,
+        'username': user.username,
         'password': user.password
     }, function(error, user) {
         if (error) {
@@ -134,7 +134,7 @@ app.post('/login', function(req, res) {
 });
 app.put('/emp/:emp_id', function(req, res){    
     patientsystem.collection('emps').findAndModify(
-       {_id: new MongoId(req.params.employee_id)},
+       {_id: new MongoId(req.params.emp_id)},
        [['_id','asc']],
        {$set : {username: req.body.username, salary: req.body.salary, country: req.body.country,email:req.body.email,type:req.body.type}},
        function(err, doc) {
