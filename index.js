@@ -145,6 +145,19 @@ app.put('/emp/:emp_id', function(req, res){
            }
        });
 });
+app.put('/user/:user_id', function(req, res){    
+    patientsystem.collection('users').findAndModify(
+       {_id: new MongoId(req.params.user_id)},
+       [['_id','asc']],
+       {$set : {firstname: req.body.firstname,lastname: req.body.lastname,date:req.body.date,place:req.body.place,gen:req.body.gen,username:req.body.username,email:req.body.email}},
+       function(err, doc) {
+           if (err){
+               console.warn(err.message); 
+           }else{
+               res.json(doc);
+           }
+       });
+});
 app.put('/updateUser', function(req, res){    
     patientsystem.collection('users').findAndModify(
        {_id: new MongoId(req.params.user_id)},
@@ -201,7 +214,7 @@ app.post('/addBook', function(req, res){
     patientsystem.collection('books').insert(book, function(err, data){
         if(err) return console.log(err);
         res.setHeader('Content-Type', 'application/json');
-        res.send(emp);
+        res.send(data);
     })
 });
 /*

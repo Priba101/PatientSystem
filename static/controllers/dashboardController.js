@@ -50,16 +50,18 @@ $scope.delete_user = function(_id){
           refresh_users();
       });
   }
-
 $scope.edit_user = function(user){
-      $http.put('/rest/v1/user/edit', user,config).then(function(response){
-        get_users();
-        toastr.success("User records updated successfully!","User updated!");
-      }, function(error){
-        toastr.error("User update failed!","Update failed!");
-        console.log(error);
-      });
-    }
+    $scope.user ={
+        _id : user._id,
+        firstname:user.firstname,
+        lastname:user.lastname,
+        date:user.date,
+        place:user.place,
+        gender:user.gen,
+        username:user.username,
+        email:user.email
+    };
+}
 $scope.add_user = function(){
       $http.post('/signup', $scope.user).then(function(data){
         $scope.user = null;
@@ -73,6 +75,13 @@ $scope.update_emp = function(){
       $scope.emp = null;
       toastr.success("Employee records updated successfully!","Employee updated!");
     });
+}
+$scope.update_user = function(){
+  $http.put('/user/'+$scope.user._id, $scope.user).then(function(data){
+    refresh_users();
+    $scope.user = null;
+    toastr.success("User records updated successfully!","User updated!");
+  });
 }
 
 /*$scope.delete_emp = function(emp_username){
@@ -112,7 +121,7 @@ function refresh_books(){
   }
 };
 $scope.add_book = function(){
-  $http.post('/appointment', $scope.book).then(function(data){
+  $http.post('/addBook', $scope.book).then(function(data){
     $scope.book = null;
     $scope.books_list.push(data);
     toastr.success("1 new apoitment added!","Apointment added!");

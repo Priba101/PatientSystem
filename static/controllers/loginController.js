@@ -14,9 +14,7 @@ function LoginController($scope, $http, $location,toastr){
             toastr.success('Enjoy your stay!','You are now logged in!');
             $location.url('/');
         }),function(error){
-            toastr.error("Please enter the correct credentials!","Credentials are wrong!");
-            console.log(error);
-            
+            toastr.error("Please enter the correct credentials!","Credentials are wrong!");           
         }
     }
     $scope.logout = function(){
