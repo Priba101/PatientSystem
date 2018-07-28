@@ -43,15 +43,6 @@
                                 <button class="btn btn-danger" style="height:50px;width:200px" ng-click="delete_user(user._id)">Delete User</button>
                             </div>
                     </tr>
-                    <tr  ng-repeat="user in user_list">
-                        <td>{{user.firstname}}</td>
-                        <td>{{user.lastname}}</td>
-                        <td>{{user.date}}</td>
-                        <td>{{user.place}}</td>
-                        <td>{{user.gen}}</td>
-                        <td>{{user.username}}</td>
-                        <td>{{user.email}}</td>
-                    </tr>
                 </tbody>
             </table>
             </div>
@@ -150,7 +141,7 @@
                                         <td>
                                            <div class="btn-group">
                                               <button class="btn btn-warning" ng-click="edit_emp(emp)">Edit</button>
-                                              <button class="btn btn-danger" ng-click="delete_emp(emp._id)">Delete</button>
+                                              <button class="btn btn-danger" ng-click="delete_emp(emp)">Delete</button>
                                            </div>
                                         </td>
                                      </tr>

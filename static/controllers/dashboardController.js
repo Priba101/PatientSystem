@@ -44,7 +44,7 @@ var get_users = function (){
         console.log(error);
       });
     }*/
-    $scope.delete_user = function(_id){
+$scope.delete_user = function(_id){
       $http.delete('/deleteUser'+_id).then(function(data){
           toastr.success("1 user deleter!","User deleted!");
           refresh_users();
@@ -81,7 +81,7 @@ $scope.update_emp = function(){
           //toastr.success(emp_name + ' deleted','1 employe deleted!');
       });
   }*/
-  $scope.delete_emp = function(emp_id){
+$scope.delete_emp = function(emp_id){
     $http.delete('/deleteEmp'+emp_id).then(function(data){
       refresh_emp();
     });
