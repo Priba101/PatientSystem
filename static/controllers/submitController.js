@@ -3,8 +3,8 @@ function SubmitController($scope, $http, $location,toastr){
     $scope.add_book = function(){
         $http.post('/appointment', $scope.book).then(function(data){
           $scope.book = null;
-          toastr.success("Registration suuccesful","You will be redirected to the login page!");
-          $location.url('/log');
+          toastr.success("1 new appointment created!","Booking successful");
+          $location.url('/home');
           $scope.books_list.push(data);
         });
 }}

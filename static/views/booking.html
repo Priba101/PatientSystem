@@ -10,7 +10,7 @@
           <a class="nav-link" href="#!about">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#!services">Services</a>
+          <a class="nav-link" href="#!booking">Booking</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#!contact">Contact Us</a>
@@ -44,13 +44,13 @@
     <div class="container">
 
       <!-- Page Heading/Breadcrumbs -->
-      <h1 class="mt-4 mb-3">Services</h1>
+      <h1 class="mt-4 mb-3">Booking</h1>
 
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
           <a href="#!home">Home</a>
         </li>
-        <li class="breadcrumb-item active">Services</li>
+        <li class="breadcrumb-item active">Booking</li>
       </ol>
 
       <!-- Image Header -->
@@ -58,7 +58,23 @@
 
       <!-- Marketing Icons Section -->
       <div class="row">
-        <div class="col-lg-4 mb-4">
+          <div class="container">
+              <h>What specialist can help you with your problem?</h>
+                <form method="POST">
+                    <div class="container"> 
+                        <input type="text" placeholder="What kind of doctor are you looking for?" ng-model="book.type">
+                        <br>
+                        <input type="text" ng-model="book.address" name="address" placeholder="Enter your current address">
+                        <input ng-model="book.add" name="add" placeholder="Can you tell us something about your problem"></input><br>
+                        <h>Did you have problem before with you issue?</h><br><input type="checkbox" ng-checked="checking">Yes<input type="checkbox" ng-checked="checking">No<br>
+                        <h>Medical records will be sent to the doctor</h><input type="checkbox" ng-checked="records" required>
+                        <button value="submit" type="submit" ng-click="add_book()">Submit</button>
+                    </div>
+                </form>
+          </div>
+      </div>
+      </div>
+    <!---     <div class="col-lg-4 mb-4">
           <div class="card h-100">
             <h4 class="card-header">Book a apointment</h4>
             <div class="card-body">
@@ -69,7 +85,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-4 mb-4">
+       <div class="col-lg-4 mb-4">
           <div class="card h-100">
             <h4 class="card-header">Card Title</h4>
             <div class="card-body">
@@ -90,7 +106,7 @@
               <a href="#" class="btn btn-primary">Learn More</a>
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
       <!-- /.row -->
 

@@ -62,6 +62,14 @@ $scope.edit_user = function(user){
         email:user.email
     };
 }
+$scope.edit_book = function(book){
+    $scope.book ={
+        _id : book._id,
+        type:book.type,
+        address:book.address,
+        add:book.add
+    };
+}
 $scope.add_user = function(){
       $http.post('/signup', $scope.user).then(function(data){
         $scope.user = null;
@@ -74,6 +82,13 @@ $scope.update_emp = function(){
       refresh_emp();
       $scope.emp = null;
       toastr.success("Employee records updated successfully!","Employee updated!");
+    });
+}
+$scope.update_book = function(){
+    $http.put('/book/'+$scope.book._id, $scope.book).then(function(data){
+      refresh_books();
+      $scope.book = null;
+      toastr.success("Booking record updated successfully!","Booking updated!");
     });
 }
 $scope.update_user = function(){

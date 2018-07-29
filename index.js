@@ -145,6 +145,19 @@ app.put('/emp/:emp_id', function(req, res){
            }
        });
 });
+app.put('/book/:book_id', function(req, res){    
+    patientsystem.collection('books').findAndModify(
+       {_id: new MongoId(req.params.book_id)},
+       [['_id','asc']],
+       {$set : {type: req.body.type,address:req.body.address,add:req.body.add}},
+       function(err, doc) {
+           if (err){
+               console.warn(err.message); 
+           }else{
+               res.json(doc);
+           }
+       });
+});
 app.put('/user/:user_id', function(req, res){    
     patientsystem.collection('users').findAndModify(
        {_id: new MongoId(req.params.user_id)},

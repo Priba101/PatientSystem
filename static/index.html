@@ -84,9 +84,9 @@
         templateUrl:"views/port.html"
         ,controller:"loginController"
     })
-    .when("/services",{
-        templateUrl:"views/appointment.html"
-        ,controller:"loginController"
+    .when("/booking",{
+        templateUrl:"views/booking.html"
+        ,controller:"submitController"
     })
     .when("/signup",{
         templateUrl:"views/signup.html",
@@ -105,11 +105,31 @@
         controller:"dashboardController"
     })
     .when("/profile",{
-        templateUrl:"views/user.html",
-        controller:"loginController"
+        templateUrl:"views/dashboard1.html"
     })
-    .when("/test",{
-        templateUrl:"views/test.html"
+    .when("/dashboard1",{
+        templateUrl:"views/dashboard1.html"
+    })
+    .when("/upgrade",{
+        templateUrl:"views/upgrade.html"
+    })
+    .when("/typography",{
+        templateUrl:"views/typography.html"
+    })
+    .when("/tables",{
+        templateUrl:"views/tables.html"
+    })
+    .when("/notifications",{
+        templateUrl:"views/notifications.html"
+    })
+    .when("/map",{
+        templateUrl:"views/map.html"
+    })
+    .when("/icons",{
+        templateUrl:"views/icons.html"
+    })
+    .when("/user",{
+        templateUrl:"views/user.html"
     })
     .otherwise({redirectTo:'/'})
 })
