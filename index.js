@@ -230,41 +230,9 @@ app.post('/addBook', function(req, res){
         res.send(data);
     })
 });
-/*
-app.get('/rest/v1/users',function(request,response){
-    db.collection('users').find().toArray((err,users)=>{
+app.get('/count', function(req, res){
+    patientsystem.collection('users').find({}).count((err, data) => {
         if(err) return console.log(err);
-        response.setHeader('Content-Type','application/json');
-        response.send(users);
-    }); 
+        res.send(data);
+    });
 });
-
-app.post('/rest/v1/user',function(request,response){
-    db.collection('users').save(request.body,(err,result)=>{
-        if(err) return console.log(err);
-        response.send('OK');
-    })
-});
-
-app.put('/rest/v1/user/edit',function(request,response){
-    user=request.body;
-    db.collection('users').findOneAndUpdate({_id: new MongoId(user_id)},{
-        $set:{username: user.username,
-            firstname:user.firstname,
-            lastname:user.lastname,
-            date:user.date,
-            gen:user.gen,
-            password:user.password,
-            email:user.email}
-    },(err,result)=>{
-        if(err) return res.send(err);
-        response.send('OK')
-    })
-});
-
-app.delete('/rest/v1/user/delete/id',function(request,response){
-    db.collection('users').findOneAndDelete({_id: new MongoId(request.params.id)},(err,result)=>{
-        if(err) return res.send(500,err)
-        response.send('OK');
-    })
-});*/

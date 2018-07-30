@@ -3,6 +3,7 @@ function DashboardController($scope, $rootScope, $http,toastr){
     refresh_emp();
     refresh_users();
     refresh_books();
+    get_count();
 
 $scope.edit_emp = function(emp){
       $scope.emp ={
@@ -98,13 +99,6 @@ $scope.update_user = function(){
     toastr.success("User records updated successfully!","User updated!");
   });
 }
-
-/*$scope.delete_emp = function(emp_username){
-      $http.delete('/emp/'+ emp_username).then(function(data){
-          refresh_emp();
-          //toastr.success(emp_name + ' deleted','1 employe deleted!');
-      });
-  }*/
 $scope.delete_emp = function(emp_id){
     $http.delete('/deleteEmp'+emp_id).then(function(data){
       refresh_emp();
@@ -140,6 +134,14 @@ $scope.add_book = function(){
     $scope.book = null;
     $scope.books_list.push(data);
     toastr.success("1 new apoitment added!","Apointment added!");
-  });
+        });
+    }
+
+function get_count(){
+    $http.get("/count").then(function(res){
+      console.log(res);
+    }), function(data){
+      alert(data.status);
+    }
 }
 }
