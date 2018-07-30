@@ -108,28 +108,36 @@
         templateUrl:"./dashboard1.html"
     })
     .when("/dashboard1",{
-        templateUrl:"./dashboard1.html"
+        templateUrl:"./dashboard1.html",
+        controller:"dashboardController"
     })
     .when("/upgrade",{
-        templateUrl:"views/upgrade.html"
+        templateUrl:"views/upgrade.html",
+        controller:"dashboardController"
     })
     .when("/typography",{
-        templateUrl:"views/typography.html"
+        templateUrl:"views/typography.html",
+        controller:"dashboardController"
     })
     .when("/tables",{
-        templateUrl:"views/tables.html"
+        templateUrl:"views/tables.html",
+        controller:"dashboardController"
     })
     .when("/notifications",{
-        templateUrl:"views/notifications.html"
+        templateUrl:"views/notifications.html",
+        controller:"dashboardController"
     })
     .when("/map",{
-        templateUrl:"views/map.html"
+        templateUrl:"views/map.html",
+        controller:"dashboardController"
     })
     .when("/icons",{
-        templateUrl:"views/icons.html"
+        templateUrl:"views/icons.html",
+        controller:"dashboardController"
     })
     .when("/user",{
-        templateUrl:"views/user.html"
+        templateUrl:"views/user.html",
+        controller:"dashboardController"
     })
     .otherwise({redirectTo:'/'})
 })

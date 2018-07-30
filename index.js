@@ -231,8 +231,11 @@ app.post('/addBook', function(req, res){
     })
 });
 app.get('/count', function(req, res){
-    patientsystem.collection('users').find({}).count((err, data) => {
+    patientsystem.collection('users').find().count((err, data) => {
         if(err) return console.log(err);
-        res.send(data);
+        res.setHeader("Content-Type", "application/json");
+        res.send({
+            users_count: data
+        })
     });
 });

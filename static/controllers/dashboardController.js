@@ -139,9 +139,9 @@ $scope.add_book = function(){
 
 function get_count(){
     $http.get("/count").then(function(res){
-      console.log(res);
+        $scope.users_count = res.data.users_count;
     }), function(data){
-      alert(data.status);
+        alert(data.status);
     }
 }
 }
