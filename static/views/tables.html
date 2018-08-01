@@ -176,6 +176,12 @@
                               <td>{{user.gen}}</td>
                               <td>{{user.username}}</td>
                               <td>{{user.email}}</td>
+                              <td>
+                                <i class="fas fa-edit" ng-click="edit_user(user)" style="font-size:24px;color:green;position: relative;top:7px"></i>
+                              </td>
+                              <td>
+                                <i class="fas fa-trash-alt" ng-click="delete_user(user)" style="font-size:24px;color:red;position: relative;top:7px"></i>
+                              </td>
                            </tr>
                       </tbody>
                     </table>
@@ -206,6 +212,12 @@
                             <td>{{emp.country}}</td>
                             <td>{{emp.email}}</td>
                             <td>{{emp.type}}</td>
+                            <td>
+                                <i class="fas fa-edit" ng-click="edit_emp(user)" style="font-size:24px;color:green;position: relative;top:7px"></i>
+                              </td>
+                              <td>
+                                <i class="fas fa-trash-alt" ng-click="delete_emp(user)" style="font-size:24px;color:red;position: relative;top:7px"></i>
+                              </td>
                            </tr>
                       </tbody>
                     </table>
@@ -232,6 +244,12 @@
                           <td>{{book.type}}</td>
                           <td>{{book.address}} KM</td>
                           <td>{{book.add}}</td>
+                          <td>
+                              <a href="#"><i class="fas fa-edit" ng-click="edit_book(book)" style="font-size:24px;color:green;position:relative;top:7px" ></i></a>
+                            </td>
+                            <td>
+                              <i class="fas fa-trash-alt" ng-click="delete_book(book)" style="font-size:24px;color:red;position: relative;top:7px"></i>
+                            </td>
                        </tr>
                       </tbody>
                     </table>
