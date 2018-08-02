@@ -81,8 +81,14 @@ MongoClient.connect(url, function(err, db) {
             res.status(400).send("unable to save to database");
         });
 });*/
-app.delete('/deleteUser',function(req,res){
+app.delete('/deleteUser/:_id',function(req,res){
     patientsystem.collection('users').remove({_id:new MongoId(req.params.user_id)},
+    function(err,data){
+        res.json(data);
+    });
+});
+app.delete('/deleteBook/:book_id',function(req,res){
+    patientsystem.collection('books').remove({_id:new MongoId(req.params.user_id)},
     function(err,data){
         res.json(data);
     });
@@ -201,8 +207,8 @@ app.get('/getEmp', function(request, response) {
         response.send(emp);
     })
 });
-app.delete('/deleteEmp/:emp_id', function(req, res){
-    patientsystem.collection('emps').remove({_id: new MongoId(req.params.emp_id)},
+app.delete('/deleteEmp/:id', function(req, res){
+    patientsystem.collection('emps').findOneAndDelete({_id: new MongoId(req.params.id)},
     function(err, data){
         res.json(data);
     });

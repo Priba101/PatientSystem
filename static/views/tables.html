@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -13,6 +10,7 @@
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <!-- CSS Files -->
   <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
@@ -183,14 +181,54 @@
                               <td>{{user.username}}</td>
                               <td>{{user.email}}</td>
                               <td>
-                                <i class="fas fa-edit" ng-click="edit_user(user)" style="font-size:24px;color:green;position: relative;top:7px"></i>
-                              </td>
+                                  <button onclick="document.getElementById('id04').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="edit_user(user)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
+                                </td>
                               <td>
-                                <i class="fas fa-trash-alt" ng-click="delete_user(user)" style="font-size:24px;color:red;position: relative;top:7px"></i>
+                                  <button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;"ng-click="delete_user(user)"><i class="fas fa-trash-alt" style="font-size:24px;color:red;position: relative;top:7px"></i></button>
                               </td>
                            </tr>
                       </tbody>
                     </table>
+                    <div id="id04" class="w3-modal">
+                        <div class="w3-modal-content w3-animate-top w3-card-4">
+                          <header class="w3-container w3-green"> 
+                            <span onclick="document.getElementById('id04').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                            <h2>Here you can edit users</h2>
+                          </header>
+                          <div class="w3-container">
+                              <table class="table table-hover">
+                                  <h1 class="mt-4 mb-3">Users</h1>
+                                  <thead>
+                                      <tr>
+                                          <th>First name</th>
+                                          <th>Last name</th>
+                                          <th>Date</th>
+                                          <th>Place</th>
+                                          <th>Gender</th>
+                                          <th>Username</th>
+                                          <th>Email</th>
+                                      </tr>
+                                   </thead>
+                                   <tbody>
+                                      <tr>
+                                          <td><input class="form-control" placeholder="First name" ng-model="user.firstname" /></td>
+                                          <td><input class="form-control" placeholder="Last name" ng-model="user.lastname" /></td>
+                                          <td><input class="form-control" type="date" placeholder="Date" ng-model="user.date" /></td>
+                                          <td><input class="form-control" placeholder="Place" ng-model="user.place" /></td>
+                                          <td><input class="form-control" placeholder="Gender" ng-model="user.gen" /></td>
+                                          <td><input class="form-control" placeholder="Username" ng-model="user.username" /></td>
+                                          <td><input class="form-control" placeholder="Email" ng-model="user.email" /></td>
+                                         <td>
+                                            <div class="btn-group">
+                                               <button class="btn btn-success" style="height:50px;width:200px" ng-click="update_user()">Update User</button>
+                                            </div>
+                                         </td>
+                                      </tr>
+                                   </tbody>
+                                </table>
+                          </div>
+                        </div>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -219,14 +257,60 @@
                             <td>{{emp.email}}</td>
                             <td>{{emp.type}}</td>
                             <td>
-                                <i class="fas fa-edit" ng-click="edit_emp(user)" style="font-size:24px;color:green;position: relative;top:7px"></i>
+                                <button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="edit_emp(emp)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
                               </td>
-                              <td>
-                                <i class="fas fa-trash-alt" ng-click="delete_emp(user)" style="font-size:24px;color:red;position: relative;top:7px"></i>
-                              </td>
+                            <td>
+                                <button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;"ng-click="delete_emp(id)"><i class="fas fa-trash-alt" style="font-size:24px;color:red;position: relative;top:7px"></i></button>
+                            </td>
                            </tr>
                       </tbody>
                     </table>
+                    <div id="id03" class="w3-modal">
+                        <div class="w3-modal-content w3-animate-top w3-card-4">
+                          <header class="w3-container w3-green"> 
+                            <span onclick="document.getElementById('id03').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                            <h2>Here you can edit employee records</h2>
+                          </header>
+                          <div class="w3-container">
+                              <table class="table table-hover">
+                                  <h1 class="mt-4 mb-3">Employees</h1>
+                                  <thead>
+                                      <tr>
+                                          <th>Username</th>
+                                          <th>Salary</th>
+                                          <th>Country</th>
+                                          <th>Email</th>
+                                          <th>Type</th>
+                                      </tr>
+                                   </thead>
+                                   <tbody>
+                                      <tr>
+                                          <td>
+                                              <input class="form-control" placeholder="Username" ng-model="emp.username" />
+                                           </td>
+                                           <td>
+                                              <input class="form-control" placeholder="Salary" ng-model="emp.salary" />
+                                           </td>
+                                           <td>
+                                              <input class="form-control" placeholder="Country" ng-model="emp.country" />
+                                           </td>
+                                           <td>
+                                              <input class="form-control" placeholder="Email" ng-model="emp.email" />
+                                           </td>
+                                           <td>
+                                              <input class="form-control" placeholder="Type" ng-model="emp.type" />
+                                           </td>
+                                         <td>
+                                            <div class="btn-group">
+                                               <button class="btn btn-success" style="height:50px;width:200px" ng-click="update_emp()">Update Employee</button>
+                                            </div>
+                                         </td>
+                                      </tr>
+                                   </tbody>
+                                </table>
+                          </div>
+                        </div>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -248,17 +332,55 @@
                       <tbody>
                         <tr ng-repeat="book in books_list">
                           <td>{{book.type}}</td>
-                          <td>{{book.address}} KM</td>
+                          <td>{{book.address}}</td>
                           <td>{{book.add}}</td>
                           <td>
-                              <a href="#"><i class="fas fa-edit" ng-click="edit_book(book)" style="font-size:24px;color:green;position:relative;top:7px" ></i></a>
+                              <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="edit_book(book)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
                             </td>
-                            <td>
-                              <i class="fas fa-trash-alt" ng-click="delete_book(book)" style="font-size:24px;color:red;position: relative;top:7px"></i>
-                            </td>
+                          <td>
+                              <button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;"ng-click="delete_book(book)"><i class="fas fa-trash-alt" style="font-size:24px;color:red;position: relative;top:7px"></i></button>
+                          </td>
                        </tr>
                       </tbody>
                     </table>
+                    <div id="id01" class="w3-modal">
+                        <div class="w3-modal-content w3-animate-top w3-card-4">
+                          <header class="w3-container w3-green"> 
+                            <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                            <h2>Here you can edit bookings</h2>
+                          </header>
+                          <div class="w3-container">
+                              <table class="table table-hover">
+                                  <h1 class="mt-4 mb-3">Bookings</h1>
+                                  <thead>
+                                      <tr>
+                                         <th>Type</th>
+                                         <th>Address</th>
+                                         <th>Info</th>
+                                      </tr>
+                                   </thead>
+                                   <tbody>
+                                      <tr>
+                                         <td>
+                                            <input class="form-control" placeholder="Type" ng-model="book.type" />
+                                         </td>
+                                         <td>
+                                            <input class="form-control" placeholder="Address" ng-model="book.address" />
+                                         </td>
+                                         <td>
+                                            <input class="form-control" placeholder="Information" ng-model="book.add" />
+                                         </td>
+                                         <td>
+                                            <div class="btn-group">
+                                               <button class="btn btn-success" style="height:50px;width:200px" ng-click="update_book()">Update Booking</button>
+                                            </div>
+                                         </td>
+                                      </tr>
+                                   </tbody>
+                                </table>
+                          </div>
+                        </div>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -289,5 +411,3 @@
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
 </body>
-
-</html>

@@ -51,6 +51,13 @@ $scope.delete_user = function(_id){
           refresh_users();
       });
   }
+
+  $scope.delete_book = function(_id){
+    $http.delete('/deleteBook'+_id).then(function(data){
+        toastr.success("1 booking deleted!","Booking deleted!");
+        refresh_books();
+    });
+}
 $scope.edit_user = function(user){
     $scope.user ={
         _id : user._id,
@@ -99,8 +106,8 @@ $scope.update_user = function(){
     toastr.success("User records updated successfully!","User updated!");
   });
 }
-$scope.delete_emp = function(emp_id){
-    $http.delete('/deleteEmp'+emp_id).then(function(data){
+$scope.delete_emp = function(id){
+    $http.delete('/deleteEmp'+id).then(function(data){
       refresh_emp();
     });
 }
