@@ -21,4 +21,11 @@ function LoginController($scope, $http, $location,toastr){
         localStorage.clear();
         toastr.info("See you next time","Logged out!");
     }
+    $scope.q_and_a=function(){
+        $http.post('/qa',$scope.q).then(function(data){
+            $scope.q=null;
+            $scope.q_list.push(data);
+            toastr.success("We will get back at you in 24h!","Question sent!")
+        })
+    }
 }
