@@ -168,7 +168,7 @@ app.put('/user/:user_id', function(req, res){
     patientsystem.collection('users').findAndModify(
        {_id: new MongoId(req.params.user_id)},
        [['_id','asc']],
-       {$set : {firstname: req.body.firstname,lastname: req.body.lastname,date:req.body.date,place:req.body.place,gen:req.body.gen,username:req.body.username,email:req.body.email}},
+       {$set : {firstname: req.body.firstname,lastname: req.body.lastname,date:req.body.date,place:req.body.place,gen:req.body.gen,username:req.body.username,email:req.body.email,type:req.body.type}},
        function(err, doc) {
            if (err){
                console.warn(err.message); 
@@ -181,7 +181,7 @@ app.put('/updateUser', function(req, res){
     patientsystem.collection('users').findAndModify(
        {_id: new MongoId(req.params.user_id)},
        [['_id','asc']],
-       {$set : {username: req.body.username,firstname:req.body.firstname, lastname:req.body.lastname,date:req.body.date,gen:req.body.gen,password:req.body.password,email:req.body.email}},
+       {$set : {username: req.body.username,firstname:req.body.firstname, lastname:req.body.lastname,date:req.body.date,gen:req.body.gen,password:req.body.password,email:req.body.email,type:req.body.type}},
        function(err, doc) {
            if (err){
                console.warn(err.message); 

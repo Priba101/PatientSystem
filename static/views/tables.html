@@ -151,6 +151,7 @@
                         <th>Gender</th>
                         <th>Username</th>
                         <th>Email</th>
+                        <th>Type</th>
                       </thead>
                       <tbody>
                           <tr ng-repeat="user in users_list">
@@ -161,6 +162,7 @@
                               <td>{{user.gen}}</td>
                               <td>{{user.username}}</td>
                               <td>{{user.email}}</td>
+                              <td>{{user.type}}</td>
                               <td>
                                   <button onclick="document.getElementById('id04').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="edit_user(user)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
                                 </td>
@@ -188,6 +190,7 @@
                                           <th>Gender</th>
                                           <th>Username</th>
                                           <th>Email</th>
+                                          <th>Type</th>
                                       </tr>
                                    </thead>
                                    <tbody>
@@ -199,6 +202,7 @@
                                           <td><input class="form-control" placeholder="Gender" ng-model="user.gen" /></td>
                                           <td><input class="form-control" placeholder="Username" ng-model="user.username" /></td>
                                           <td><input class="form-control" placeholder="Email" ng-model="user.email" /></td>
+                                          <td><input class="form-control" placeholder="Type" ng-model="user.type" /></td>
                                          <td>
                                             <div class="btn-group">
                                                <button class="btn btn-success" style="height:50px;width:200px" ng-click="update_user()">Update User</button>

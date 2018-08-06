@@ -2,8 +2,9 @@ function DashboardController($scope, $rootScope, $http,toastr){
     console.log("Hello from Dashboard controller");
     refresh_emp();
     refresh_users();
-    refresh_books();
     get_count();
+    refresh_books();
+    
 
 $scope.edit_emp = function(emp){
       $scope.emp ={
@@ -67,7 +68,8 @@ $scope.edit_user = function(user){
         place:user.place,
         gender:user.gen,
         username:user.username,
-        email:user.email
+        email:user.email,
+        type:user.type
     };
 }
 $scope.edit_book = function(book){
