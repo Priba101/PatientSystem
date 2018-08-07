@@ -65,8 +65,8 @@
                         <input type="text" placeholder="What kind of doctor are you looking for?" ng-model="book.type">
                         <br>
                         <input type="text" ng-model="book.address" name="address" placeholder="Enter your current address">
-                        <input ng-model="book.add" name="add" placeholder="Can you tell us something about your problem"></input><br>
-                        <h>Did you have problem before with you issue?</h><br><input type="checkbox" ng-checked="checking">Yes<input type="checkbox" ng-checked="checking">No<br>
+                        <textarea ng-model="book.add" name="add" rows="10" cols="100" class="form-control" id="message" ng-model="q.message" placeholder="Can you tell us something about your problem" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
+                        <h>Did you have problem before with your issue?</h><br><input type="checkbox" ng-checked="checking">Yes<br><input type="checkbox" ng-checked="checking">No<br>
                         <h>Medical records will be sent to the doctor</h><input type="checkbox" ng-checked="records" required>
                         <button value="submit" type="submit" ng-click="add_book()">Submit</button>
                     </div>
