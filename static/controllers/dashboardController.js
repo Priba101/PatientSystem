@@ -47,7 +47,7 @@ var get_users = function (){
       });
     }*/
 $scope.delete_user = function(_id){
-      $http.delete('/deleteUser'+_id).then(function(data){
+      $http.delete('/deleteUser'+_id).then(function(response){
           toastr.success("1 user deleter!","User deleted!");
           refresh_users();
       });
