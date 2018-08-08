@@ -82,8 +82,8 @@ MongoClient.connect(url, function(err, db) {
         });
 });*/
 app.delete('/deleteUser/:_id',function(req,res){
-    patientsystem.collection('users').findOneAndDelete({_id:new MongoId(req.params._id)},
-    function(err,result){
+    patientsystem.collection('users').remove({_id:new MongoId(req.params._id)},
+    function(err, data){
         res.json(data);
     });
 });

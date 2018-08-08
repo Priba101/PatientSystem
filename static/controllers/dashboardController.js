@@ -46,12 +46,12 @@ var get_users = function (){
         console.log(error);
       });
     }*/
-$scope.delete_user = function(_id){
-      $http.delete('/deleteUser'+_id).then(function(response){
-          toastr.success("1 user deleter!","User deleted!");
-          refresh_users();
-      });
-  }
+$scope.delete_user = function(_id){ 
+    $http.delete('/deleteUser'+_id).then(function(data){
+        refresh_users();  
+        toastr.success("2 user deleter!","User deleted!");
+    });
+}
 
   $scope.delete_book = function(_id){
     $http.delete('/deleteBook'+_id).then(function(data){
