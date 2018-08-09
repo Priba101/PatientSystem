@@ -7,10 +7,17 @@ function LoginController($scope, $http, $location,toastr){
         }
         return false;
     }
+    $scope.check_admin=function(){
+        if(localStorage.getItem('type')=="admin"){
+            return true;
+        }
+        return false;
+    }
 
     $scope.login = function(credentials){
         $http.post('/login', credentials).then(function(response){
             localStorage.setItem('user',response.data.token)
+            localStorage.setItem('type',response.data.type)
             toastr.success('Enjoy your stay!','You are now logged in!');
             $location.url('/');
         }),function(error){

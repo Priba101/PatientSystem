@@ -25,9 +25,7 @@ app.use('/index/', function(req, res, next) {
         if (error) {
             res.status(401).send('Unauthorized access!');
         } else {
-            database.collection('users').findOne({
-                '_id': new MongoId(decoded._id)
-            }, function(error, user) {
+            patientsystem.collection('users').findOne({'_id': new MongoId(decoded._id)}, function(error, user) {
                 if (error) {
                     throw error;
                 } else {
@@ -41,6 +39,27 @@ app.use('/index/', function(req, res, next) {
         }
     });
 })
+
+app.use('/admin/',function(req,res,next){
+    jwt.verify(req.get('JWT'), jwt_admin, function(error, decoded) {     
+      if (error) {
+        res.status(401).send('Unauthorized access'); 
+        console.log(error);   
+      } else {
+        patientsystem.collection("users").findOne({'_id': new MongoId(decoded._id)}, function(error, user) {
+          if (error){
+            throw error;
+          }else{
+            if(user){
+              next();
+            }else{
+              res.status(401).send('Credentials are wrong.');
+            }
+          }
+        });
+      }
+    });  
+  })
 
 var url = "mongodb://localhost:27017/patientsystem";
 /*
