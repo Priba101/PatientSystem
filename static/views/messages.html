@@ -32,9 +32,9 @@
               </a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#!typography">
-                <i class="material-icons">library_books</i>
-                <p>Typography</p>
+              <a class="nav-link" href="#!messages">
+                <i class="material-icons">announcement</i>
+                <p>Messages</p>
               </a>
             </li>
             <li class="nav-item ">
@@ -75,7 +75,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Typography</a>
+            <a class="navbar-brand">Messages</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -95,7 +95,7 @@
             </form>
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="#pablo">
+                <a class="nav-link" href="#!dashboard1">
                   <i class="material-icons">dashboard</i>
                   <p class="d-lg-none d-md-block">
                     Stats
@@ -119,7 +119,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#pablo">
+                <a class="nav-link" href="#!user">
                   <i class="material-icons">person</i>
                   <p class="d-lg-none d-md-block">
                     Account
@@ -135,98 +135,48 @@
         <div class="container-fluid">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Material Dashboard Heading</h4>
-              <p class="card-category">Created using Roboto Font Family</p>
+              <h4 class="card-title">Messages</h4>
+              <p class="card-category">Here you can see all of your resent check-ups and questions!</p>
             </div>
             <div class="card-body">
-              <div id="typography">
-                <div class="card-title">
-                  <h2>Typography</h2>
-                </div>
-                <div class="row">
-                  <div class="tim-typo">
-                    <h1>
-                      <span class="tim-note">Header 1</span>The Life of Material Dashboard </h1>
-                  </div>
-                  <div class="tim-typo">
-                    <h2>
-                      <span class="tim-note">Header 2</span>The Life of Material Dashboard</h2>
-                  </div>
-                  <div class="tim-typo">
-                    <h3>
-                      <span class="tim-note">Header 3</span>The Life of Material Dashboard</h3>
-                  </div>
-                  <div class="tim-typo">
-                    <h4>
-                      <span class="tim-note">Header 4</span>The Life of Material Dashboard</h4>
-                  </div>
-                  <div class="tim-typo">
-                    <h5>
-                      <span class="tim-note">Header 5</span>The Life of Material Dashboard</h5>
-                  </div>
-                  <div class="tim-typo">
-                    <h6>
-                      <span class="tim-note">Header 6</span>The Life of Material Dashboard</h6>
-                  </div>
-                  <div class="tim-typo">
-                    <p>
-                      <span class="tim-note">Paragraph</span>
-                      I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at.</p>
-                  </div>
-                  <div class="tim-typo">
-                    <span class="tim-note">Quote</span>
-                    <blockquote class="blockquote">
-                      <p>
-                        I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at.
-                      </p>
-                      <small>
-                        Kanye West, Musician
-                      </small>
-                    </blockquote>
-                  </div>
-                  <div class="tim-typo">
-                    <span class="tim-note">Muted Text</span>
-                    <p class="text-muted">
-                      I will be the leader of a company that ends up being worth billions of dollars, because I got the answers...
-                    </p>
-                  </div>
-                  <div class="tim-typo">
-                    <span class="tim-note">Primary Text</span>
-                    <p class="text-primary">
-                      I will be the leader of a company that ends up being worth billions of dollars, because I got the answers... </p>
-                  </div>
-                  <div class="tim-typo">
-                    <span class="tim-note">Info Text</span>
-                    <p class="text-info">
-                      I will be the leader of a company that ends up being worth billions of dollars, because I got the answers... </p>
-                  </div>
-                  <div class="tim-typo">
-                    <span class="tim-note">Success Text</span>
-                    <p class="text-success">
-                      I will be the leader of a company that ends up being worth billions of dollars, because I got the answers... </p>
-                  </div>
-                  <div class="tim-typo">
-                    <span class="tim-note">Warning Text</span>
-                    <p class="text-warning">
-                      I will be the leader of a company that ends up being worth billions of dollars, because I got the answers...
-                    </p>
-                  </div>
-                  <div class="tim-typo">
-                    <span class="tim-note">Danger Text</span>
-                    <p class="text-danger">
-                      I will be the leader of a company that ends up being worth billions of dollars, because I got the answers... </p>
-                  </div>
-                  <div class="tim-typo">
-                    <h2>
-                      <span class="tim-note">Small Tag</span>
-                      Header with small subtitle
-                      <br>
-                      <small>Use "small" tag for the headers</small>
-                    </h2>
-                  </div>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>Check up reply's</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="question in questions_list">
+                            <td>{{question.reply}}</td>
+                            <td>
+                                <button onclick="document.getElementById('id07').style.display='block'" class="w3-button w3-white"><i class="fas fa-info-circle" ng-click="edit_user(user)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
+                              </td>
+                         </tr>
+                    </tbody>
+                  </table>
+                  <div id="id07" class="w3-modal">
+                      <div class="w3-modal-content w3-animate-top w3-card-4">
+                        <header class="w3-container w3-green"> 
+                          <span onclick="document.getElementById('id07').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                          <h2>Your recent check up</h2>
+                        </header>
+                        <div class="w3-container">
+                            <table class="table table-hover">
+                                <h1 class="mt-4 mb-3">Your recent check up
+                                </h1>
+                                <thead>
+                                <th>Check Up</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="question in questions_list">
+                                      <td>{{question.reply}}</td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                      </div>
+                    </div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       </div>

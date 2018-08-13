@@ -38,7 +38,7 @@ var get_users = function (){
         alert(response.status);
       }
       init();
-    };
+};
 /*$scope.delete_user = function(id){
       $http.delete('/rest/v1/user/delete/'+id, config).then(function(response){
         get_users();
@@ -108,6 +108,13 @@ $scope.update_user = function(){
     toastr.success("User records updated successfully!","User updated!");
   });
 }
+$scope.complete_user = function(){
+    $http.put('/user/'+$scope.user._id, $scope.user).then(function(data){
+      refresh_users();
+      $scope.user = null;
+      toastr.success("User records updated successfully!","User updated!");
+    });
+  }
 $scope.delete_emp = function(id){
     $http.delete('/deleteEmp'+id).then(function(data){
       refresh_emp();

@@ -4,6 +4,7 @@ const app = express();
 const bodyparser = require("body-parser");
 var MongoClient = require('mongodb').MongoClient;
 const jwt_secret = 'WU5CjF8fHxG40S2t7oyk';
+const jwt_admin = 'SJwt25Wq62SFfjiw92sR';
 var MongoId = require('mongodb').ObjectID;
 var patientsystem;
 
@@ -72,7 +73,7 @@ var url1 = "mongodb://localhost:27017/";
 MongoClient.connect(url1, function(err, db) {
   if (err) throw err;
   var dbo = db.db("patientsystem");
-  dbo.createCollection("qa", function(err, res) {
+  dbo.createCollection("questions", function(err, res) {
     if (err) throw err;
     console.log("Collection created!");
     db.close();
@@ -82,9 +83,9 @@ MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("patientsystem");
     var myobj = [
-      { _id: 7,name:'Priba',num:033123123, email:'tarik@gmail.com',mess:'nothing much',reply:' '},
+      { _id: 9,name:'Priba',num:033123123, email:'tarik@gmail.com',mess:'nothing much',reply:'Dear Mr.Tarik According to our studies this shit is soooo stupid soooo here you goooo test djaocdjaisjcaioejdcoiajciajd aljkdajcjeoiajcaojcoiaejc apcjajceojcaoijcioa j ocj oiejcoiejcoi'},
     ];
-    dbo.collection("qa").insertMany(myobj, function(err, res) {
+    dbo.collection("questions").insertMany(myobj, function(err, res) {
       if (err) throw err;
       console.log("Number of documents inserted: " + res.insertedCount);
       db.close();
@@ -141,20 +142,73 @@ app.post('/login', function(req, res) {
             throw error;
         } else {
             if (user) {
+                if(user.type=="patient"){
                 var token = jwt.sign(user, jwt_secret, {
                     expiresIn: 20000
                 });
                 res.send({
                     success: true,
-                    message: 'Authenticated!',
-                    token: token
+                    message: 'Patient authenticated!',
+                    token: token,
+                    type:'patient'
                 })
                 console.log("Authentication successful!");
             }
-            else {
+            else if(user.type=="admin"){
+                var token = jwt.sign(user, jwt_admin, {
+                    expiresIn: 20000
+                });
+                res.send({
+                    success: true,
+                    message: 'Admin authenticated!',
+                    token: token,
+                    type:'admin'
+                })
+                console.log("Authentication successful!");
+            }
+            else if(user.type=="doctor"){
+                var token = jwt.sign(user, jwt_secret, {
+                    expiresIn: 20000
+                });
+                res.send({
+                    success: true,
+                    message: 'Doctor authenticated!',
+                    token: token,
+                    type:'doctor'
+                })
+                console.log("Authentication successful!");
+            }
+            else if(user.type=="nurse"){
+                var token = jwt.sign(user, jwt_secret, {
+                    expiresIn: 20000
+                });
+                res.send({
+                    success: true,
+                    message: 'Nurse authenticated!',
+                    token: token,
+                    type:'nurse'
+                })
+                console.log("Authentication successful!");
+            }
+            else if(user.type=="secretary"){
+                var token = jwt.sign(user, jwt_secret, {
+                    expiresIn: 20000
+                });
+                res.send({
+                    success: true,
+                    message: 'Secretary authenticated!',
+                    token: token,
+                    type:'secretary'
+                })
+                console.log("Authentication successful!");
+            }
+            {
                 res.status(401).send('Credentials are incorect!');
             }
         }
+        else {
+            res.status(401).send('Credentials are incorect!');
+        }}
     });
 });
 app.put('/emp/:emp_id', function(req, res){    
@@ -255,11 +309,11 @@ app.post('/addBook', function(req, res){
         res.send(data);
     })
 });
-app.post('/qa',function(req,res){
+app.post('/question',function(req,res){
     req.body._id=null;
-    var q=req.body;
-    patientsystem.collection('q').insert(qa,function(err,data){
-        if(er) return console.log(err);
+    var question=req.body;
+    patientsystem.collection('questions').insert(question,function(err,data){
+        if(err) return console.log(err);
         res.setHeader('Content-Type','application/json');
         res.send(data);
     })
@@ -272,4 +326,11 @@ app.get('/count', function(req, res){
             users_count: data
         })
     });
+});
+app.get('/getQuestion', function(request, response) {
+    patientsystem.collection('questions').find().toArray((err, q) => {
+        if (err) return console.log(err);
+        response.setHeader('Content-Type', 'application/json');
+        response.send(q);
+    })
 });
