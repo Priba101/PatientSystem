@@ -202,9 +202,6 @@ app.post('/login', function(req, res) {
                 })
                 console.log("Authentication successful!");
             }
-            {
-                res.status(401).send('Credentials are incorect!');
-            }
         }
         else {
             res.status(401).send('Credentials are incorect!');
@@ -328,9 +325,9 @@ app.get('/count', function(req, res){
     });
 });
 app.get('/getQuestion', function(request, response) {
-    patientsystem.collection('questions').find().toArray((err, q) => {
+    patientsystem.collection('questions').find().toArray((err, question) => {
         if (err) return console.log(err);
         response.setHeader('Content-Type', 'application/json');
-        response.send(q);
+        response.send(question);
     })
 });

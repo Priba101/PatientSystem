@@ -149,7 +149,7 @@ $scope.add_book = function(){
   $http.post('/addBook', $scope.book).then(function(data){
     $scope.book = null;
     $scope.books_list.push(data);
-    toastr.success("1 new apoitment added!","Apointment added!");
+    toastr.success("1 new apointment added!","Apointment added!");
         });
     }
 
@@ -159,5 +159,31 @@ function get_count(){
     }), function(data){
         alert(data.status);
     }
+}
+$scope.check_admin=function(){
+    if(localStorage.getItem('type')=="admin"){
+        return true;
+    }
+    return false;
+}
+$scope.check_patient=function(){
+    if(localStorage.getItem('type')=="patient"){
+        return true;
+    }
+    return false;
+}
+$scope.check_doctor=function(){
+    if(localStorage.getItem('type')=="doctor"){
+        return true;
+    }
+    return false;
+}
+$scope.check_staff=function(){
+    if(localStorage.getItem('type')=="nurse"){
+        return true;
+    }else if(localStorage.getItem('type')=="secretary"){
+        return true;
+    }
+    return false;
 }
 }
