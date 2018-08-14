@@ -6,71 +6,76 @@
 
         Tip 2: you can also add an image using data-image tag
     -->
-      <div class="logo">
+    <div class="logo">
         <a href="#!dashboard1" class="simple-text logo-normal">
-          Patient Management <br>System
+          Patient Management <br>
+              System
         </a>
       </div>
       <div class="sidebar-wrapper">
-          <ul class="nav">
-              <li class="nav-item">
-                  <a class="nav-link" href="#!dashboard1">
-                    <i class="material-icons">dashboard</i>
-                    <p>Dashboard</p>
-                  </a>
-                </li>
-                  <div ng-if="!check_admin()">
-                    <li class="nav-item active">
-                  <a class="nav-link" href="#!user">
-                    <i class="material-icons">person</i>
-                    <p>Profile</p>
-                  </a>
-                  </div>
-                </li>
+        <ul class="nav">
+            <div ng-if="check_admin()">
+              <li class="nav-item ">
+                <a class="nav-link" href="#!dashboard1">
+              <i class="material-icons">dashboard</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          </div>
+            <div ng-if="check_patient()">
+              <li class="nav-item active">
+            <a class="nav-link" href="#!user">
+              <i class="material-icons">person</i>
+              <p>Profile</p>
+            </a>
+           </li>
+            </div>
+        <div ng-if="check_admin() || check_staff()">
+          <li class="nav-item ">
+            <a class="nav-link" href="#!tables">
+              <i class="material-icons">content_paste</i>
+              <p>Stats</p>
+            </a>
+          </li>
+        </div>
+            <div ng-if="check_patient()">
+              <li class="nav-item ">
+            <a class="nav-link" href="#!messages">
+              <i class="material-icons">announcement</i>
+              <p>Messages</p>
+            </a>
+          </li>
+            </div>
+              <div ng-if="check_staff()">
                 <li class="nav-item ">
-                  <a class="nav-link" href="#!tables">
-                    <i class="material-icons">content_paste</i>
-                    <p>Stats</p>
-                  </a>
-                </li>
-                    <div ng-if="!check_admin()">
-                      <li class="nav-item ">
-                  <a class="nav-link" href="#!messages">
-                    <i class="material-icons">announcement</i>
-                    <p>Messages</p>
-                  </a>
-                  </div>
-                </li>
+            <a class="nav-link" href="#!icons">
+              <i class="material-icons">bubble_chart</i>
+              <p>Icons</p>
+            </a>
+          </li>
+            </div>
+              <div ng-if="check_doctor()">
                 <li class="nav-item ">
-                    <div ng-if="!check_admin()">
-                  <a class="nav-link" href="#!icons">
-                    <i class="material-icons">bubble_chart</i>
-                    <p>Icons</p>
-                  </a>
-                  </div>
-                </li>
+            <a class="nav-link" href="#!map">
+              <i class="material-icons">location_ons</i>
+              <p>Maps</p>
+            </a>
+          </li>
+            </div>
+              <div ng-if="check_doctor()">
                 <li class="nav-item ">
-                    <div ng-if="!check_admin()">
-                  <a class="nav-link" href="#!map">
-                    <i class="material-icons">location_ons</i>
-                    <p>Maps</p>
-                  </a>
-                  </div>
-                </li>
-                <li class="nav-item ">
-                    <div ng-if="!check_admin()">
-                  <a class="nav-link" href="#!notifications">
-                    <i class="material-icons">notifications</i>
-                    <p>Notifications</p>
-                  </a>
-                  </div>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">
-                      <i class="material-icons">home</i>
-                      <p>Home</p>
-                    </a>
-                </li>
+            <a class="nav-link" href="#!notifications">
+              <i class="material-icons">notifications</i>
+              <p>Notifications</p>
+            </a>
+          </li>
+            </div>
+          <li class="nav-item ">
+              <a class="nav-link" href="#">
+                <i class="material-icons">home</i>
+                <p>Home</p>
+              </a>
+          </li>
           <!-- <li class="nav-item active-pro ">
                 <a class="nav-link" href="./upgrade.html">
                     <i class="material-icons">unarchive</i>

@@ -7,20 +7,22 @@
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo">
-        <a class="simple-text logo-normal">
+        <a href="#!dashboard1" class="simple-text logo-normal">
           Patient Management <br>
               System
         </a>
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item active ">
-            <a class="nav-link" href="#!dashboard1">
+            <div ng-if="check_admin()">
+              <li class="nav-item active ">
+                <a class="nav-link" href="#!dashboard1">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
-            <div ng-if="!check_admin()">
+          </div>
+            <div ng-if="check_patient()">
               <li class="nav-item ">
             <a class="nav-link" href="#!user">
               <i class="material-icons">person</i>
@@ -28,7 +30,7 @@
             </a>
            </li>
             </div>
-            <div ng-if="check_patient">
+        <div ng-if="check_admin() || check_staff()">
           <li class="nav-item ">
             <a class="nav-link" href="#!tables">
               <i class="material-icons">content_paste</i>
@@ -36,38 +38,38 @@
             </a>
           </li>
         </div>
-          <li class="nav-item ">
-              <div ng-if="!check_patient()">
+            <div ng-if="check_patient()">
+              <li class="nav-item ">
             <a class="nav-link" href="#!messages">
               <i class="material-icons">announcement</i>
               <p>Messages</p>
             </a>
-            </div>
           </li>
-          <li class="nav-item ">
-              <div ng-if="!check_staff()">
+            </div>
+              <div ng-if="check_staff()">
+                <li class="nav-item ">
             <a class="nav-link" href="#!icons">
               <i class="material-icons">bubble_chart</i>
               <p>Icons</p>
             </a>
-            </div>
           </li>
-          <li class="nav-item ">
-              <div ng-if="!check_admin()">
+            </div>
+              <div ng-if="check_doctor()">
+                <li class="nav-item ">
             <a class="nav-link" href="#!map">
               <i class="material-icons">location_ons</i>
               <p>Maps</p>
             </a>
-            </div>
           </li>
-          <li class="nav-item ">
-              <div ng-if="!check_admin()">
+            </div>
+              <div ng-if="check_doctor()">
+                <li class="nav-item ">
             <a class="nav-link" href="#!notifications">
               <i class="material-icons">notifications</i>
               <p>Notifications</p>
             </a>
-            </div>
           </li>
+            </div>
           <li class="nav-item ">
               <a class="nav-link" href="#">
                 <i class="material-icons">home</i>
