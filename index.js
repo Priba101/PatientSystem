@@ -127,11 +127,31 @@ app.delete('/deleteBook/:book_id',function(req,res){
 app.post('/signup', function(req, res) {
     req.body._id = null;
     var user = req.body;
-    patientsystem.collection('users').insert(user, function(err, data) {
-        if (err) return console.log(err);
-        res.setHeader('Content-Type', 'application/json');
-        res.send(user);
-    })
+    patientsystem.collection('users').findOne({
+        'username': user.username
+    }, function(error, user) {
+        if (error) {
+            throw error;
+        } else {
+            if (user) {
+                res.send({
+                    success: false,
+                    user: null
+                })
+                console.log("User exists in database!");
+            }
+            else {
+                patientsystem.collection('users').insert(user, function(err, data) {
+                    if (err) return console.log(err);
+                    res.setHeader('Content-Type', 'application/json');
+                    res.send({
+                        success: true,
+                        user: user
+                    });
+                })
+            }
+        }
+    });
 });
 app.post('/appointment', function(req, res) {
     req.body._id = null;
@@ -245,6 +265,19 @@ app.put('/book/:book_id', function(req, res){
            }
        });
 });
+app.put('/books/:books_id', function(req, res){    
+    patientsystem.collection('books').findAndModify(
+       {_id: new MongoId(req.params.books_id)},
+       [['_id','asc']],
+       {$set : {reply:req.body.reply}},
+       function(err, doc) {
+           if (err){
+               console.warn(err.message); 
+           }else{
+               res.json(doc);
+           }
+       });
+});
 app.put('/user/:user_id', function(req, res){    
     patientsystem.collection('users').findAndModify(
        {_id: new MongoId(req.params.user_id)},
@@ -258,7 +291,20 @@ app.put('/user/:user_id', function(req, res){
            }
        });
 });
-app.put('/updateUser', function(req, res){    
+app.put('/users/:users_id', function(req, res){    
+    patientsystem.collection('users').findAndModify(
+       {_id: new MongoId(req.params.users_id)},
+       [['_id','asc']],
+       {$set : {username:req.body.username,email:req.body.email,place:req.body.place,city:req.body.city,country:req.body.country,zip:req.body.zip}},
+       function(err, doc) {
+           if (err){
+               console.warn(err.message); 
+           }else{
+               res.json(doc);
+           }
+       });
+});
+/*app.put('/updateUser', function(req, res){    
     patientsystem.collection('users').findAndModify(
        {_id: new MongoId(req.params.user_id)},
        [['_id','asc']],
@@ -270,7 +316,7 @@ app.put('/updateUser', function(req, res){
                res.json(doc);
            }
        });
-});
+});*/
 app.post('/addEmp', function(req, res){
     req.body._id = null;
     var emp = req.body;

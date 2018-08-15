@@ -57,15 +57,15 @@
               <div ng-if="check_doctor()">
                 <li class="nav-item ">
             <a class="nav-link" href="#!map">
-              <i class="material-icons">location_ons</i>
-              <p>Maps</p>
+              <i class="material-icons">assignment</i>
+              <p>Questions</p>
             </a>
           </li>
             </div>
               <div ng-if="check_doctor()">
                 <li class="nav-item ">
             <a class="nav-link" href="#!notifications">
-              <i class="material-icons">notifications</i>
+              <i class="material-icons">assignment_ind</i>
               <p>Notifications</p>
             </a>
           </li>
@@ -202,7 +202,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" ng-if="check_admin()">
               <div class="card">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title ">Employee Stats</h4>
@@ -402,7 +402,6 @@
               </div>
             </div>
             <div>
-                {{logged_in_user.username}}
             </div>
           </div>
         </div>

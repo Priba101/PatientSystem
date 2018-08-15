@@ -57,15 +57,15 @@
               <div ng-if="check_doctor()">
                 <li class="nav-item active">
             <a class="nav-link" href="#!map">
-              <i class="material-icons">location_ons</i>
-              <p>Maps</p>
+              <i class="material-icons">assignment</i>
+              <p>Questions</p>
             </a>
           </li>
             </div>
               <div ng-if="check_doctor()">
                 <li class="nav-item ">
             <a class="nav-link" href="#!notifications">
-              <i class="material-icons">notifications</i>
+              <i class="material-icons">assignment_ind</i>
               <p>Notifications</p>
             </a>
           </li>
@@ -149,13 +149,11 @@
                                   <h1 class="mt-4 mb-3">You're asked a question by a user
                                   </h1>
                                   <thead>
-                                  <th>Question</th>
-                                  <th>Answer</th>
+                                  <th>Your answer</th>
                                   </thead>
                                   <tbody>
-                                      <tr ng-repeat="question in questions_list">
-                                        <td>{{question.mess}}</td>
-                                        <td><input class="form-control" placeholder="Reply" ng-model="question.reply" /></td>
+                                    <tr>
+                                        <td><input class="form-control" placeholder="Reply" ng-model="question.reply"/></td>
                                         <td><button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;" ng-click="update_question()"><i class="fas fa-check" style="font-size:24px;color:green;position: relative;top:7px" ></i></button></td>
                                       </tr>
                                   </tbody>

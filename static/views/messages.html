@@ -57,15 +57,15 @@
               <div ng-if="check_doctor()">
                 <li class="nav-item ">
             <a class="nav-link" href="#!map">
-              <i class="material-icons">location_ons</i>
-              <p>Maps</p>
+              <i class="material-icons">assignment</i>
+              <p>Questions</p>
             </a>
           </li>
             </div>
               <div ng-if="check_doctor()">
                 <li class="nav-item ">
             <a class="nav-link" href="#!notifications">
-              <i class="material-icons">notifications</i>
+              <i class="material-icons">assignment_ind</i>
               <p>Notifications</p>
             </a>
           </li>
@@ -126,16 +126,14 @@
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">
+                      <th>Original message</th>
                       <th>Check up reply's</th>
                     </thead>
                     <tbody>
                         <tr ng-repeat="question in questions_list">
-                            <td>{{question.name}}</td>
-                            <td>{{question.num}}</td>
-                            <td>{{question.email}}</td>
                             <td>{{question.mess}}</td>
                             <td>
-                                <button onclick="document.getElementById('id07').style.display='block'" class="w3-button w3-white"><i class="fas fa-info-circle" ng-click="edit_user(user)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
+                                <button onclick="document.getElementById('id07').style.display='block'" class="w3-button w3-white"><i class="fas fa-info-circle" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
                               </td>
                          </tr>
                     </tbody>

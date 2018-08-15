@@ -123,7 +123,7 @@ $scope.update_user = function(){
   });
 }
 $scope.complete_user = function(){
-    $http.put('/user/'+$scope.user._id, $scope.user).then(function(data){
+    $http.put('/users/'+$scope.user._id, $scope.user).then(function(data){
       refresh_users();
       $scope.user = null;
       toastr.success("User records updated successfully!","User updated!");
@@ -203,15 +203,14 @@ $scope.check_staff=function(){
 
 function get_me(){
     $http.get('/me', config).then(function(res){
-        console.log("data"+ res.data);
         $scope.logged_in_user = res.data[0];
         }),function(res){
             alert(res.status);
         }
-    }
+}
 var get_question = function (){
     $http.get('/getQuestion', config).then(function(response){
-        $scope.question = response.data;
+        $scope.pitanje = response.data[0];
     }),function(response){
         alert(response.status);
     }
@@ -244,5 +243,18 @@ function refresh_question(){
     function(res){
         alert(res.status);
     }
+}
+$scope.edit_books = function(book){
+    $scope.book ={
+        _id : book._id,
+        reply:book.reply
+    };
+}
+$scope.update_books = function(){
+    $http.put('/books/'+$scope.book._id, $scope.book).then(function(data){
+      refresh_books();
+      $scope.book = null;
+      toastr.success("Booking record updated successfully!","Booking updated!");
+    });
 }
 }
