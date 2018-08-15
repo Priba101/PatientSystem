@@ -27,8 +27,17 @@
           </div>            
           </li>
           <li class="nav-item">
-          <div ng-if="check_login()">
-              <a class="nav-link" href="#!dashboard1">Profile</a>
+          <div ng-if="check_login() && check_patient()">
+              <a class="nav-link" href="#!user">Profile</a>
+          </div>
+          <div ng-if="check_login() && check_admin()">
+              <a class="nav-link" href="#!dashboard1">Dash</a>
+          </div>
+          <div ng-if="check_login() && check_doctor()">
+              <a class="nav-link" href="#!map">Dash</a>
+          </div>
+          <div ng-if="check_login() && check_staff()">
+              <a class="nav-link" href="#!tables">Dash</a>
           </div>
           </li>
           <li class="nav-item">

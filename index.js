@@ -40,7 +40,18 @@ app.use('/index/', function(req, res, next) {
         }
     });
 })
-
+app.get('/me', function(req, res){
+    jwt.verify(req.get('JWT'), jwt_secret, function(error, decoded){
+        if(error){
+            console.log(error);
+        }else{
+            patientsystem.collection("users").find({"_id": new MongoId(decoded._id)}).toArray(function(error, user) {
+                res.setHeader('Content-Type', 'application/json');
+                res.send(user);
+            })
+        }
+    })
+});
 app.use('/admin/',function(req,res,next){
     jwt.verify(req.get('JWT'), jwt_admin, function(error, decoded) {     
       if (error) {
@@ -101,8 +112,8 @@ MongoClient.connect(url, function(err, db) {
             res.status(400).send("unable to save to database");
         });
 });*/
-app.delete('/deleteUser/:_id',function(req,res){
-    patientsystem.collection('users').remove({_id:new MongoId(req.params._id)},
+app.delete('/deleteUser/:user_id', function(req, res){
+    patientsystem.collection('users').remove({_id: new MongoId(req.params.user_id)},
     function(err, data){
         res.json(data);
     });
@@ -330,4 +341,17 @@ app.get('/getQuestion', function(request, response) {
         response.setHeader('Content-Type', 'application/json');
         response.send(question);
     })
+});
+app.put('/question/:question_id', function(req, res){    
+    patientsystem.collection('questions').findAndModify(
+       {_id: new MongoId(req.params.question_id)},
+       [['_id','asc']],
+       {$set : {reply:req.body.reply}},
+       function(err, doc) {
+           if (err){
+               console.warn(err.message); 
+           }else{
+               res.json(doc);
+           }
+       });
 });

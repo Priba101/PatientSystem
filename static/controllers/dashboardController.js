@@ -1,11 +1,26 @@
 function DashboardController($scope, $rootScope, $http,toastr){
     console.log("Hello from Dashboard controller");
+
+    var config = {headers:  {
+        'Authorization': 'Basic TmljayBDZXJtaW5hcmE6cGFzc3dvcmQ=',
+        'Accept': 'application/json;odata=verbose',
+        "JWT" : localStorage.getItem('user')
+        }
+      };
+
     refresh_emp();
     refresh_users();
     get_count();
     refresh_books();
+    get_me();
+    refresh_question();
     
-
+    $scope.check_login = function(){
+        if(localStorage.getItem('user')){
+            return true;
+        }
+        return false;
+    }
 $scope.edit_emp = function(emp){
       $scope.emp ={
           _id : emp._id,
@@ -52,7 +67,6 @@ $scope.delete_user = function(_id){
         toastr.success("2 user deleter!","User deleted!");
     });
 }
-
   $scope.delete_book = function(_id){
     $http.delete('/deleteBook'+_id).then(function(data){
         toastr.success("1 booking deleted!","Booking deleted!");
@@ -185,5 +199,50 @@ $scope.check_staff=function(){
         return true;
     }
     return false;
+}
+
+function get_me(){
+    $http.get('/me', config).then(function(res){
+        console.log("data"+ res.data);
+        $scope.logged_in_user = res.data[0];
+        }),function(res){
+            alert(res.status);
+        }
+    }
+var get_question = function (){
+    $http.get('/getQuestion', config).then(function(response){
+        $scope.question = response.data;
+    }),function(response){
+        alert(response.status);
+    }
+    init();
+};
+$scope.answer_question = function(question){
+    $scope.question ={
+        _id : question._id,
+        reply:question.reply
+    };
+}
+$scope.update_question = function(){
+    $http.put('/question/'+$scope.question._id, $scope.question).then(function(data){
+      refresh_question();
+      $scope.question = null;
+      toastr.success("Question answer sent successfully!","Question answered!");
+    });
+  }    
+$scope.ques=function(){
+    $http.post('/question',$scope.question).then(function(data){
+        $scope.question=null;
+        $scope.questions_list.push(data);
+        toastr.success("We will get back at you in 24h!","Question sent!")
+    })
+}
+function refresh_question(){
+    $http.get('/getQuestion').then(function(res){
+        $scope.questions_list = res.data;
+    }),
+    function(res){
+        alert(res.status);
+    }
 }
 }
