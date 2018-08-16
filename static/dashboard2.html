@@ -38,6 +38,14 @@
             </a>
           </li>
         </div>
+        <div ng-if="check_admin()">
+            <li class="nav-item">
+              <a class="nav-link" href="#!feedback">
+                <i class="material-icons">assessment</i>
+                <p>Feedback</p>
+              </a>
+            </li>
+          </div>
             <div ng-if="check_patient()">
               <li class="nav-item ">
             <a class="nav-link" href="#!messages">
@@ -174,21 +182,24 @@
               </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                <div class="card-header card-header-info card-header-icon">
-                  <div class="card-icon">
-                    <i class="fa fa-twitter"></i>
+                <div class="card card-stats">
+                  <div class="card-header card-header-info card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">assessment</i>
+                    </div>
+                    <p class="card-category">Pending feedback</p>
+                    <h3 class="card-title">                    
+                      <tr ng-repeat="feedback in feedbacks_list">
+                        <td>{{feedback_count}}</td>
+                      </tr></h3>
                   </div>
-                  <p class="card-category">Followers</p>
-                  <h3 class="card-title">+245</h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">update</i> Just Updated
+                  <div class="card-footer">
+                    <div class="stats">
+                      <i class="material-icons">update</i> Just Updated
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
           </div>
           <div class="row">
             <div class="col-md-4">
