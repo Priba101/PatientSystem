@@ -40,7 +40,7 @@
     <script src="//unpkg.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
   </head>
 
-  <body ng-app="PMS">
+  <body ng-app="PMS" ng-controller="myCtrl">
         <div ng-if="!check_login()">
         <div ng-include="'frontpage.html'"></div>
     </div>
@@ -58,6 +58,9 @@
   app.controller('signupController', SignUpController);
   app.controller('loginController', LoginController);
   app.controller('submitController',SubmitController);
+  app.controller('myCtrl', function($scope) {
+          $scope.names = ["Highly recomend!", "Will recommend!", "Would recommend!","Maybe recommend!","No!"];
+  });
   app.config(function($routeProvider){
     $routeProvider.when("/",{
         templateUrl:"views/home.html"
@@ -133,6 +136,18 @@
     })
     .when("/user",{
         templateUrl:"views/user.html",
+        controller:"dashboardController"
+    })
+    .when("/mess",{
+        templateUrl:"dashboard2.html",
+        controller:"dashboardController"
+    })
+    .when("/profile",{
+        templateUrl:"dashboard1.html",
+        controller:"dashboardController"
+    })
+    .when("/settings",{
+        templateUrl:"dashboard3.html",
         controller:"dashboardController"
     })
     .otherwise({redirectTo:'/'})

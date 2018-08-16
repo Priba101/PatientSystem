@@ -14,6 +14,7 @@ function DashboardController($scope, $rootScope, $http,toastr){
     refresh_books();
     get_me();
     refresh_question();
+    refresh_feedback();
     
     $scope.check_login = function(){
         if(localStorage.getItem('user')){
@@ -264,4 +265,20 @@ $scope.send_feedback=function(){
       toastr.success("Thank you for you feedback!","Feedback sent!");
     });
 }
+function refresh_feedback(){
+    $http.get('/getFeedback').then(function(res){
+        $scope.feedbacks_list = res.data;
+    }),
+    function(res){
+        alert(res.status);
+    }
+  };
+  var get_feedback = function (){
+    $http.get('/getFeedback', config).then(function(response){
+      $scope.feedback = response.data;
+    }),function(response){
+      alert(response.status);
+    }
+    init();
+};
 }

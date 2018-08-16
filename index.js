@@ -402,11 +402,18 @@ app.put('/question/:question_id', function(req, res){
        });
 });
 app.post('/feedbacking', function(req, res){
-    req.feedback._id = null;
+    req.body._id = null;
     var feedback = req.body;
     patientsystem.collection('feedback').insert(feedback, function(err, data){
         if(err) return console.log(err);
         res.setHeader('Content-Type', 'application/json');
         res.send(data);
+    })
+});
+app.get('/getFeedback', function(req, res){
+    patientsystem.collection('feedback').find().toArray((err, feedback) => {
+        if(err) return console.log(err);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(feedback);
     })
 });

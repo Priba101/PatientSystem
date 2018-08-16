@@ -215,20 +215,24 @@
                               <h2 class="mt-4 mb-3">Let us know what do you think of our app!</h2>
                                   <tr>
                                       <td>How are you satisfied with our app?</td>
-                                      <td>Satisfied? <i class="far fa-smile-beam"></i> <input type="checkbox" ng-checked="feedback.emoji">
-                                      It's ok? <i class="far fa-meh"></i> <input type="checkbox" ng-checked="feedback.emoji">
-                                      Dissatisfied? <i class="far fa-frown"></i> <input type="checkbox" ng-checked="feedback.emoji"></td>
+                                      <td>Satisfied? <i class="far fa-smile-beam"></i> <input type="radio" name="emoji" ng-model="feedback.emoji" value="Satisfied">
+                                      It's ok? <i class="far fa-meh"></i> <input type="radio" name="emoji" ng-model="feedback.emoji" value="It's ok">
+                                      Dissatisfied? <i class="far fa-frown"></i> <input type="radio" name="emoji" ng-model="feedback.emoji" value="Dissatisfied"></td>
                                   </tr>
                                   <tr>
                                       <td>On a scale from Higly Recommend! to No! how much would you recomend our app to a friend?</td>
                                       <td>
+                                        <!--
                                         <select style="font-family:'FontAwesome',Arial;" name="points" ng-model="feedback.points" style="width:100px; height:20px">
                                         <option value="high">Highly recomend!</option>
                                         <option value="low-high">Will recommend!</option>
                                         <option value="middle">Would recommend!</option>
                                         <option value="high-low">Maybe recommend!</option>
                                         <option value="low">No!</option>
-                                      </select></td>
+                                      </select>-->
+                                      <select ng-model="feedback.points" ng-options="x for x in names" style="width:100px; height:20px">
+                                      </select>
+                                    </td>
                                   </tr>
                                   <tr>
                                     <td>
