@@ -38,6 +38,14 @@
             </a>
           </li>
         </div>
+        <div ng-if="check_admin()">
+            <li class="nav-item">
+              <a class="nav-link" href="#!feedback">
+                <i class="material-icons">assessment</i>
+                <p>Feedback</p>
+              </a>
+            </li>
+          </div>
             <div ng-if="check_patient()">
               <li class="nav-item ">
             <a class="nav-link" href="#!messages">

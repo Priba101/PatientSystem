@@ -15,6 +15,7 @@ function DashboardController($scope, $rootScope, $http,toastr){
     get_me();
     refresh_question();
     refresh_feedback();
+    get_feedback_count();
     
     $scope.check_login = function(){
         if(localStorage.getItem('user')){
@@ -171,6 +172,13 @@ $scope.add_book = function(){
 function get_count(){
     $http.get("/count").then(function(res){
         $scope.users_count = res.data.users_count;
+    }), function(data){
+        alert(data.status);
+    }
+}
+function get_feedback_count(){
+    $http.get("/countFeedback").then(function(res){
+        $scope.feedback_count = res.data.feedback_count;
     }), function(data){
         alert(data.status);
     }

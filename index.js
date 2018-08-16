@@ -41,7 +41,7 @@ app.use('/index/', function(req, res, next) {
     });
 })
 app.get('/me', function(req, res){
-    jwt.verify(req.get('JWT'), jwt_secret, function(error, decoded){
+    jwt.verify(req.get('JWT'), jwt_admin, function(error, decoded){
         if(error){
             console.log(error);
         }else{
@@ -378,6 +378,15 @@ app.get('/count', function(req, res){
         res.setHeader("Content-Type", "application/json");
         res.send({
             users_count: data
+        })
+    });
+});
+app.get('/countFeedback', function(req, res){
+    patientsystem.collection('feedback').find().count((err, data) => {
+        if(err) return console.log(err);
+        res.setHeader("Content-Type", "application/json");
+        res.send({
+            feedback_count: data
         })
     });
 });
