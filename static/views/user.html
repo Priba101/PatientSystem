@@ -197,9 +197,61 @@
                   <h6 class="card-category text-gray">Welcome back</h6>
                   <h4 class="card-title">{{logged_in_user.username}}</h4>
                   <p class="card-description">
-                    Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                    How are you liking our web application?<br>
+                    Satisfied? <i class="far fa-smile-beam"></i><br>
+                    It's ok? <i class="far fa-meh"></i><br>
+                    Dissatisfied? <i class="far fa-frown"></i><br>
+                    Please leave us your honest feedback on our app!
                   </p>
-                  <a href="https://twitter.com/Priba101" class="btn btn-primary btn-round">Follow</a>
+                  <a onclick="document.getElementById('id03').style.display='block'" class="btn btn-primary btn-round text-white">Feedback</a>
+                  <div id="id03" class="w3-modal">
+                    <div class="w3-modal-content w3-animate-top w3-card-4">
+                      <header class="w3-container w3-purple"> 
+                        <span onclick="document.getElementById('id03').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                        <h2>Feedback</h2>
+                      </header>
+                      <div class="w3-container">
+                          <table class="table table-hover">
+                              <h2 class="mt-4 mb-3">Let us know what do you think of our app!</h2>
+                                  <tr>
+                                      <td>How are you satisfied with our app?</td>
+                                      <td>Satisfied? <i class="far fa-smile-beam"></i> <input type="checkbox" ng-checked="feedback.emoji">
+                                      It's ok? <i class="far fa-meh"></i> <input type="checkbox" ng-checked="feedback.emoji">
+                                      Dissatisfied? <i class="far fa-frown"></i> <input type="checkbox" ng-checked="feedback.emoji"></td>
+                                  </tr>
+                                  <tr>
+                                      <td>On a scale from Higly Recommend! to No! how much would you recomend our app to a friend?</td>
+                                      <td>
+                                        <select style="font-family:'FontAwesome',Arial;" name="points" ng-model="feedback.points" style="width:100px; height:20px">
+                                        <option value="high">Highly recomend!</option>
+                                        <option value="low-high">Will recommend!</option>
+                                        <option value="middle">Would recommend!</option>
+                                        <option value="high-low">Maybe recommend!</option>
+                                        <option value="low">No!</option>
+                                      </select></td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      And last but not least we would like to hear from You as our user.<br>Please share your thoughts with us and help us improve our app even further!
+                                    </td>
+                                    <td>
+                                      <textarea ng-model="feedback.info" rows="10" colspan="2" cols="50" class="form-control" placeholder="We will apretiate any feedback that you can give us" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none;"></textarea>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      <h3>Thank you for your time!</h3>
+                                    </td>
+                                     <td>
+                                        <div class="btn-group">
+                                           <button class="btn btn-success" style="height:50px;width:200px" ng-click="send_feedback()">Send Feedback</button>
+                                        </div>
+                                     </td>
+                                  </tr>
+                            </table>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

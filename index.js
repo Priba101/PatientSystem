@@ -84,13 +84,13 @@ var url1 = "mongodb://localhost:27017/";
 MongoClient.connect(url1, function(err, db) {
   if (err) throw err;
   var dbo = db.db("patientsystem");
-  dbo.createCollection("questions", function(err, res) {
+  dbo.createCollection("feedback", function(err, res) {
     if (err) throw err;
     console.log("Collection created!");
     db.close();
   });
-});
-MongoClient.connect(url, function(err, db) {
+});*/
+/*MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("patientsystem");
     var myobj = [
@@ -101,8 +101,8 @@ MongoClient.connect(url, function(err, db) {
       console.log("Number of documents inserted: " + res.insertedCount);
       db.close();
     });
-  });*/
-/*app.post("/adduser",(res,req)=>{
+  });
+app.post("/adduser",(res,req)=>{
     var myData = new user(req,body);
     myData.save()
         .then(item=>{
@@ -400,4 +400,13 @@ app.put('/question/:question_id', function(req, res){
                res.json(doc);
            }
        });
+});
+app.post('/feedbacking', function(req, res){
+    req.feedback._id = null;
+    var feedback = req.body;
+    patientsystem.collection('feedback').insert(feedback, function(err, data){
+        if(err) return console.log(err);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(data);
+    })
 });

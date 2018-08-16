@@ -257,4 +257,11 @@ $scope.update_books = function(){
       toastr.success("Booking record updated successfully!","Booking updated!");
     });
 }
+$scope.send_feedback=function(){
+    $http.post('/feedbacking', $scope.feedback).then(function(data){
+      $scope.feedback = null;
+      $scope.feedbacks_list.push(data);
+      toastr.success("Thank you for you feedback!","Feedback sent!");
+    });
+}
 }
