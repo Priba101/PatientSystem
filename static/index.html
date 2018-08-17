@@ -126,8 +126,8 @@
         templateUrl:"views/notifications.html",
         controller:"dashboardController"
     })
-    .when("/map",{
-        templateUrl:"views/map.html",
+    .when("/questions",{
+        templateUrl:"views/questions.html",
         controller:"dashboardController"
     })
     .when("/icons",{
@@ -151,7 +151,11 @@
         controller:"dashboardController"
     })
     .when("/feedback",{
-        templateUrl:"views/item.html",
+        templateUrl:"views/feedback.html",
+        controller:"dashboardController"
+    })
+    .when("/askus",{
+        templateUrl:"views/askus.html",
         controller:"dashboardController"
     })
     .otherwise({redirectTo:'/'})

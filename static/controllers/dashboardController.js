@@ -16,6 +16,7 @@ function DashboardController($scope, $rootScope, $http,toastr){
     refresh_question();
     refresh_feedback();
     get_feedback_count();
+    get_book_current_user();
     
     $scope.check_login = function(){
         if(localStorage.getItem('user')){
@@ -64,13 +65,13 @@ var get_users = function (){
       });
     }*/
 $scope.delete_user = function(_id){ 
-    $http.delete('/deleteUser'+_id).then(function(data){
+    $http.delete('/deleteUser/'+_id).then(function(data){
         refresh_users();  
         toastr.success("2 user deleter!","User deleted!");
     });
 }
   $scope.delete_book = function(_id){
-    $http.delete('/deleteBook'+_id).then(function(data){
+    $http.delete('/deleteBook/'+_id).then(function(data){
         toastr.success("1 booking deleted!","Booking deleted!");
         refresh_books();
     });
@@ -93,9 +94,11 @@ $scope.edit_book = function(book){
         _id : book._id,
         type:book.type,
         address:book.address,
-        add:book.add
+        add:book.add,
+        reply:book.reply
     };
 }
+
 $scope.add_user = function(){
       $http.post('/signup', $scope.user).then(function(data){
         $scope.user = null;
@@ -132,7 +135,7 @@ $scope.complete_user = function(){
     });
   }
 $scope.delete_emp = function(id){
-    $http.delete('/deleteEmp'+id).then(function(data){
+    $http.delete('/deleteEmp/'+id).then(function(data){
       refresh_emp();
     });
 }
@@ -154,6 +157,7 @@ function refresh_users(){
   }
 };
 function refresh_books(){
+  //var user=localStorage.getItem('user');
   $http.get('/getBook').then(function(res){
       $scope.books_list = res.data;
   }),
@@ -217,6 +221,14 @@ function get_me(){
         }),function(res){
             alert(res.status);
         }
+}
+function get_book_current_user(){
+    var user=localStorage.getItem('user');
+    $http.get('/currentBookUser/'+user,config).then(function(res){
+        $scope.book_list=res.data;
+    }),function(res){
+        alert(res.status);
+    }
 }
 var get_question = function (){
     $http.get('/getQuestion', config).then(function(response){

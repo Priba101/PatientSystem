@@ -127,6 +127,15 @@ app.delete('/deleteBook/:book_id',function(req,res){
 app.post('/signup', function(req, res) {
     req.body._id = null;
     var user = req.body;
+    patientsystem.collection('users').insert(user, function(err, data) {
+        if (err) return console.log(err);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(user);
+    })
+});
+/*app.post('/signup', function(req, res) {
+    req.body._id = null;
+    var user = req.body;
     patientsystem.collection('users').findOne({
         'username': user.username
     }, function(error, user) {
@@ -152,7 +161,7 @@ app.post('/signup', function(req, res) {
             }
         }
     });
-});
+});*/
 app.post('/appointment', function(req, res) {
     req.body._id = null;
     var book = req.body;
@@ -337,6 +346,14 @@ app.get('/getEmp', function(request, response) {
         if (err) return console.log(err);
         response.setHeader('Content-Type', 'application/json');
         response.send(emp);
+    })
+});
+app.get('/currentBookUser/:user',function(request,response) {
+    request.body.user = request.params.user;
+    patientsystem.collection('books').find({'user':request.params.user}).toArray((err,book)=>{
+        if(err) return console.log(err);
+        response.setHeader('Content-Type','application/json');
+        response.send(book);
     })
 });
 app.delete('/deleteEmp/:id', function(req, res){

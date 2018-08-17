@@ -12,9 +12,16 @@
             <li class="nav-item">
               <a class="nav-link" href="#!booking">Booking</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#!contact">Contact Us</a>
-            </li>
+            <div ng-hide="check_staff() || check_admin() || check_doctor() || check_patient()" class="ng-hide">
+              <li class="nav-item">
+                <a class="nav-link" href="#!contact">Contact Us</a>
+              </li>
+                </div>
+              <div ng-if="check_patient()">
+              <li class="nav-item">
+                <a class="nav-link" href="#!askus">Ask us</a>
+              </li>
+            </div>
             <li class="nav-item">
               <a class="nav-link" href="#!port">News</a>
             </li>
@@ -34,7 +41,7 @@
                   <a class="nav-link" href="#!dashboard1">Dash</a>
               </div>
               <div ng-if="check_login() && check_doctor()">
-                  <a class="nav-link" href="#!map">Dash</a>
+                  <a class="nav-link" href="#!questions">Dash</a>
               </div>
               <div ng-if="check_login() && check_staff()">
                   <a class="nav-link" href="#!tables">Dash</a>
