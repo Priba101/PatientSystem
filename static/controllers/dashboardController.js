@@ -4,7 +4,7 @@ function DashboardController($scope, $rootScope, $http,toastr){
     var config = {headers:  {
         'Authorization': 'Basic TmljayBDZXJtaW5hcmE6cGFzc3dvcmQ=',
         'Accept': 'application/json;odata=verbose',
-        "JWT" : localStorage.getItem('user')
+        "JWT" : localStorage.getItem('jwt')
         }
       };
 
@@ -162,7 +162,8 @@ function refresh_books(){
   }
 };
 $scope.add_book = function(){
-  $http.post('/addBook', $scope.book).then(function(data){
+  var user=localStorage.getItem('user');
+  $http.post('/addBook/'+user,$scope.book).then(function(data){
     $scope.book = null;
     $scope.books_list.push(data);
     toastr.success("1 new apointment added!","Apointment added!");

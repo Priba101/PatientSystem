@@ -35,8 +35,9 @@ function LoginController($scope, $http, $location,toastr){
     }
 $scope.login = function(credentials){
     $http.post('/login', credentials).then(function(response){
-        localStorage.setItem('user',response.data.token)
+        localStorage.setItem('jwt',response.data.token)
         localStorage.setItem('type',response.data.type)
+        localStorage.setItem('user',response.data.username)
         toastr.success('Enjoy your stay!','You are now logged in!');
         $location.url('/');
     }),function(error){

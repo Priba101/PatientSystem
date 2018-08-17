@@ -22,7 +22,7 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
 });
 
 app.use('/index/', function(req, res, next) {
-    jwt.verify(req.get('JWT'), jwt_secret, function(error, decoded) {
+    jwt.verify(req.get('JWT'), jwt_admin, function(error, decoded) {
         if (error) {
             res.status(401).send('Unauthorized access!');
         } else {
@@ -41,7 +41,7 @@ app.use('/index/', function(req, res, next) {
     });
 })
 app.get('/me', function(req, res){
-    jwt.verify(req.get('JWT'), jwt_admin, function(error, decoded){
+    jwt.verify(req.get('JWT'), jwt_secret, function(error, decoded){
         if(error){
             console.log(error);
         }else{
@@ -181,19 +181,21 @@ app.post('/login', function(req, res) {
                     success: true,
                     message: 'Patient authenticated!',
                     token: token,
-                    type:'patient'
+                    type:'patient',
+                    username:user.username
                 })
                 console.log("Authentication successful!");
             }
             else if(user.type=="admin"){
-                var token = jwt.sign(user, jwt_admin, {
+                var token = jwt.sign(user, jwt_secret, {
                     expiresIn: 20000
                 });
                 res.send({
                     success: true,
                     message: 'Admin authenticated!',
                     token: token,
-                    type:'admin'
+                    type:'admin',
+                    username:user.username
                 })
                 console.log("Authentication successful!");
             }
@@ -205,7 +207,8 @@ app.post('/login', function(req, res) {
                     success: true,
                     message: 'Doctor authenticated!',
                     token: token,
-                    type:'doctor'
+                    type:'doctor',
+                    username:user.username
                 })
                 console.log("Authentication successful!");
             }
@@ -217,7 +220,8 @@ app.post('/login', function(req, res) {
                     success: true,
                     message: 'Nurse authenticated!',
                     token: token,
-                    type:'nurse'
+                    type:'nurse',
+                    username:user.username
                 })
                 console.log("Authentication successful!");
             }
@@ -229,7 +233,8 @@ app.post('/login', function(req, res) {
                     success: true,
                     message: 'Secretary authenticated!',
                     token: token,
-                    type:'secretary'
+                    type:'secretary',
+                    username:user.username
                 })
                 console.log("Authentication successful!");
             }
@@ -354,8 +359,8 @@ app.get('/getBook', function(req, res){
         res.send(book);
     })
 });
-app.post('/addBook', function(req, res){
-    req.body._id = null;
+app.post('/addBook/:user', function(req, res){
+    req.body.user = req.params.user;
     var book = req.body;
     patientsystem.collection('books').insert(book, function(err, data){
         if(err) return console.log(err);
