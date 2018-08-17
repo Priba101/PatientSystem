@@ -67,12 +67,18 @@ var get_users = function (){
 $scope.delete_user = function(_id){ 
     $http.delete('/deleteUser/'+_id).then(function(data){
         refresh_users();  
-        toastr.success("2 user deleter!","User deleted!");
+        toastr.success("1 user deleted!","User deleted!");
     });
 }
-  $scope.delete_book = function(_id){
+$scope.delete_feedback = function(_id){ 
+    $http.delete('/deleteFeedback/'+_id).then(function(data){
+        refresh_feedback();  
+        toastr.success("1 feedback deleted!","Feedback deleted!");
+    });
+}
+$scope.decline_book = function(_id){
     $http.delete('/deleteBook/'+_id).then(function(data){
-        toastr.success("1 booking deleted!","Booking deleted!");
+        toastr.success("1 booking declined!","Booking deleted!");
         refresh_books();
     });
 }
@@ -134,9 +140,10 @@ $scope.complete_user = function(){
       toastr.success("User records updated successfully!","User updated!");
     });
   }
-$scope.delete_emp = function(id){
-    $http.delete('/deleteEmp/'+id).then(function(data){
+$scope.delete_emp = function(_id){
+    $http.delete('/deleteEmp/'+_id).then(function(data){
       refresh_emp();
+      toastr.success("Employee records deleted successfully!","Employee deleted!");
     });
 }
 

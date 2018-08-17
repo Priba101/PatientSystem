@@ -119,7 +119,7 @@ app.delete('/deleteUser/:user_id', function(req, res){
     });
 });
 app.delete('/deleteBook/:book_id',function(req,res){
-    patientsystem.collection('books').remove({_id:new MongoId(req.params.user_id)},
+    patientsystem.collection('books').remove({_id:new MongoId(req.params.book_id)},
     function(err,data){
         res.json(data);
     });
@@ -356,8 +356,14 @@ app.get('/currentBookUser/:user',function(request,response) {
         response.send(book);
     })
 });
-app.delete('/deleteEmp/:id', function(req, res){
-    patientsystem.collection('emps').findOneAndDelete({_id: new MongoId(req.params.id)},
+app.delete('/deleteEmp/:emp_id', function(req, res){
+    patientsystem.collection('emps').remove({_id: new MongoId(req.params.emp_id)},
+    function(err, data){
+        res.json(data);
+    });
+});
+app.delete('/deleteFeedback/:feedback_id', function(req, res){
+    patientsystem.collection('feedback').remove({_id: new MongoId(req.params.feedback_id)},
     function(err, data){
         res.json(data);
     });
