@@ -168,7 +168,7 @@
                                     <td><input class="form-control" placeholder="Email" ng-model="user.email" /></td>
                                    <td>
                                       <div class="btn-group">
-                                         <button class="btn btn-success" style="height:50px;width:200px" ng-click="update_user()">Update Profile</button>
+                                         <button class="btn btn-success" style="height:50px;width:200px" ng-click="update_user()">Update User</button>
                                       </div>
                                    </td>
                                 </tr>
@@ -216,7 +216,14 @@
                         </div>
                       </div>
                     </div>
-                    <button type="submit" ng-click="complete_user()" class="btn btn-primary pull-right">Update Profile</button>
+                    <div class="row">
+                        <div class="col-md-6"> 
+                            <div class="form-group">
+                    <button type="submit" ng-click="edit_user(logged_in_user)" class="btn btn-primary pull-right">Fetch Records</button></div></div>
+                    <div class="col-md-6"> 
+                        <div class="form-group">
+                <button type="submit" ng-click="complete_user()" class="btn btn-primary pull-right">Complete Profile</button></div></div>
+                    </div>
                     <div class="clearfix"></div>
                   </form>
                 </div>
@@ -282,7 +289,7 @@
                                     </td>
                                      <td>
                                         <div class="btn-group">
-                                           <button class="btn btn-success" style="height:50px;width:200px" ng-click="send_feedback()">Send Feedback</button>
+                                           <button class="btn btn-primary" style="height:50px;width:200px" ng-click="send_feedback()">Send Feedback</button>
                                         </div>
                                      </td>
                                   </tr>

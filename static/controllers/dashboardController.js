@@ -143,6 +143,7 @@ $scope.update_user = function(){
   });
 }
 $scope.complete_user = function(){
+    
     $http.put('/users/'+$scope.user._id, $scope.user).then(function(data){
       refresh_users();
       $scope.user = null;

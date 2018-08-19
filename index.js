@@ -318,11 +318,11 @@ app.put('/user/:user_id', function(req, res){
            }
        });
 });
-app.put('/users/:users_id', function(req, res){    
+app.put('/users/:user_id', function(req, res){
     patientsystem.collection('users').findAndModify(
-       {_id: new MongoId(req.params.users_id)},
+       {_id: new MongoId(req.params.user_id)},
        [['_id','asc']],
-       {$set : {username:req.body.username,email:req.body.email,place:req.body.place,city:req.body.city,country:req.body.country,zip:req.body.zip}},
+       {$set : {phone:req.body.phone,country:req.body.country,zip:req.body.zip}},
        function(err, doc) {
            if (err){
                console.warn(err.message); 
