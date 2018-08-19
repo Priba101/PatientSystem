@@ -138,10 +138,10 @@
                       <th><center>Answer</center></th>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="question in questions_list">
-                            <td>{{question.mess}}</td>
+                        <tr ng-repeat="message in message_list">
+                            <td>{{message.mess}}</td>
                             <td>
-                                <button onclick="document.getElementById('id07').style.display='block'" class="w3-button w3-white" ng-click="answer_question(question)"><i class="fas fa-info-circle" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
+                                <button onclick="document.getElementById('id07').style.display='block'" class="w3-button w3-white" ng-click="answer_question(message)"><i class="fas fa-info-circle" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
                               </td>
                          </tr>
                     </tbody>

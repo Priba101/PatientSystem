@@ -103,19 +103,79 @@
           <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
-                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
-                  <p class="d-lg-none d-md-block">
-                    Some Actions
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                  <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                  <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                  <a class="dropdown-item" href="#">Another Notification</a>
-                  <a class="dropdown-item" href="#">Another One</a>
+                <button class="nav-link" onclick="document.getElementById('id07').style.display='block'" class="w3-button w3-white" style="background-color:#eeeeee">
+                  <i class="material-icons" style="font-size:24px;color:black;position: relative;top:7px">info</i>
+                </button>
+                <div id="id07" class="w3-modal">
+                  <div class="w3-modal-content w3-animate-top w3-card-4">
+                    <header class="w3-container w3-purple"> 
+                      <span onclick="document.getElementById('id07').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                      <h2>Having any problems?</h2>
+                    </header>
+                    <div class="w3-container">
+                        <table class="table table-hover">
+                            <h2 class="mt-4 mb-3">Let us know and we will help you in solving them!</h2>
+                                <tr>
+                                  <h3>What seems to be the problem?</h3>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <textarea ng-model="q.info" rows="10" colspan="2" cols="50" class="form-control" placeholder="We will apretiate any information that you can give us" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none;"></textarea>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td><h4>Did this problem occur before?</h4></td>
+                                </tr>
+                                <tr>
+                                  <td>Yes <input type="radio" name="occured" ng-model="q.occured" value="Yes"> No </i> <input type="radio" name="occured" ng-model="q.occured" value="No"></td>
+                                </tr>
+                                <tr>
+                                   <td>
+                                      <div class="btn-group">
+                                         <button class="btn btn-success" style="height:50px;width:200px" ng-click="send_help()">Send Question</button>
+                                      </div>
+                                   </td>
+                                </tr>
+                        </table>
+                      </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <button class="nav-link" onclick="document.getElementById('id04').style.display='block'" class="w3-button w3-white" style="background-color:#eeeeee" ng-click="edit_user(logged_in_user)">
+                  <i class="material-icons" style="font-size:24px;color:black;position: relative;top:7px">build</i>
+                </button>
+                <div id="id04" class="w3-modal">
+                  <div class="w3-modal-content w3-animate-top w3-card-4">
+                    <header class="w3-container w3-purple"> 
+                      <span onclick="document.getElementById('id04').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                      <h2>ses</h2>
+                    </header>
+                    <div class="w3-container">
+                        <table class="table table-hover">
+                            <h1 class="mt-4 mb-3">Users</h1>
+                            <thead>
+                                <tr>
+                                    <th>Place</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                </tr>
+                             </thead>
+                             <tbody>
+                                <tr>
+                                    <td><input class="form-control" placeholder="Place" ng-model="user.place" /></td>
+                                    <td><input class="form-control" placeholder="Username" ng-model="user.username" /></td>
+                                    <td><input class="form-control" placeholder="Email" ng-model="user.email" /></td>
+                                   <td>
+                                      <div class="btn-group">
+                                         <button class="btn btn-success" style="height:50px;width:200px" ng-click="update_user()">Update User</button>
+                                      </div>
+                                   </td>
+                                </tr>
+                             </tbody>
+                          </table>
+                    </div>
+                  </div>
                 </div>
               </li>
             </ul>
@@ -129,61 +189,27 @@
             <div class="col-md-8">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Edit Profile</h4>
+                  <h4 class="card-title">Your profile</h4>
                   <p class="card-category">Complete your profile</p>
                 </div>
                 <div class="card-body">
                   <form>
                     <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Username</label>
-                          <input type="text" class="form-control" ng-model="user.username">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Email address</label>
-                          <input type="email" class="form-control" ng-model="user.email">
-                        </div>
-                      </div>
-                    </div>
-                    <!--<div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Fist Name</label>
-                          <input type="text" class="form-control" ng-model="user.firstname">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Last Name</label>
-                          <input type="text" class="form-control" ng-model="user.lastname">
-                        </div>
-                      </div>
-                    </div>-->
-                    <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Adress</label>
-                          <input type="text" class="form-control" ng-model="user.place">
+                          <label class="bmd-label-floating">Phone</label>
+                          <input type="tel" name="phone" class="form-control" ng-model="user.phone">
                         </div>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">City</label>
-                          <input type="text" class="form-control" ng-model="user.city">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Country</label>
                           <input type="text" class="form-control" ng-model="user.country">
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Postal Code</label>
                           <input type="text" class="form-control" ng-model="user.zip">

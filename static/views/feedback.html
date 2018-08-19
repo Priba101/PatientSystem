@@ -156,6 +156,66 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-header card-header-primary">
+                      <h4 class="card-title ">Questions</h4>
+                      <p class="card-category">Here you can see all of the questions asked by users!</p>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead class=" text-primary">
+                            <th>Information</th>
+                            <th>Ocurred before</th>
+                          </thead>
+                          <tbody>
+                              <tr ng-repeat="q in q_list">
+                                  <td>{{q.info}}</td>
+                                  <td>{{q.occured}}</td>
+                                  <td>
+                                      <button onclick="document.getElementById('id07').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="answer(q)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;" ><i class="fas fa-times" ng-click="delete_help(q._id)" style="font-size:24px;color:red;position: relative;top:7px" ></i></button>
+                                  </td>
+                               </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="id07" class="w3-modal">
+                      <div class="w3-modal-content w3-animate-top w3-card-4">
+                        <header class="w3-container w3-green"> 
+                          <span onclick="document.getElementById('id07').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                          <h2>Our user is having a problem</h2>
+                        </header>
+                        <div class="w3-container">
+                            <table class="table table-hover">
+                                <h2 class="mt-4 mb-3">Write a reply for our user in danger!</h2>
+                                    <tr>
+                                      <h3>Reply</h3>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <textarea ng-model="q.answer" rows="10" colspan="2" cols="50" class="form-control" placeholder="Enter message here" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none;"></textarea>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                       <td>
+                                          <div class="btn-group">
+                                             <button class="btn btn-success" style="height:50px;width:200px" ng-click="answer_help()">Send Help</button>
+                                          </div>
+                                       </td>
+                                    </tr>
+                            </table>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
           </div>
         </div>
         <footer>

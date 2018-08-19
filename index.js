@@ -84,7 +84,7 @@ var url1 = "mongodb://localhost:27017/";
 MongoClient.connect(url1, function(err, db) {
   if (err) throw err;
   var dbo = db.db("patientsystem");
-  dbo.createCollection("feedback", function(err, res) {
+  dbo.createCollection("help", function(err, res) {
     if (err) throw err;
     console.log("Collection created!");
     db.close();
@@ -253,6 +253,19 @@ app.post('/login', function(req, res) {
         }}
     });
 });
+app.put('/answerHelp/:q_id',function(req,res){
+    patientsystem.collection('help').findAndModify(
+        {_id: new MongoId(req.params.q_id)},
+        [['_id','asc']],
+        {$set : {answer: req.body.answer}},
+        function(err, doc) {
+            if (err){
+                console.warn(err.message); 
+            }else{
+                res.json(doc);
+            }
+        });
+})
 app.put('/emp/:emp_id', function(req, res){    
     patientsystem.collection('emps').findAndModify(
        {_id: new MongoId(req.params.emp_id)},
@@ -356,8 +369,22 @@ app.get('/currentBookUser/:user',function(request,response) {
         response.send(book);
     })
 });
+app.get('/currentMessageUser/:user',function(request,response) {
+    request.body.user = request.params.user;
+    patientsystem.collection('questions').find({'user':request.params.user}).toArray((err,message)=>{
+        if(err) return console.log(err);
+        response.setHeader('Content-Type','application/json');
+        response.send(message);
+    })
+});
 app.delete('/deleteEmp/:emp_id', function(req, res){
     patientsystem.collection('emps').remove({_id: new MongoId(req.params.emp_id)},
+    function(err, data){
+        res.json(data);
+    });
+});
+app.delete('/deleteHelp/:q_id', function(req, res){
+    patientsystem.collection('help').remove({_id: new MongoId(req.params.q_id)},
     function(err, data){
         res.json(data);
     });
@@ -391,10 +418,19 @@ app.post('/addBook/:user', function(req, res){
         res.send(data);
     })
 });
-app.post('/question',function(req,res){
-    req.body._id=null;
+app.post('/question/:user',function(req,res){
+    req.body.user = req.params.user;
     var question=req.body;
     patientsystem.collection('questions').insert(question,function(err,data){
+        if(err) return console.log(err);
+        res.setHeader('Content-Type','application/json');
+        res.send(data);
+    })
+})
+app.post('/helpQuestion/:user',function(req,res){
+    req.body.user = req.params.user;
+    var q=req.body;
+    patientsystem.collection('help').insert(q,function(err,data){
         if(err) return console.log(err);
         res.setHeader('Content-Type','application/json');
         res.send(data);
@@ -452,5 +488,12 @@ app.get('/getFeedback', function(req, res){
         if(err) return console.log(err);
         res.setHeader('Content-Type', 'application/json');
         res.send(feedback);
+    })
+});
+app.get('/getHelp', function(req, res){
+    patientsystem.collection('help').find().toArray((err, q) => {
+        if(err) return console.log(err);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(q);
     })
 });

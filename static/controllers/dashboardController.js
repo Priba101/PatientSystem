@@ -7,7 +7,8 @@ function DashboardController($scope, $rootScope, $http,toastr){
         "JWT" : localStorage.getItem('jwt')
         }
       };
-
+    get_book_current_user();
+    refresh_help();
     refresh_emp();
     refresh_users();
     get_count();
@@ -17,7 +18,9 @@ function DashboardController($scope, $rootScope, $http,toastr){
     refresh_feedback();
     get_feedback_count();
     get_book_current_user();
-    
+    refresh_help();
+    get_message_current_user();
+
     $scope.check_login = function(){
         if(localStorage.getItem('user')){
             return true;
@@ -104,6 +107,12 @@ $scope.edit_book = function(book){
         reply:book.reply
     };
 }
+$scope.answer=function(q){
+    $scope.q={
+        _id:q._id,
+        reply:q.reply
+    }
+}
 
 $scope.add_user = function(){
       $http.post('/signup', $scope.user).then(function(data){
@@ -139,14 +148,19 @@ $scope.complete_user = function(){
       $scope.user = null;
       toastr.success("User records updated successfully!","User updated!");
     });
-  }
+}
 $scope.delete_emp = function(_id){
     $http.delete('/deleteEmp/'+_id).then(function(data){
       refresh_emp();
       toastr.success("Employee records deleted successfully!","Employee deleted!");
     });
 }
-
+$scope.delete_help = function(_id){
+    $http.delete('/deleteHelp/'+_id).then(function(data){
+      refresh_help();
+      toastr.success("1 help question deleted successfully!","Help question deleted");
+    });
+}
 function refresh_emp(){
     $http.get('/getEmp').then(function(res){
         $scope.emp_list = res.data;
@@ -178,9 +192,8 @@ $scope.add_book = function(){
     $scope.book = null;
     $scope.books_list.push(data);
     toastr.success("1 new apointment added!","Apointment added!");
-        });
-    }
-
+    });
+}
 function get_count(){
     $http.get("/count").then(function(res){
         $scope.users_count = res.data.users_count;
@@ -227,12 +240,20 @@ function get_me(){
         $scope.logged_in_user = res.data[0];
         }),function(res){
             alert(res.status);
-        }
+    }
 }
 function get_book_current_user(){
     var user=localStorage.getItem('user');
     $http.get('/currentBookUser/'+user,config).then(function(res){
         $scope.book_list=res.data;
+    }),function(res){
+        alert(res.status);
+    }
+}
+function get_message_current_user(){
+    var user=localStorage.getItem('user');
+    $http.get('/currentMessageUser/'+user,config).then(function(res){
+        $scope.message_list=res.data;
     }),function(res){
         alert(res.status);
     }
@@ -259,7 +280,8 @@ $scope.update_question = function(){
     });
   }    
 $scope.ques=function(){
-    $http.post('/question',$scope.question).then(function(data){
+    var user=localStorage.getItem('user');
+    $http.post('/question/'+user,$scope.question).then(function(data){
         $scope.question=null;
         $scope.questions_list.push(data);
         toastr.success("We will get back at you in 24h!","Question sent!")
@@ -293,6 +315,21 @@ $scope.send_feedback=function(){
       toastr.success("Thank you for you feedback!","Feedback sent!");
     });
 }
+$scope.answer_help=function(){
+    $http.put('/answerHelp/'+$scope.q._id,$scope.q).then(function(data){
+        refresh_help();
+        $scope.q=null;
+        toastr.success("A reply to the user has been sent!","Answer sent!")
+    })
+}
+$scope.send_help=function(){
+    var user=localStorage.getItem('user');
+    $http.post('/helpQuestion/'+user,$scope.q).then(function(data){
+        $scope.q=null;
+        $scope.q_list.push(data);
+        toastr.success("Thank you for reporting the problem!","Problem report sent");
+    })
+}
 function refresh_feedback(){
     $http.get('/getFeedback').then(function(res){
         $scope.feedbacks_list = res.data;
@@ -309,4 +346,12 @@ function refresh_feedback(){
     }
     init();
 };
+function refresh_help(){
+    $http.get('/getHelp').then(function(res){
+        $scope.q_list = res.data;
+    }),
+    function(res){
+        alert(res.status);
+    }
+  };
 }
