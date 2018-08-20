@@ -217,6 +217,52 @@
                 </div>
               </div>
           </div>
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title">Help questions</h4>
+              <p class="card-category">Here you can see all of you help question answers!</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>Original message</th>
+                      <th><center>Answer</center></th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="q in q_list">
+                            <td>{{q.info}}</td>
+                            <td>
+                                <button onclick="document.getElementById('id04').style.display='block'" class="w3-button w3-white" ng-click="edit_help(q)"><i class="fas fa-info-circle" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
+                              </td>
+                         </tr>
+                    </tbody>
+                  </table>
+                  <div id="id04" class="w3-modal">
+                      <div class="w3-modal-content w3-animate-top w3-card-4">
+                        <header class="w3-container w3-green"> 
+                          <span onclick="document.getElementById('id04').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                          <h2>Your message</h2>
+                        </header>
+                        <div class="w3-container">
+                            <table class="table table-hover">
+                                <h2 class="mt-4 mb-3">Your most recent message
+                                </h2>
+                                <thead>
+                                <th><center>Answer</center></th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                      <td>{{q.reply}}</td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+          </div>
         </div>
         </div>
       <footer>

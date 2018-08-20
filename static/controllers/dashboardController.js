@@ -110,6 +110,8 @@ $scope.edit_book = function(book){
 $scope.answer=function(q){
     $scope.q={
         _id:q._id,
+        info:q.info,
+        occured:q.occured,
         reply:q.reply
     }
 }
@@ -143,7 +145,6 @@ $scope.update_user = function(){
   });
 }
 $scope.complete_user = function(){
-    
     $http.put('/users/'+$scope.user._id, $scope.user).then(function(data){
       refresh_users();
       $scope.user = null;
@@ -302,6 +303,12 @@ $scope.edit_books = function(book){
         reply:book.reply
     };
 }
+$scope.edit_help=function(q){
+    $scope.q={
+        _id:q._id,
+        reply:q.reply
+    }
+}
 $scope.update_books = function(){
     $http.put('/books/'+$scope.book._id, $scope.book).then(function(data){
       refresh_books();
@@ -347,6 +354,14 @@ function refresh_feedback(){
     }
     init();
 };
+var get_help = function (){
+    $http.get('/getHelp', config).then(function(response){
+      $scope.q = response.data;
+    }),function(response){
+      alert(response.status);
+    }
+    init();
+};
 function refresh_help(){
     $http.get('/getHelp').then(function(res){
         $scope.q_list = res.data;
@@ -355,4 +370,11 @@ function refresh_help(){
         alert(res.status);
     }
   };
+var get_doctors = function (){
+    $http.get('/getDoctors', config).then(function(res){
+        $scope.doctor = res.data;
+        }),function(res){
+            alert(res.status);
+    }
+};  
 }

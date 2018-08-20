@@ -257,7 +257,7 @@ app.put('/answerHelp/:q_id',function(req,res){
     patientsystem.collection('help').findAndModify(
         {_id: new MongoId(req.params.q_id)},
         [['_id','asc']],
-        {$set : {answer: req.body.answer}},
+        {$set : {reply: req.body.reply}},
         function(err, doc) {
             if (err){
                 console.warn(err.message); 
@@ -497,3 +497,10 @@ app.get('/getHelp', function(req, res){
         res.send(q);
     })
 });
+app.get('/getDoctors',function(req,res){
+    patientsystem.getCollection("users").find({type:'doctor'},  
+    function(err, doc) {
+        if (err) return console.log(err);
+        response.send(doc);
+    });
+})
