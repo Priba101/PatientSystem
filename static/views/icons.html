@@ -125,32 +125,108 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
-          <div class="container-fluid">
-            <div class="card card-plain">
-              <div class="card-header card-header-primary">
-                <h4 class="card-title">Material Design Icons</h4>
-                <p class="card-category">Handcrafted by our friends from
-                  <a target="_blank" href="https://design.google.com/icons/">Google</a>
-                </p>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
+            <div class="col-md-12" ng-if="check_staff()">
+                <div class="card">
+                  <div class="card-header card-header-primary">
+                    <h4 class="card-title ">Doctors</h4>
+                    <p class="card-category">Here you can see all of the available doctors!</p>
+                  </div>
                   <div class="card-body">
-                    <div class="iframe-container d-none d-lg-block">
-                      <iframe src="https://design.google.com/icons/">
-                        <p>Your browser does not support iframes.</p>
-                      </iframe>
-                    </div>
-                    <div class="col-md-12 d-none d-sm-block d-md-block d-lg-none d-block d-sm-none text-center ml-auto mr-auto">
-                      <h5>The icons are visible on Desktop mode inside an iframe. Since the iframe is not working on Mobile and Tablets please visit the icons on their original page on Google. Check the
-                        <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>
-                      </h5>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead class=" text-primary">
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Date</th>
+                            <th>Place</th>
+                            <th>Gender</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="user in users_list">
+                              <td>{{user.firstname}}</td>
+                              <td>{{user.lastname}}</td>
+                              <td>{{user.date | date: 'd MMMM, yyyy'}}</td>
+                              <td>{{user.place}}</td>
+                              <td>{{user.gen}}</td>
+                              <td>{{user.username}}</td>
+                              <td>{{user.email}}</td>
+                              <td>{{user.type}}</td>
+                         </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header card-header-primary">
+                    <h4 class="card-title ">Bookings</h4>
+                    <p class="card-category">Here you can see all of the pending bookings</p>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead class=" text-primary">
+                          <th>Type</th>
+                          <th>Address</th>
+                          <th>Info</th>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="book in books_list">
+                            <td>{{book.type}}</td>
+                            <td>{{book.address}}</td>
+                            <td>{{book.add}}</td>
+                            <td>
+                                <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white"><i class="fas fa-check" ng-click="edit_book(book)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
+                              </td>
+                            <td>
+                                <button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;" ><i class="fas fa-times" style="font-size:24px;color:red;position: relative;top:7px" ng-click="decline_book(book._id)"></i></button>
+                            </td>
+                         </tr>
+                        </tbody>
+                      </table>
+                      <div id="id01" class="w3-modal">
+                          <div class="w3-modal-content w3-animate-top w3-card-4">
+                            <header class="w3-container w3-green"> 
+                              <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                              <h2>Here you assign bookings to doctors!</h2>
+                            </header>
+                            <div class="w3-container">
+                                <table class="table table-hover">
+                                    <h2 class="mt-4 mb-3">Pending bookings</h2>
+                                    <thead>
+                                        <tr>
+                                           <th>Type</th>
+                                           <th>Doctor username</th>
+                                        </tr>
+                                     </thead>
+                                     <tbody>
+                                        <tr>
+                                            <td>
+                                                <input class="form-control" placeholder="Type" ng-model="book.type"/>
+                                             </td>
+                                           <td>
+                                              <input class="form-control" placeholder="Type" ng-model="book.doctor"/>
+                                           </td>
+                                           <td>
+                                              <div class="btn-group">
+                                                 <button class="btn btn-success" style="height:50px;width:200px" ng-click="update_book()">Update Booking</button>
+                                              </div>
+                                           </td>
+                                        </tr>
+                                     </tbody>
+                                  </table>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
         </div>
       </div>
       <footer>

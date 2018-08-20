@@ -33,16 +33,17 @@ $scope.edit_emp = function(emp){
           username : emp.username,
           salary : emp.salary,
           country : emp.country,
-          email : emp.email,
-          type : emp.type
+          type : emp.type,
+          spec : emp.spec
       };
 }
 $scope.add_emp = function() {
     $http.post('/addEmp', $scope.emp).then(function(data) {
         $scope.emp = null;
         $scope.emp_list.push(data);
-        toastr.success("1 new employee added!","Employee added!");
         refresh_emp();
+        toastr.success("1 new employee added!","Employee added!");
+
     });
 }
 var get_report = function (){
@@ -104,7 +105,8 @@ $scope.edit_book = function(book){
         type:book.type,
         address:book.address,
         add:book.add,
-        reply:book.reply
+        reply:book.reply,
+        doctor:book.doctor
     };
 }
 $scope.answer=function(q){
