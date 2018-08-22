@@ -23,6 +23,7 @@ function DashboardController($scope, $rootScope, $http,toastr){
     refresh_doctor();
     get_current_doctor_book();
     refresh_patients();
+    refresh_tasks();
 
     $scope.check_login = function(){
         if(localStorage.getItem('user')){
@@ -65,6 +66,14 @@ var get_users = function (){
       }
       init();
 };
+var get_tasks = function (){
+    $http.get('/getTask', config).then(function(response){
+      $scope.todo = response.data;
+    }),function(response){
+      alert(response.status);
+    }
+    init();
+};
 /*$scope.delete_user = function(id){
       $http.delete('/rest/v1/user/delete/'+id, config).then(function(response){
         get_users();
@@ -103,6 +112,12 @@ $scope.edit_user = function(user){
         type:user.type
     };
 }
+$scope.edit_task=function(todo){
+    $scope.todo={
+        _id:todo._id,
+        task:todo.task
+    }
+}
 $scope.edit_book = function(book){
     $scope.book ={
         _id : book._id,
@@ -129,6 +144,13 @@ $scope.add_user = function(){
         $scope.users_list.push(data);
         toastr.success("1 new user added!","User added!");
       });
+}
+$scope.add_task=function(){
+    $http.post('/addTask',$scope.todo).then(function(data){
+        $scope.todo = null;
+        $scope.todo_list.push(data);
+        toastr.success("1 new task added!","Task added!");
+    });
 }
 $scope.update_emp = function(){
     $http.put('/emp/'+$scope.emp._id, $scope.emp).then(function(data){
@@ -163,6 +185,12 @@ $scope.complete_user = function(){
       refresh_users();
       $scope.user = null;
       toastr.success("User records updated successfully!","User updated!");
+    });
+}
+$scope.delete_task = function(_id){
+    $http.delete('/deleteTask/'+_id).then(function(data){
+      refresh_tasks();
+      toastr.success("Task deleted successfully!","Task deleted!");
     });
 }
 $scope.delete_emp = function(_id){
@@ -201,6 +229,14 @@ function refresh_users(){
       alert(res.status);
   }
 };
+function refresh_tasks(){
+    $http.get('/getTask').then(function(res){
+        $scope.todo_list = res.data;
+    }),
+    function(res){
+        alert(res.status);
+    }
+  };
 function refresh_books(){
   //var user=localStorage.getItem('user');
   $http.get('/getBook').then(function(res){

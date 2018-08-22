@@ -84,7 +84,7 @@ var url1 = "mongodb://localhost:27017/";
 MongoClient.connect(url1, function(err, db) {
   if (err) throw err;
   var dbo = db.db("patientsystem");
-  dbo.createCollection("help", function(err, res) {
+  dbo.createCollection("todo", function(err, res) {
     if (err) throw err;
     console.log("Collection created!");
     db.close();
@@ -131,6 +131,15 @@ app.post('/signup', function(req, res) {
         if (err) return console.log(err);
         res.setHeader('Content-Type', 'application/json');
         res.send(user);
+    })
+});
+app.post('/addTask', function(req, res) {
+    req.body._id=null;
+    var todo = req.body;
+    patientsystem.collection('tasks').insert(todo, function(err, data) {
+        if (err) return console.log(err);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(todo);
     })
 });
 /*app.post('/signup', function(req, res) {
@@ -404,6 +413,12 @@ app.delete('/deleteEmp/:emp_id', function(req, res){
         res.json(data);
     });
 });
+app.delete('/deleteTask/:todo_id', function(req, res){
+    patientsystem.collection('tasks').remove({_id: new MongoId(req.params.todo_id)},
+    function(err, data){
+        res.json(data);
+    });
+});
 app.delete('/deleteHelp/:q_id', function(req, res){
     patientsystem.collection('help').remove({_id: new MongoId(req.params.q_id)},
     function(err, data){
@@ -421,6 +436,13 @@ app.get('/getUser', function(req, res){
         if(err) return console.log(err);
         res.setHeader('Content-Type', 'application/json');
         res.send(user);
+    })
+});
+app.get('/getTask', function(req, res){
+    patientsystem.collection('tasks').find().toArray((err, todo) => {
+        if(err) return console.log(err);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(todo);
     })
 });
 app.get('/getBook', function(req, res){
