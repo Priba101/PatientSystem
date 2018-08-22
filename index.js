@@ -305,6 +305,19 @@ app.put('/books/:books_id', function(req, res){
            }
        });
 });
+app.put('/booking/:booking_id', function(req, res){    
+    patientsystem.collection('books').findAndModify(
+       {_id: new MongoId(req.params.booking_id)},
+       [['_id','asc']],
+       {$set : {doctor:req.body.doctor}},
+       function(err, doc) {
+           if (err){
+               console.warn(err.message); 
+           }else{
+               res.json(doc);
+           }
+       });
+});
 app.put('/user/:user_id', function(req, res){    
     patientsystem.collection('users').findAndModify(
        {_id: new MongoId(req.params.user_id)},
@@ -375,6 +388,14 @@ app.get('/currentMessageUser/:user',function(request,response) {
         if(err) return console.log(err);
         response.setHeader('Content-Type','application/json');
         response.send(message);
+    })
+});
+app.get('/currentDoctorBook/:user',function(request,response) {
+    request.body.user = request.params.user;
+    patientsystem.collection('books').find({doctor:request.params.user}).toArray((err,booking)=>{
+        if(err) return console.log(err);
+        response.setHeader('Content-Type','application/json');
+        response.send(booking);
     })
 });
 app.delete('/deleteEmp/:emp_id', function(req, res){
@@ -497,10 +518,17 @@ app.get('/getHelp', function(req, res){
         res.send(q);
     })
 });
-app.get('/getDoctors',function(req,res){
-    patientsystem.getCollection("users").find({type:'doctor'},  
-    function(err, doc) {
-        if (err) return console.log(err);
-        response.send(doc);
-    });
-})
+app.get('/getDoctor', function(req, res){
+    patientsystem.collection('emps').find({type:'doctor'}).toArray((err, doctor) => {
+        if(err) return console.log(err);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(doctor);
+    })
+});
+app.get('/getPatients', function(req, res){
+    patientsystem.collection('users').find({type:'patient'}).toArray((err, patient) => {
+        if(err) return console.log(err);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(patient);
+    })
+});

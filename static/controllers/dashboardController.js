@@ -20,6 +20,9 @@ function DashboardController($scope, $rootScope, $http,toastr){
     get_book_current_user();
     refresh_help();
     get_message_current_user();
+    refresh_doctor();
+    get_current_doctor_book();
+    refresh_patients();
 
     $scope.check_login = function(){
         if(localStorage.getItem('user')){
@@ -46,13 +49,14 @@ $scope.add_emp = function() {
 
     });
 }
-var get_report = function (){
-      $http.get('/rest/v1/report', config).then(function(response){
-        $scope.report = response.data;
-      }),function(response){
+var get_doctors = function(){
+    $http.get('/getDoctor',config).then(function(response){
+        $scope.doctors=response.data;
+    }),function(response){
         alert(response.status);
-      }
-};
+    }
+    init();
+}
 var get_users = function (){
       $http.get('/getUser', config).then(function(response){
         $scope.users = response.data;
@@ -105,8 +109,9 @@ $scope.edit_book = function(book){
         type:book.type,
         address:book.address,
         add:book.add,
+        issue:book.issue,
+        records:book.records,
         reply:book.reply,
-        doctor:book.doctor
     };
 }
 $scope.answer=function(q){
@@ -134,10 +139,17 @@ $scope.update_emp = function(){
 }
 $scope.update_book = function(){
     $http.put('/book/'+$scope.book._id, $scope.book).then(function(data){
-      refresh_books();
       $scope.book = null;
+      refresh_books();
       toastr.success("Booking record updated successfully!","Booking updated!");
     });
+}
+$scope.booking = function(){
+    $http.put('/booking/'+$scope.book._id, $scope.book).then(function(data){
+        $scope.book = null;
+        refresh_books();
+        toastr.success("Booking record updated successfully!","Booking updated!");
+      });
 }
 $scope.update_user = function(){
   $http.put('/user/'+$scope.user._id, $scope.user).then(function(data){
@@ -173,6 +185,14 @@ function refresh_emp(){
         alert(res.status);
     }
 }
+function refresh_doctor(){
+    $http.get('/getDoctor').then(function(res){
+        $scope.doctor_list=res.data;
+    }),
+    function(ret){
+        alert(res.satatus);
+    }
+};
 function refresh_users(){
   $http.get('/getUser').then(function(res){
       $scope.users_list = res.data;
@@ -258,6 +278,14 @@ function get_message_current_user(){
     var user=localStorage.getItem('user');
     $http.get('/currentMessageUser/'+user,config).then(function(res){
         $scope.message_list=res.data;
+    }),function(res){
+        alert(res.status);
+    }
+}
+function get_current_doctor_book(){
+    var user=localStorage.getItem('user');
+    $http.get('/currentDoctorBook/'+user,config).then(function(res){
+        $scope.booking_list=res.data;
     }),function(res){
         alert(res.status);
     }
@@ -371,10 +399,25 @@ function refresh_help(){
     function(res){
         alert(res.status);
     }
-  };
+};
+function refresh_patients(){
+    $http.get('/getPatients').then(function(res){
+        $scope.patient_list = res.data;
+    }),
+    function(res){
+        alert(res.status);
+    }
+};
 var get_doctors = function (){
     $http.get('/getDoctors', config).then(function(res){
         $scope.doctor = res.data;
+        }),function(res){
+            alert(res.status);
+    }
+};
+var get_patients = function (){
+    $http.get('/getPatients', config).then(function(res){
+        $scope.patient = res.data;
         }),function(res){
             alert(res.status);
     }

@@ -57,8 +57,8 @@
               <div ng-if="check_staff()">
                 <li class="nav-item active">
             <a class="nav-link" href="#!icons">
-              <i class="material-icons">bubble_chart</i>
-              <p>Icons</p>
+              <i class="material-icons">assignment_turned_in</i>
+              <p>Appointments</p>
             </a>
           </li>
             </div>
@@ -125,7 +125,7 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
-            <div class="col-md-12" ng-if="check_staff()">
+            <div class="col-md-12">
                 <div class="card">
                   <div class="card-header card-header-primary">
                     <h4 class="card-title ">Doctors</h4>
@@ -135,25 +135,17 @@
                     <div class="table-responsive">
                       <table class="table">
                         <thead class=" text-primary">
-                            <th>First name</th>
-                            <th>Last name</th>
-                            <th>Date</th>
-                            <th>Place</th>
-                            <th>Gender</th>
                             <th>Username</th>
-                            <th>Email</th>
+                            <th>Country</th>
                             <th>Type</th>
+                            <th>Specialization</th>
                         </thead>
                         <tbody>
-                          <tr ng-repeat="user in users_list">
-                              <td>{{user.firstname}}</td>
-                              <td>{{user.lastname}}</td>
-                              <td>{{user.date | date: 'd MMMM, yyyy'}}</td>
-                              <td>{{user.place}}</td>
-                              <td>{{user.gen}}</td>
-                              <td>{{user.username}}</td>
-                              <td>{{user.email}}</td>
-                              <td>{{user.type}}</td>
+                          <tr ng-repeat="doctor in doctor_list">
+                              <td>{{doctor.username}}</td>
+                              <td>{{doctor.country}}</td>
+                              <td>{{doctor.type}}</td>
+                              <td>{{doctor.spec}}</td>
                          </tr>
                         </tbody>
                       </table>
@@ -214,7 +206,7 @@
                                            </td>
                                            <td>
                                               <div class="btn-group">
-                                                 <button class="btn btn-success" style="height:50px;width:200px" ng-click="update_book()">Update Booking</button>
+                                                 <button class="btn btn-success" style="height:50px;width:200px" ng-click="booking()">Update Booking</button>
                                               </div>
                                            </td>
                                         </tr>

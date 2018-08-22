@@ -54,14 +54,14 @@
             </a>
           </li>
             </div>
-              <div ng-if="check_staff()">
-                <li class="nav-item ">
-            <a class="nav-link" href="#!icons">
-              <i class="material-icons">bubble_chart</i>
-              <p>Icons</p>
-            </a>
-          </li>
-            </div>
+            <div ng-if="check_staff()">
+              <li class="nav-item">
+          <a class="nav-link" href="#!icons">
+            <i class="material-icons">assignment_turned_in</i>
+            <p>Appointments</p>
+          </a>
+        </li>
+          </div>
               <div ng-if="check_doctor()">
                 <li class="nav-item ">
             <a class="nav-link" href="#!questions">
@@ -155,10 +155,10 @@
                               <td>{{user.username}}</td>
                               <td>{{user.email}}</td>
                               <td>{{user.type}}</td>
-                              <td>
+                              <td ng-if="check_admin()">
                                   <button onclick="document.getElementById('id04').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="edit_user(user)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
                                 </td>
-                              <td>
+                              <td ng-if="check_admin()">
                                   <button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;" ><i class="fas fa-trash-alt" ng-click="delete_user(user._id)" style="font-size:24px;color:red;position: relative;top:7px" ></i></button>
                               </td>
                            </tr>
@@ -365,76 +365,6 @@
                             </td>
                           <td>
                               <button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;" ><i class="fas fa-trash-alt" style="font-size:24px;color:red;position: relative;top:7px" ng-click="decline_book(book._id)"></i></button>
-                          </td>
-                       </tr>
-                      </tbody>
-                    </table>
-                    <div id="id01" class="w3-modal">
-                        <div class="w3-modal-content w3-animate-top w3-card-4">
-                          <header class="w3-container w3-green"> 
-                            <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                            <h2>Here you can edit bookings</h2>
-                          </header>
-                          <div class="w3-container">
-                              <table class="table table-hover">
-                                  <h1 class="mt-4 mb-3">Bookings</h1>
-                                  <thead>
-                                      <tr>
-                                         <th>Type</th>
-                                         <th>Address</th>
-                                         <th>Info</th>
-                                      </tr>
-                                   </thead>
-                                   <tbody>
-                                      <tr>
-                                         <td>
-                                            <input class="form-control" placeholder="Type" ng-model="book.type" />
-                                         </td>
-                                         <td>
-                                            <input class="form-control" placeholder="Address" ng-model="book.address" />
-                                         </td>
-                                         <td>
-                                            <input class="form-control" placeholder="Information" ng-model="book.add" />
-                                         </td>
-                                         <td>
-                                            <div class="btn-group">
-                                               <button class="btn btn-success" style="height:50px;width:200px" ng-click="update_book()">Update Booking</button>
-                                            </div>
-                                         </td>
-                                      </tr>
-                                   </tbody>
-                                </table>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-12" ng-if="check_staff()">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Bookings</h4>
-                  <p class="card-category">Here you can see all of the pending bookings</p>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead class=" text-primary">
-                        <th>Type</th>
-                        <th>Address</th>
-                        <th>Info</th>
-                      </thead>
-                      <tbody>
-                        <tr ng-repeat="book in books_list">
-                          <td>{{book.type}}</td>
-                          <td>{{book.address}}</td>
-                          <td>{{book.add}}</td>
-                          <td>
-                              <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white"><i class="fas fa-check" ng-click="edit_book(book)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
-                            </td>
-                          <td>
-                              <button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;" ><i class="fas fa-times" style="font-size:24px;color:red;position: relative;top:7px" ng-click="decline_book(book._id)"></i></button>
                           </td>
                        </tr>
                       </tbody>
