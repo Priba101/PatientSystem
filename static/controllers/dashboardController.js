@@ -125,8 +125,7 @@ $scope.edit_book = function(book){
         address:book.address,
         add:book.add,
         issue:book.issue,
-        records:book.records,
-        reply:book.reply,
+        records:book.records
     };
 }
 $scope.answer=function(q){
@@ -364,10 +363,10 @@ function refresh_question(){
     }
 }
 $scope.edit_books = function(book){
-    $scope.book ={
-        _id : book._id,
+    $scope.book={
+        _id:book._id,
         reply:book.reply
-    };
+    }
 }
 $scope.edit_help=function(q){
     $scope.q={
