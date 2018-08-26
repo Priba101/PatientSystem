@@ -15,11 +15,24 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
+
 MongoClient.connect('mongodb://localhost:27017', function(err, client) {
     if (err) throw err;
     patientsystem = client.db('patientsystem');
     app.listen(8000, () => console.log('Example app listening on port 8000!'))
 });
+
+var api = new ParseServer({
+    databaseURI: databaseUri || 'mongodb://localhost:27017/patientsystem',
+    cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/static/index.js',
+    appId: process.env.APP_ID || '19971234567890',
+    masterKey: process.env.MASTER_KEY || '09876543211997'
+  });
+  
+  var app = express();
+  
+  // Serve the Parse API on the /parse URL prefix
+  var mountPath = process.env.PARSE_MOUNT || '/parse';
 
 app.use('/index/', function(req, res, next) {
     jwt.verify(req.get('JWT'), jwt_admin, function(error, decoded) {
