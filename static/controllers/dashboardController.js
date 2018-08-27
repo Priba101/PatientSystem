@@ -457,4 +457,11 @@ var get_patients = function (){
             alert(res.status);
     }
 };  
+$scope.email_question=function(){
+    $http.post('/emailQuestion', question_email).then(function(response){
+        toastr.success('We will gat back at you via email in the next 24h!','Question sent!');
+    }),function(error){
+        console.log(error);
+    }
+}
 }

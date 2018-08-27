@@ -2,12 +2,15 @@ const express = require('express');
 const router = express.Router();
 const app = express();
 const bodyparser = require("body-parser");
-var MongoClient = require('mongodb').MongoClient;
 const jwt_secret = 'WU5CjF8fHxG40S2t7oyk';
 const jwt_admin = 'SJwt25Wq62SFfjiw92sR';
+
+var MongoClient = require('mongodb').MongoClient;
 var MongoId = require('mongodb').ObjectID;
 var patientsystem;
 var jwt = require('jsonwebtoken');
+var nodemailer = require('nodemailer');
+
 app.use('/', express.static('static'));
 
 app.use(express.json());
@@ -15,8 +18,8 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-MongoClient.connect('mongodb://priba:NFSMWCJ1997@ds125342.mlab.com:25342/patientsystem', function(err, client) {
-//MongoClient.connect('mongodb://localhost:27017', function(err, client) {
+//MongoClient.connect('mongodb://priba:NFSMWCJ1997@ds125342.mlab.com:25342/patientsystem', function(err, client) {
+MongoClient.connect('mongodb://localhost:27017', function(err, client) {
     if (err) throw err;
     patientsystem = client.db('patientsystem');
     app.listen(8000, () => console.log('Example app listening on port 8000!'))
@@ -554,4 +557,37 @@ app.get('/getPatients', function(req, res){
         res.setHeader('Content-Type', 'application/json');
         res.send(patient);
     })
+});
+app.post('/sendEmail', function(request, response){
+    var question_email = request.body;
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'm.hadzimehanovic@gmail.com',
+          pass: '062116767mujo'
+        }
+      });
+      
+      var mailOptions = {
+        from: 'test@gmail.com',
+        to: question_email.email,
+        subject: 'Doctors Answer',
+        text: question_email.reply
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            response.send({
+                success : false,
+                message : "Error in sending email"
+            })
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+          response.send({
+              success : true,
+              message : "Email Sent!"
+          });
+        }
+      });
 });
