@@ -216,6 +216,94 @@
                     </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-header card-header-primary">
+                      <h4 class="card-title ">Email Questions</h4>
+                      <p class="card-category">Here you can see questions asked by people visiting our website!</p>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead class=" text-primary">
+                            <th>Name</th>
+                            <th>Number</th>
+                            <th>Email</th>
+                            <th>Message</th>
+                          </thead>
+                          <tbody>
+                              <tr ng-repeat="question_email in email_list">
+                                  <td>{{question_email.name}}</td>
+                                  <td>{{question_email.num}}</td>
+                                  <td>{{question_email.email}}</td>
+                                  <td>{{question_email.mess}}</td>
+                                  <td>
+                                      <button onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="edit_email_question(question_email)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
+                                  </td>
+                                  <td>
+                                      <button onclick="document.getElementById('id00').style.display='block'" class="w3-button w3-white"><i class="far fa-envelope" ng-click="edit_email_question(question_email)" style="font-size:24px;color:blue;position: relative;top:7px"></i></button>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;" ><i class="fas fa-times" ng-click="delete_email_question(question_email._id)" style="font-size:24px;color:red;position: relative;top:7px" ></i></button>
+                                  </td>
+                               </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="id02" class="w3-modal">
+                      <div class="w3-modal-content w3-animate-top w3-card-4">
+                        <header class="w3-container w3-green"> 
+                          <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                          <h2>Someone asked a question</h2>
+                        </header>
+                        <div class="w3-container">
+                            <table class="table table-hover">
+                                <h2 class="mt-4 mb-3">Write a reply to the asked question!</h2>
+                                    <tr>
+                                      <h3>Reply</h3>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <textarea ng-model="question_email.reply" rows="10" colspan="2" cols="50" class="form-control" placeholder="Enter message here" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none;"></textarea>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                       <td>
+                                          <div class="btn-group">
+                                             <button class="btn btn-success" style="height:50px;width:200px" ng-click="answer_email_question()">Answer Question</button>
+                                          </div>
+                                       </td>
+                                    </tr>
+                            </table>
+                          </div>
+                      </div>
+                    </div>
+                    <div id="id00" class="w3-modal">
+                      <div class="w3-modal-content w3-animate-top w3-card-2">
+                        <header class="w3-container w3-green"> 
+                          <span onclick="document.getElementById('id00').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                          <h2><center>Do you want to send a email?</center></h2>
+                        </header>
+                        <div class="w3-container">
+                            <table class="table table-hover">
+                                <h2 class="mt-2 mb-3"><center>Your answer:</center></h2>
+                                    <tr>
+                                      <td><center>{{question_email.reply}}</center>
+                                      </td>  <td>                                  
+                                          <div class="btn-group">
+                                             <button class="btn btn-success" style="height:50px;width:200px;margin:auto;display:block;" ng-click="send_email(question_email)">Send Email</button>
+                                          </div>
+                                       </td>
+                                    </tr>
+                            </table>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
           </div>
         </div>
         <footer>

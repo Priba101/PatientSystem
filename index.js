@@ -18,8 +18,8 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-//MongoClient.connect('mongodb://priba:NFSMWCJ1997@ds125342.mlab.com:25342/patientsystem', function(err, client) {
-MongoClient.connect('mongodb://localhost:27017', function(err, client) {
+MongoClient.connect('mongodb://priba:NFSMWCJ1997@ds125342.mlab.com:25342/patientsystem', function(err, client) {
+//MongoClient.connect('mongodb://localhost:27017', function(err, client) {
     if (err) throw err;
     patientsystem = client.db('patientsystem');
     app.listen(8000, () => console.log('Example app listening on port 8000!'))
@@ -88,7 +88,7 @@ var url1 = "mongodb://localhost:27017/";
 MongoClient.connect(url1, function(err, db) {
   if (err) throw err;
   var dbo = db.db("patientsystem");
-  dbo.createCollection("todo", function(err, res) {
+  dbo.createCollection("email", function(err, res) {
     if (err) throw err;
     console.log("Collection created!");
     db.close();
@@ -279,6 +279,19 @@ app.put('/answerHelp/:q_id',function(req,res){
             }
         });
 })
+app.put('/answerEmailQuestion/:question_email_id',function(req,res){
+    patientsystem.collection('email').findAndModify(
+        {_id: new MongoId(req.params.question_email_id)},
+        [['_id','asc']],
+        {$set : {reply: req.body.reply}},
+        function(err, doc) {
+            if (err){
+                console.warn(err.message); 
+            }else{
+                res.json(doc);
+            }
+        });
+})
 app.put('/emp/:emp_id', function(req, res){    
     patientsystem.collection('emps').findAndModify(
        {_id: new MongoId(req.params.emp_id)},
@@ -370,6 +383,14 @@ app.put('/users/:user_id', function(req, res){
            }
        });
 });*/
+app.post('/emailQuestion', function(req, res){
+    var question_email = req.body;
+    patientsystem.collection('email').insert(question_email, function(err, data){
+        if(err) return console.log(err);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(question_email);
+    })
+});
 app.post('/addEmp', function(req, res){
     req.body._id = null;
     var emp = req.body;
@@ -385,6 +406,13 @@ app.get('/getEmp', function(request, response) {
         if (err) return console.log(err);
         response.setHeader('Content-Type', 'application/json');
         response.send(emp);
+    })
+});
+app.get('/getEmailQuestions', function(request, response) {
+    patientsystem.collection('email').find().toArray((err, question_email) => {
+        if (err) return console.log(err);
+        response.setHeader('Content-Type', 'application/json');
+        response.send(question_email);
     })
 });
 app.get('/currentBookUser/:user',function(request,response) {
@@ -431,6 +459,12 @@ app.delete('/deleteHelp/:q_id', function(req, res){
 });
 app.delete('/deleteFeedback/:feedback_id', function(req, res){
     patientsystem.collection('feedback').remove({_id: new MongoId(req.params.feedback_id)},
+    function(err, data){
+        res.json(data);
+    });
+});
+app.delete('/deleteEmailQuestion/:question_email_id', function(req, res){
+    patientsystem.collection('email').remove({_id: new MongoId(req.params.question_email_id)},
     function(err, data){
         res.json(data);
     });
@@ -559,20 +593,19 @@ app.get('/getPatients', function(req, res){
     })
 });
 app.post('/sendEmail', function(request, response){
-    var question_email = request.body;
+    var question_email=request.body;
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'm.hadzimehanovic@gmail.com',
-          pass: '062116767mujo'
+          user: 'patientsyswebapp@gmail.com',
+          pass: 'webapppatientsys'
         }
       });
-      
       var mailOptions = {
-        from: 'test@gmail.com',
-        to: question_email.email,
-        subject: 'Doctors Answer',
-        text: question_email.reply
+        from: 'patientsyswebapp@gmail.com',
+        to: 'pribajaba@gmail.com',//question_email.email,
+        subject: 'Admins Answer',
+        text: "Dear Mr/Mrs "+question_email.name+",\n\n"+question_email.reply+"\n\nSincerly\n\nThe Admin Team."
       };
       
       transporter.sendMail(mailOptions, function(error, info){

@@ -24,6 +24,7 @@ function DashboardController($scope, $rootScope, $http,toastr){
     get_current_doctor_book();
     refresh_patients();
     refresh_tasks();
+    refresh_email();
 
     $scope.check_login = function(){
         if(localStorage.getItem('user')){
@@ -136,7 +137,16 @@ $scope.answer=function(q){
         reply:q.reply
     }
 }
-
+$scope.edit_email_question=function(question_email){
+    $scope.question_email={
+        _id:question_email._id,
+        name:question_email.name,
+        num:question_email.num,
+        email:question_email.email,
+        mess:question_email.mess,
+        reply:question_email.reply
+    }
+}
 $scope.add_user = function(){
       $http.post('/signup', $scope.user).then(function(data){
         $scope.user = null;
@@ -202,6 +212,12 @@ $scope.delete_help = function(_id){
     $http.delete('/deleteHelp/'+_id).then(function(data){
       refresh_help();
       toastr.success("1 help question deleted successfully!","Help question deleted");
+    });
+}
+$scope.delete_email_question=function(_id){
+    $http.delete('/deleteEmailQuestion/'+_id).then(function(data){
+    refresh_email();
+    toastr.success("1 email question deleted successfully!","Email question deleted");
     });
 }
 function refresh_emp(){
@@ -395,6 +411,13 @@ $scope.answer_help=function(){
         toastr.success("A reply to the user has been sent!","Answer sent!")
     })
 }
+$scope.answer_email_question=function(){
+    $http.put('/answerEmailQuestion/'+$scope.question_email._id,$scope.question_email).then(function(data){
+        $scope.question_email=null;
+        refresh_email();
+        toastr.success("A reply has been sent!","Answer sent!")
+    })
+}
 $scope.send_help=function(){
     var user=localStorage.getItem('user');
     $http.post('/helpQuestion/'+user,$scope.q).then(function(data){
@@ -443,6 +466,14 @@ function refresh_patients(){
         alert(res.status);
     }
 };
+function refresh_email(){
+    $http.get('getEmailQuestions').then(function(res){
+        $scope.email_list=res.data;
+    }),
+    function(res){
+        alert(res.status);
+    }
+};
 var get_doctors = function (){
     $http.get('/getDoctors', config).then(function(res){
         $scope.doctor = res.data;
@@ -458,10 +489,24 @@ var get_patients = function (){
     }
 };  
 $scope.email_question=function(){
-    $http.post('/emailQuestion', question_email).then(function(response){
-        toastr.success('We will gat back at you via email in the next 24h!','Question sent!');
+    $http.post('/emailQuestion', $scope.question_email).then(function(response){
+        toastr.success('We will get back at you via email in the next 24h!','Question sent!');
     }),function(error){
         console.log(error);
     }
 }
+$scope.send_email=function(question_email){
+    $http.post('/sendEmail/', $scope.question_email).then(function(response){
+        toastr.success('Answer to the questions sent via email!','Email sent!');
+    }),function(error){
+        console.log(error);
+    }
+}
+var get_email_questions=function(){
+    $http.get('getEmailQuestions',config).then(function(res){
+        $scope.question_email=res.data;
+    }),function(res){
+        alert(res.status);
+    }
+};
 }
