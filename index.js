@@ -439,6 +439,14 @@ app.get('/currentDoctorBook/:user',function(request,response) {
         response.send(booking);
     })
 });
+app.get('/currentUserHelp/:user',function(request,response) {
+    request.body.user = request.params.user;
+    patientsystem.collection('help').find({'user':request.params.user}).toArray((err,q)=>{
+        if(err) return console.log(err);
+        response.setHeader('Content-Type','application/json');
+        response.send(q);
+    })
+});
 app.delete('/deleteEmp/:emp_id', function(req, res){
     patientsystem.collection('emps').remove({_id: new MongoId(req.params.emp_id)},
     function(err, data){
@@ -605,7 +613,7 @@ app.post('/sendEmail', function(request, response){
         from: 'patientsyswebapp@gmail.com',
         to: 'pribajaba@gmail.com',//question_email.email,
         subject: 'Admins Answer',
-        text: "Dear Mr/Mrs "+question_email.name+",\n\n"+question_email.reply+"\n\nSincerly\n\nThe Admin Team."
+        text: "Dear Mr/Mrs "+question_email.name+",\n\n"+question_email.reply+"\n\nSincerly\n\nThe Admin Team.\n\n\n\nPatient Management System\nMarka Marulica 57\nSarajevo,71000\nAll Right Reserved"
       };
       
       transporter.sendMail(mailOptions, function(error, info){

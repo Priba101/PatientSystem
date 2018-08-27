@@ -7,7 +7,6 @@ function DashboardController($scope, $rootScope, $http,toastr){
         "JWT" : localStorage.getItem('jwt')
         }
       };
-    get_book_current_user();
     refresh_help();
     refresh_emp();
     refresh_users();
@@ -25,6 +24,7 @@ function DashboardController($scope, $rootScope, $http,toastr){
     refresh_patients();
     refresh_tasks();
     refresh_email();
+    get_current_user_help();
 
     $scope.check_login = function(){
         if(localStorage.getItem('user')){
@@ -126,7 +126,8 @@ $scope.edit_book = function(book){
         address:book.address,
         add:book.add,
         issue:book.issue,
-        records:book.records
+        records:book.records,
+        reply:book.reply
     };
 }
 $scope.answer=function(q){
@@ -337,6 +338,14 @@ function get_current_doctor_book(){
     var user=localStorage.getItem('user');
     $http.get('/currentDoctorBook/'+user,config).then(function(res){
         $scope.booking_list=res.data;
+    }),function(res){
+        alert(res.status);
+    }
+}
+function get_current_user_help(){
+    var user=localStorage.getItem('user');
+    $http.get('/currentUserHelp/'+user,config).then(function(res){
+        $scope.question_lists=res.data;
     }),function(res){
         alert(res.status);
     }
