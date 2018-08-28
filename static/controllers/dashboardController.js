@@ -25,7 +25,12 @@ function DashboardController($scope, $rootScope, $http,toastr){
     refresh_tasks();
     refresh_email();
     get_current_user_help();
+    get_email_count();
 
+    $scope.logout = function(){
+        localStorage.clear();
+        toastr.info("See you next time","Logged out!");
+    }
     $scope.check_login = function(){
         if(localStorage.getItem('user')){
             return true;
@@ -75,13 +80,6 @@ var get_tasks = function (){
     }
     init();
 };
-/*$scope.delete_user = function(id){
-      $http.delete('/rest/v1/user/delete/'+id, config).then(function(response){
-        get_users();
-      }, function(error){
-        console.log(error);
-      });
-    }*/
 $scope.delete_user = function(_id){ 
     $http.delete('/deleteUser/'+_id).then(function(data){
         refresh_users();  
@@ -105,9 +103,7 @@ $scope.edit_user = function(user){
         _id : user._id,
         firstname:user.firstname,
         lastname:user.lastname,
-        date:user.date,
         place:user.place,
-        gender:user.gen,
         username:user.username,
         email:user.email,
         type:user.type
@@ -197,6 +193,12 @@ $scope.complete_user = function(){
       toastr.success("User records updated successfully!","User updated!");
     });
 }
+$scope.delete_question = function(_id){
+    $http.delete('/deleteQuestion/'+_id).then(function(data){
+      refresh_question();
+      toastr.success("Question delettion successfully!","Question deleted!");
+    });
+}
 $scope.delete_task = function(_id){
     $http.delete('/deleteTask/'+_id).then(function(data){
       refresh_tasks();
@@ -273,6 +275,13 @@ $scope.add_book = function(){
 function get_count(){
     $http.get("/count").then(function(res){
         $scope.users_count = res.data.users_count;
+    }), function(data){
+        alert(data.status);
+    }
+}
+function get_email_count(){
+    $http.get("/countEmails").then(function(res){
+        $scope.email_count = res.data.email_count;
     }), function(data){
         alert(data.status);
     }

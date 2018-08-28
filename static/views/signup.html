@@ -69,58 +69,59 @@
         <li class="breadcrumb-item active">Sign Up</li>
       </ol>
       <div class="container">
-          <form method="POST" action="/adduser">
+          <form name="signup_form" ng-submit="add_user()">
               <div class="container">
               <div class="row">
-                <div class="personal-row col-xs-12 col-md-12 col-lg-12"><center>Personal Information</center></div>
-                <br>
-                <div class="personal-row col-xs-6 col-md-6 col-lg-6">First name<br><input type="text" ng-model="user.firstname" name="firstname"><br>
-                  <span style="color:red" ng-show="userForm.firstname.$dirty && userForm.firstname.$invalid">
-                      <span ng-show="userForm.firstname.$error.required">First name is required.</span>
+                <div class="personal-row col-xs-12 col-md-12 col-lg-12"><legend class="text-center">Personal Information</legend></div><br>
+                <div class="personal-row col-xs-6 col-md-6 col-lg-6">First name<br><input type="text" ng-model="user.firstname" name="firstname" required placeholder="First Name"><br>
+                  <span style="color:red" ng-show="signup_form.firstname.$touched">
+                      <span ng-show="signup_form.firstname.$error.required">First name is required.</span>
                   </span>
                 </div>
-                <div class="personal-row col-xs-6 col-md-6 col-lg-6">Last name<br><input type="text" ng-model="user.lastname" name="lastname"><br>
-                  <span style="color:red" ng-show="userForm.lastname.$dirty && userForm.lastname.$invalid">
-                      <span ng-show="userForm.lastname.$error.required">Last name is required.</span>
+                <div class="personal-row col-xs-6 col-md-6 col-lg-6">Last name<br><input type="text" ng-model="user.lastname" name="lastname" required placeholder="Last Name"><br>
+                  <span style="color:red" ng-show="signup_form.lastname.$$touched">
+                      <span ng-show="signup_form.lastname.$error.required">Last name is required.</span>
                   </span>
                 </div>
-                <div class="personal-row col-xs-4 col-md-4 col-lg-4">Date of Birth<br><input type="date" ng-model="user.date" name="date"><br></div>
-                <span style="color:red" ng-show="userForm.date.$dirty && userForm.date.$invalid">
-                    <span ng-show="userForm.date.$error.required">Date is required.</span>
+                <div class="personal-row col-xs-4 col-md-4 col-lg-4">Date of Birth<br><input type="date" ng-model="user.date" name="date" required><br></div>
+                <span style="color:red" ng-show="signup_form.date.$touched">
+                    <span ng-show="signup_form.date.$error.required">Date is required.</span>
                 </span>
-                <div class="personal-row col-xs-4 col-md-4 col-lg-4">Place of Birth<br><input type="text" ng-model="user.place" name="pob"><br>
-                  <span style="color:red" ng-show="userForm.pob.$dirty && userForm.pob.$invalid">
-                      <span ng-show="userForm.pob.$error.required">Place of birth is required.</span>
+                <div class="personal-row col-xs-4 col-md-4 col-lg-4">Place of Birth<br><input type="text" ng-model="user.place" name="pob" required placeholder="Place of Birth"><br>
+                  <span style="color:red" ng-show="signup_form.pob.$touched">
+                      <span ng-show="signup_form.pob.$error.required">Place of birth is required.</span>
                   </span>
                 </div>
-                <div class="personal-row col-xs-4 col-md-4 col-lg-4">Gender<br><select ng-model="user.gen" maxlength="10"><option value="male">Male</option><option value="female">Female</option></select><br></div>
+                <div class="personal-row col-xs-4 col-md-4 col-lg-4">Gender<br><select ng-model="user.gen" maxlength="10" required><option value="male">Male</option><option value="female">Female</option></select><br></div>
               </div>
               <div class="row">
-                <div class="acc-row col-xs-12 col-md-12 col-lg-12"><center>Account information</center></div><br>
+                <div class="acc-row col-xs-12 col-md-12 col-lg-12"><legend class="text-center">Account information</legend></div><br>
                 <br>
-                <div class="acc-row col-xs-4 col-md-4 col-lg-4">Username<br><input type="text" ng-model="user.username" name="username"><br>
-                  <span style="color:red" ng-show="userForm.username.$dirty && userForm.username.$invalid">
-                      <span ng-show="userForm.username.$error.required">Username is required.</span>
+                <div class="acc-row col-xs-4 col-md-4 col-lg-4">Username<br><input type="text" ng-model="user.username" name="username" required placeholder="Username"><br>
+                  <span style="color:red" ng-show="signup_form.username.$touched">
+                      <span ng-show="signup_form.username.$error.required">Username is required.</span>
                   </span></div>
-                <div class="acc-row col-xs-4 col-md-4 col-lg-4">Enter your password<br><input type="password" ng-model="user.password" name="password"><br>
-                  <span style="color:red" ng-show="userForm.password.$dirty && userForm.password.$invalid">
-                      <span ng-show="userForm.password.$error.required">Password is required.</span>
-                      <span ng-show="userForm.password.$error.strongPassword">Password has to have letter e.</span>
+                <div class="acc-row col-xs-4 col-md-4 col-lg-4">Enter your password<br><input type="password" ng-model="user.password" name="password" required placeholder="Password"><br>
+                  <span style="color:red" ng-show="signup_form.password.$touched">
+                      <span ng-show="signup_form.password.$error.required">Password is required.</span>
                   </span>
                 </div>
-                <div class="acc-row col-xs-4 col-md-4 col-lg-4">Reenter your password<br><input type="password"><br></div>
-                <div class="acc-row col-xs-6 col-md-6 col-lg-6">Email<br><input type="text" ng-model="user.email" name="email"><br>
-                  <span style="color:red" ng-show="userForm.email.$dirty && userForm.email.$invalid">
-                      <span ng-show="userForm.email.$error.required">Email is required.</span>
-                      <span ng-show="userForm.email.$error.email">Invalid email address.</span>
+                <div class="acc-row col-xs-4 col-md-4 col-lg-4">Reenter your password<br><input type="password" ng-model="user.password_confirm" name="password_confirm" required wj-validation-error="user.password_confirm != user.password ? 'Passwords don\'t match' : ''" 
+                  class="form-control" placeholder="Reenter Password"><br>
+                  <span style="color:red" ng-show="signup_form.password_confirm.$invalid">
+                      <span ng-show="signup_form.password_confirm.$invalid">Passwords do NOT match.</span>
+                  </span></div>
+                <div class="acc-row col-xs-6 col-md-6 col-lg-6">Email<br><input type="text" ng-model="user.email" name="email" required placeholder="Email"><br>
+                  <span style="color:red" ng-show="signup_form.email.$touched">
+                      <span ng-show="signup_form.email.$error.required">Email is required.</span>
+                      <span ng-show="signup_form.email.$error.email">Invalid email address.</span>
                   </span>
                 </div>
-                <div class="acc-row col-xs-6 col-md-6 col-lg-6">Reenter your email<br><input type="text"><br></div>
                 <div class="acc-row col-xs-6 col-md-6 col-lg-6">Type of user<br><select ng-model="user.type" maxlength="10"><option value="patient">Patient</option></select><br></div>
               </div>
               </div>
+              <div class="submit col-xs-12 col-md-12 col-lg-12"><button ng-disabled="signup_form.$invalid" ng-required="accepted" class="btn btn-success">Sign Up</button></div>
             </form>
-            <div class="submit col-xs-12 col-md-12 col-lg-12"><button value="submit" type="submit" ng-click="add_user()">Sign Up</button></div>
       </div>
       </div>
     </div>
@@ -132,22 +133,3 @@
       </div>
       <!-- /.container -->
     </footer>
-    <script>
-        var app = angular.module('modal-test', ['ui.bootstrap', 'ngAnimate', 'toastr']);
-        app.directive('passwordStrength', function() {
-            return {
-                require: 'ngModel',
-                link: function(scope, element, attr, mCtrl) {
-                    function validatePasswordStrength(value) {
-                        if (value.indexOf("e") > -1) {
-                            mCtrl.$setValidity('strongPassword', true);
-                        } else {
-                            mCtrl.$setValidity('strongPassword', false);
-                        }
-                        return value;
-                    }
-                    mCtrl.$parsers.push(validatePasswordStrength);
-                }
-            }
-        });
-      </script>

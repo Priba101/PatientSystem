@@ -122,6 +122,12 @@ app.delete('/deleteUser/:user_id', function(req, res){
         res.json(data);
     });
 });
+app.delete('/deleteQuestion/:q_id', function(req, res){
+    patientsystem.collection('questions').remove({_id: new MongoId(req.params.q_id)},
+    function(err, data){
+        res.json(data);
+    });
+});
 app.delete('/deleteBook/:book_id',function(req,res){
     patientsystem.collection('books').remove({_id:new MongoId(req.params.book_id)},
     function(err,data){
@@ -348,7 +354,7 @@ app.put('/user/:user_id', function(req, res){
     patientsystem.collection('users').findAndModify(
        {_id: new MongoId(req.params.user_id)},
        [['_id','asc']],
-       {$set : {firstname: req.body.firstname,lastname: req.body.lastname,date:req.body.date,place:req.body.place,gen:req.body.gen,username:req.body.username,email:req.body.email,type:req.body.type}},
+       {$set : {firstname: req.body.firstname,lastname: req.body.lastname,place:req.body.place,username:req.body.username,email:req.body.email,type:req.body.type}},
        function(err, doc) {
            if (err){
                console.warn(err.message); 
@@ -531,6 +537,15 @@ app.get('/count', function(req, res){
         res.setHeader("Content-Type", "application/json");
         res.send({
             users_count: data
+        })
+    });
+});
+app.get('/countEmails', function(req, res){
+    patientsystem.collection('email').find().count((err, data) => {
+        if(err) return console.log(err);
+        res.setHeader("Content-Type", "application/json");
+        res.send({
+            email_count: data
         })
     });
 });
