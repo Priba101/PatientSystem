@@ -54,7 +54,7 @@
             </a>
           </li>
             </div>
-              <div ng-if="check_staff()">
+            <div ng-if="!check_patient()">
                 <li class="nav-item active">
             <a class="nav-link" href="#!icons">
               <i class="material-icons">assignment_turned_in</i>
@@ -124,7 +124,33 @@
                   </div>
                 </div>
               </div>
-            <div class="col-md-12">
+              <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-header card-header-primary">
+                      <h4 class="card-title ">Bookings</h4>
+                      <p class="card-category">Here you can see all of the pending bookings</p>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead class=" text-primary">
+                            <th>Doctor</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                          </thead>
+                          <tbody>
+                            <tr ng-repeat="book in books_list | orderBy:'date' | orderBy:'time'">
+                              <td>{{book.doctor}}</td>
+                              <td>{{book.date | date: 'd MMMM, yyyy'}}</td>
+                              <td>{{book.time | date: 'HH:mm a'}}</td>
+                           </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            <div class="col-md-12" ng-if="check_staff()">
                 <div class="card">
                   <div class="card-header card-header-primary">
                     <h4 class="card-title ">Bookings</h4>
@@ -135,13 +161,11 @@
                       <table class="table">
                         <thead class=" text-primary">
                           <th>Type</th>
-                          <th>Address</th>
                           <th>Info</th>
                         </thead>
                         <tbody>
                           <tr ng-repeat="book in books_list">
                             <td>{{book.type}}</td>
-                            <td>{{book.address}}</td>
                             <td>{{book.add}}</td>
                             <td>
                                 <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white"><i class="fas fa-check" ng-click="edit_book(book)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
@@ -163,8 +187,14 @@
                                     <h2 class="mt-4 mb-3">Pending bookings</h2>
                                     <thead>
                                         <tr>
-                                           <th>Type</th>
-                                           <th>Doctor username</th>
+                                           <th>Type needed</th>
+                                           <th>Date</th>
+                                           <th>Time</th>
+                                        </tr>
+                                        <tr>
+                                          <td>{{book.type}}</td>
+                                          <td>{{book.date | date: 'd MMMM, yyyy'}}</td>
+                                          <td>{{book.time | date: 'HH:mm a'}}</td>
                                         </tr>
                                      </thead>
                                      <tbody>

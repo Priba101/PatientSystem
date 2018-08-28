@@ -119,11 +119,12 @@ $scope.edit_book = function(book){
     $scope.book ={
         _id : book._id,
         type:book.type,
-        address:book.address,
         add:book.add,
         issue:book.issue,
         records:book.records,
-        reply:book.reply
+        reply:book.reply,
+        date:book.date,
+        time:book.time
     };
 }
 $scope.answer=function(q){

@@ -54,14 +54,14 @@
             </a>
           </li>
             </div>
-            <div ng-if="check_staff()">
-              <li class="nav-item">
-          <a class="nav-link" href="#!icons">
-            <i class="material-icons">assignment_turned_in</i>
-            <p>Appointments</p>
-          </a>
-        </li>
-          </div>
+            <div ng-if="!check_patient()">
+                <li class="nav-item">
+            <a class="nav-link" href="#!icons">
+              <i class="material-icons">assignment_turned_in</i>
+              <p>Appointments</p>
+            </a>
+          </li>
+            </div>
               <div ng-if="check_doctor()">
                 <li class="nav-item ">
             <a class="nav-link" href="#!questions">
@@ -137,10 +137,14 @@
                       <table class="table">
                         <thead class=" text-primary">
                           <th>Info about the patients problem</th>
+                          <th>Date</th>
+                          <th>Time</th>
                         </thead>
                         <tbody>
                           <tr ng-repeat="booking in booking_list">
                             <td>{{booking.add}}</td>
+                            <td>{{booking.date | date: 'd MMMM, yyyy'}}</td>
+                            <td>{{booking.time | date: 'HH:mm a'}}</td>
                             <td>
                                 <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white" ng-click="edit_books(booking)" ><i class="fas fa-edit"  style="font-size:24px;color:green;position: relative;top:7px"></i></button>
                             </td>
