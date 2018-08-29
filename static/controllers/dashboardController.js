@@ -124,8 +124,17 @@ $scope.edit_book = function(book){
         records:book.records,
         reply:book.reply,
         date:book.date,
-        time:book.time
+        time:book.time,
+        doctor:book.doctor
     };
+}
+$scope.edit_booking=function(booking){
+    $scope.booking={
+        _id:booking._id,
+        doctor:booking.doctor,
+        date:booking.date,
+        time:booking.time
+    }
 }
 $scope.answer=function(q){
     $scope.q={
@@ -500,6 +509,13 @@ var get_doctors = function (){
             alert(res.status);
     }
 };
+$scope.get_schedule=function(book_doctor){
+    $http.get('/schedule/'+book_doctor).then(function(res){
+        $scope.schedule_list=res.data;
+    }),function(res){
+        alert(res.status);
+    }
+}
 var get_patients = function (){
     $http.get('/getPatients', config).then(function(res){
         $scope.patient = res.data;

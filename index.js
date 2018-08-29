@@ -565,6 +565,13 @@ app.get('/getQuestion', function(request, response) {
         response.send(question);
     })
 });
+app.get('/schedule/:doctor_username',function(req,res){
+    patientsystem.collection('books').find({'doctor':req.params.doctor_username}).toArray((err,schedule)=>{
+        if(err) return console.log(err);
+        res.setHeader('Content-Type','application/json');
+        res.send(schedule);
+    })
+})
 app.put('/question/:question_id', function(req, res){    
     patientsystem.collection('questions').findAndModify(
        {_id: new MongoId(req.params.question_id)},

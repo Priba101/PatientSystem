@@ -127,25 +127,53 @@
               <div class="col-md-12">
                   <div class="card">
                     <div class="card-header card-header-primary">
-                      <h4 class="card-title ">Bookings</h4>
-                      <p class="card-category">Here you can see all of the pending bookings</p>
+                      <h4 class="card-title ">Schedule</h4>
+                      <p class="card-category">Here you can see the schedules of different doctors!</p>
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
                         <table class="table">
                           <thead class=" text-primary">
-                            <th>Doctor</th>
-                            <th>Date</th>
-                            <th>Time</th>
+                            <th>Doctor Username</th>
+                            <th>Doctor Speciality</th>
                           </thead>
                           <tbody>
-                            <tr ng-repeat="book in books_list | orderBy:'date' | orderBy:'time'">
-                              <td>{{book.doctor}}</td>
-                              <td>{{book.date | date: 'd MMMM, yyyy'}}</td>
-                              <td>{{book.time | date: 'HH:mm a'}}</td>
+                            <tr ng-repeat="emp in emp_list">
+                              <td>{{emp.username}}</td>
+                              <td>{{emp.spec}}</td>
+                              <td>
+                                      <button onclick="document.getElementById('id10').style.display='block'" class="w3-button w3-white" ng-click="get_schedule(emp.username)"><i class="far fa-calendar-alt"  style="font-size:24px;color:green;position: relative;top:7px"></i></button>
+                              </td>
                            </tr>
                           </tbody>
                         </table>
+                        <div id="id10" class="w3-modal">
+                            <div class="w3-modal-content w3-animate-top w3-card-4">
+                              <header class="w3-container w3-green"> 
+                                <span onclick="document.getElementById('id10').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                                <h2>Here you can see the doctors schedule!</h2>
+                              </header>
+                              <div class="w3-container">
+                                  <table class="table table-hover">
+                                      <h2 class="mt-4 mb-3">Schedule</h2>
+                                      <thead>
+                                          <tr>
+                                             <th>Patient username</th>
+                                             <th>Date</th>
+                                             <th>Time</th>
+                                          </tr>
+                                          <tr ng-repeat="schedule in schedule_list | orderBy:'time' | orderBy:'date'">
+                                            <td>{{schedule.user}}</td>
+                                            <td>{{schedule.date | date: 'd MMMM, yyyy'}}</td>
+                                            <td>{{schedule.time | date: 'HH:mm a'}}</td>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                       </tbody>
+                                    </table>
+                              </div>
+                            </div>
+                          </div>
                       </div>
                     </div>
                   </div>
@@ -169,7 +197,7 @@
                             <td>{{book.add}}</td>
                             <td>
                                 <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white"><i class="fas fa-check" ng-click="edit_book(book)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
-                              </td>
+                            </td>
                             <td>
                                 <button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;" ><i class="fas fa-times" style="font-size:24px;color:red;position: relative;top:7px" ng-click="decline_book(book._id)"></i></button>
                             </td>
