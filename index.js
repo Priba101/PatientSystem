@@ -88,7 +88,7 @@ var url1 = "mongodb://localhost:27017/";
 MongoClient.connect(url1, function(err, db) {
   if (err) throw err;
   var dbo = db.db("patientsystem");
-  dbo.createCollection("email", function(err, res) {
+  dbo.createCollection("messages", function(err, res) {
     if (err) throw err;
     console.log("Collection created!");
     db.close();
@@ -124,6 +124,12 @@ app.delete('/deleteUser/:user_id', function(req, res){
 });
 app.delete('/deleteQuestion/:q_id', function(req, res){
     patientsystem.collection('questions').remove({_id: new MongoId(req.params.q_id)},
+    function(err, data){
+        res.json(data);
+    });
+});
+app.delete('/deletePatientMessage/:messenger_id',function(req,res){
+    patientsystem.collection('messages').remove({_id: new MongoId(req.params.messenger_id)},
     function(err, data){
         res.json(data);
     });
@@ -311,11 +317,37 @@ app.put('/emp/:emp_id', function(req, res){
            }
        });
 });
+app.put('/sendMessageToSecretary/:messenger_id', function(req, res){    
+    patientsystem.collection('messages').findAndModify(
+       {_id: new MongoId(req.params.messenger_id)},
+       [['_id','asc']],
+       {$set : {reply:req.body.reply}},
+       function(err, doc) {
+           if (err){
+               console.warn(err.message); 
+           }else{
+               res.json(doc);
+           }
+       });
+});
 app.put('/book/:book_id', function(req, res){    
     patientsystem.collection('books').findAndModify(
        {_id: new MongoId(req.params.book_id)},
        [['_id','asc']],
        {$set : {type: req.body.type,address:req.body.address,add:req.body.add}},
+       function(err, doc) {
+           if (err){
+               console.warn(err.message); 
+           }else{
+               res.json(doc);
+           }
+       });
+});
+app.put('/editBookTime/:book_id', function(req, res){    
+    patientsystem.collection('books').findAndModify(
+       {_id: new MongoId(req.params.book_id)},
+       [['_id','asc']],
+       {$set : {date:req.body.date,time:req.body.time}},
        function(err, doc) {
            if (err){
                console.warn(err.message); 
@@ -406,12 +438,27 @@ app.post('/addEmp', function(req, res){
         res.send(emp);
     })
 });
-
+app.post('/sendMessageToPatient', function(req, res){
+    req.body._id = null;
+    var messenger = req.body;
+    patientsystem.collection('messages').insert(messenger, function(err, data){
+        if(err) return console.log(err);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(messenger);
+    })
+});
 app.get('/getEmp', function(request, response) {
     patientsystem.collection('emps').find().toArray((err, emp) => {
         if (err) return console.log(err);
         response.setHeader('Content-Type', 'application/json');
         response.send(emp);
+    })
+});
+app.get('/getMessageFromPatient', function(request, response) {
+    patientsystem.collection('messages').find().toArray((err, messenger) => {
+        if (err) return console.log(err);
+        response.setHeader('Content-Type', 'application/json');
+        response.send(messenger);
     })
 });
 app.get('/getEmailQuestions', function(request, response) {

@@ -26,6 +26,7 @@ function DashboardController($scope, $rootScope, $http,toastr){
     refresh_email();
     get_current_user_help();
     get_email_count();
+    refresh_messenger();
 
     $scope.logout = function(){
         localStorage.clear();
@@ -144,6 +145,14 @@ $scope.answer=function(q){
         reply:q.reply
     }
 }
+$scope.edit_message_for_user=function(messenger){
+    $scope.messenger={
+        _id:messenger._id,
+        username:messenger.username,
+        message:messenger.message,
+        reply:messenger.reply
+    }
+}
 $scope.edit_email_question=function(question_email){
     $scope.question_email={
         _id:question_email._id,
@@ -168,6 +177,13 @@ $scope.add_task=function(){
         toastr.success("1 new task added!","Task added!");
     });
 }
+$scope.send_message_to_patient=function(){
+    $http.post('/sendMessageToPatient',$scope.messenger).then(function(data){
+        $scope.messenger = null;
+        $scope.messenger_list.push(data);
+        toastr.success("A question was sent to the patient!","Question sent!");
+    });
+}
 $scope.update_emp = function(){
     $http.put('/emp/'+$scope.emp._id, $scope.emp).then(function(data){
       refresh_emp();
@@ -175,8 +191,22 @@ $scope.update_emp = function(){
       toastr.success("Employee records updated successfully!","Employee updated!");
     });
 }
+$scope.send_message_to_secretary=function(){
+    $http.put('/sendMessageToSecretary/'+$scope.messenger._id, $scope.messenger).then(function(data){
+        refresh_messenger();
+        $scope.messenger = null;
+        toastr.success("Reply sent successfully to the secretary!","Reply Sent!");
+    });
+}
 $scope.update_book = function(){
     $http.put('/book/'+$scope.book._id, $scope.book).then(function(data){
+      $scope.book = null;
+      refresh_books();
+      toastr.success("Booking record updated successfully!","Booking updated!");
+    });
+}
+$scope.update_book_time = function(){
+    $http.put('/editBookTime/'+$scope.book._id, $scope.book).then(function(data){
       $scope.book = null;
       refresh_books();
       toastr.success("Booking record updated successfully!","Booking updated!");
@@ -209,6 +239,12 @@ $scope.delete_question = function(_id){
       toastr.success("Question delettion successfully!","Question deleted!");
     });
 }
+$scope.delete_patient_message=function(_id){
+    $http.delete('/deletePatientMessage/'+_id).then(function(data){
+        refresh_messenger();
+        toastr.success("Patients message deleted successfully!","Message deleted!");
+      });
+}
 $scope.delete_task = function(_id){
     $http.delete('/deleteTask/'+_id).then(function(data){
       refresh_tasks();
@@ -236,6 +272,14 @@ $scope.delete_email_question=function(_id){
 function refresh_emp(){
     $http.get('/getEmp').then(function(res){
         $scope.emp_list = res.data;
+    }),
+    function(res){
+        alert(res.status);
+    }
+}
+function refresh_messenger(){
+    $http.get('/getMessageFromPatient').then(function(res){
+        $scope.messenger_list = res.data;
     }),
     function(res){
         alert(res.status);

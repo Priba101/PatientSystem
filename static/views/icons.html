@@ -136,6 +136,7 @@
                           <thead class=" text-primary">
                             <th>Doctor Username</th>
                             <th>Doctor Speciality</th>
+                            <th><center>Schedule</center></th>
                           </thead>
                           <tbody>
                             <tr ng-repeat="emp in emp_list">
@@ -178,7 +179,7 @@
                     </div>
                   </div>
                 </div>
-            <div class="col-md-12" ng-if="check_staff()">
+            <div class="col-md-12" ng-hide="check_admin()">
                 <div class="card">
                   <div class="card-header card-header-primary">
                     <h4 class="card-title ">Bookings</h4>
@@ -190,6 +191,10 @@
                         <thead class=" text-primary">
                           <th>Type</th>
                           <th>Info</th>
+                          <th><center>Accept</center></th>
+                          <th><center>Edit</center></th>
+                          <th><center>Ask Patient</center></th>
+                          <th><center>Delete</center></th>
                         </thead>
                         <tbody>
                           <tr ng-repeat="book in books_list">
@@ -199,8 +204,15 @@
                                 <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white"><i class="fas fa-check" ng-click="edit_book(book)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
                             </td>
                             <td>
+                              <button onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="edit_book(book)" style="font-size:24px;color:orange;position: relative;top:7px"></i></button>
+                          </td>
+                          <td>
+                            <button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-white"><i class="far fa-comment" style="font-size:24px;color:blue;position: relative;top:7px"></i></button>
+                        </td>
+                            <td>
                                 <button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;" ><i class="fas fa-times" style="font-size:24px;color:red;position: relative;top:7px" ng-click="decline_book(book._id)"></i></button>
                             </td>
+                            
                          </tr>
                         </tbody>
                       </table>
@@ -231,7 +243,7 @@
                                                 <input class="form-control" placeholder="Type" ng-model="book.type"/>
                                              </td>
                                            <td>
-                                              <input class="form-control" placeholder="Type" ng-model="book.doctor"/>
+                                              <input class="form-control" placeholder="Doctor" ng-model="book.doctor"/>
                                            </td>
                                            <td>
                                               <div class="btn-group">
@@ -244,10 +256,114 @@
                             </div>
                           </div>
                         </div>
+                        <div id="id02" class="w3-modal">
+                          <div class="w3-modal-content w3-animate-top w3-card-4">
+                            <header class="w3-container w3-green"> 
+                              <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                              <h2>Here you assign bookings to doctors!</h2>
+                            </header>
+                            <div class="w3-container">
+                                <table class="table table-hover">
+                                    <h2 class="mt-4 mb-3">Pending bookings</h2>
+                                    <thead>
+                                        <tr>
+                                           <th>Type needed</th>
+                                           <th>Date</th>
+                                           <th>Time</th>
+                                        </tr>
+                                        <tr>
+                                          <td>{{book.type}}</td>
+                                          <td>{{book.date | date: 'd MMMM, yyyy'}}</td>
+                                          <td>{{book.time | date: 'HH:mm a'}}</td>
+                                        </tr>
+                                     </thead>
+                                     <tbody>
+                                        <tr>
+                                            <td>
+                                                <input class="form-control" placeholder="Type" ng-model="book.type"/>
+                                             </td>
+                                           <td>
+                                              <input type="date" class="form-control" placeholder="Date" ng-model="book.date"/>
+                                           </td>
+                                           <td>
+                                            <input type="time" class="form-control" placeholder="Time" ng-model="book.time"/>
+                                         </td>
+                                           <td>
+                                              <div class="btn-group">
+                                                 <button class="btn btn-success" style="height:50px;width:200px" ng-click="update_book_time()">Update Booking</button>
+                                              </div>
+                                           </td>
+                                        </tr>
+                                     </tbody>
+                                  </table>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="id03" class="w3-modal">
+                          <div class="w3-modal-content w3-animate-top w3-card-4">
+                            <header class="w3-container w3-green"> 
+                              <span onclick="document.getElementById('id03').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                              <h2>Arrange a new appointment for our patients!</h2>
+                            </header>
+                            <div class="w3-container">
+                                <table class="table table-hover">
+                                    <h2 class="mt-4 mb-3">Suggest a new time?</h2>
+                                    <thead>
+                                        <tr>
+                                           <th>Patient username</th>
+                                           <th>Message</th>
+                                        </tr>
+                                     </thead>
+                                     <tbody>
+                                        <tr>
+                                            <td>
+                                                <input class="form-control" placeholder="Username" ng-model="messenger.username"/>
+                                             </td>
+                                           <td>
+                                              <input class="form-control" placeholder="Message" ng-model="messenger.message"/>
+                                           </td>
+                                           <td>
+                                              <div class="btn-group">
+                                                 <button class="btn btn-success" style="height:50px;width:200px" ng-click="send_message_to_patient()">Send Message</button>
+                                              </div>
+                                           </td>
+                                        </tr>
+                                     </tbody>
+                                  </table>
+                            </div>
+                          </div>
+                        </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-header card-header-primary">
+                      <h4 class="card-title ">Messages</h4>
+                      <p class="card-category">Here you can see messages from patients!</p>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead class=" text-primary">
+                              <th>Original message</th>
+                              <th>Patient reply</th>
+                          </thead>
+                          <tbody>
+                            <tr ng-repeat="messenger in messenger_list">
+                                <td>{{messenger.message}}</td>
+                                <td>{{messenger.reply}}</td>
+                                <td>
+                                    <button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;" ><i class="fas fa-trash-alt" style="font-size:24px;color:red;position: relative;top:7px" ng-click="delete_patient_message(messenger._id)"></i></button>
+                                </td>
+                           </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
         </div>
       </div>
       <footer>
