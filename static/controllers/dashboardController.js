@@ -126,7 +126,8 @@ $scope.edit_book = function(book){
         reply:book.reply,
         date:book.date,
         time:book.time,
-        doctor:book.doctor
+        doctor:book.doctor,
+        user:book.user
     };
 }
 $scope.edit_booking=function(booking){
@@ -373,7 +374,18 @@ $scope.check_staff=function(){
     }
     return false;
 }
-
+$scope.check_nurse=function(){
+    if(localStorage.getItem('type')=="nurse"){
+        return true;
+    }
+    return false;
+}
+$scope.check_secretary=function(){
+    if(localStorage.getItem('type')=="secretary"){
+        return true;
+    }
+    return false;
+}
 function get_me(){
     $http.get('/me', config).then(function(res){
         $scope.logged_in_user = res.data[0];

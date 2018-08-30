@@ -62,14 +62,14 @@
             </a>
           </li>
             </div>
-              <div ng-if="check_doctor()">
-                <li class="nav-item ">
-            <a class="nav-link" href="#!questions">
-              <i class="material-icons">location_ons</i>
-              <p>Maps</p>
-            </a>
-          </li>
-            </div>
+          <div ng-if="check_doctor()">
+            <li class="nav-item ">
+        <a class="nav-link" href="#!questions">
+          <i class="material-icons">assignment</i>
+          <p>Questions</p>
+        </a>
+      </li>
+        </div>
               <div ng-if="check_doctor()">
                 <li class="nav-item ">
             <a class="nav-link" href="#!notifications">
@@ -179,7 +179,7 @@
                     </div>
                   </div>
                 </div>
-            <div class="col-md-12" ng-hide="check_admin()">
+            <div class="col-md-12" ng-hide="!check_secretary()">
                 <div class="card">
                   <div class="card-header card-header-primary">
                     <h4 class="card-title ">Bookings</h4>
@@ -337,7 +337,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-12">
+              <div class="col-md-12" ng-hide="!check_secretary()">
                   <div class="card">
                     <div class="card-header card-header-primary">
                       <h4 class="card-title ">Messages</h4>

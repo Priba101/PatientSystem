@@ -334,7 +334,7 @@ app.put('/book/:book_id', function(req, res){
     patientsystem.collection('books').findAndModify(
        {_id: new MongoId(req.params.book_id)},
        [['_id','asc']],
-       {$set : {type: req.body.type,address:req.body.address,add:req.body.add}},
+       {$set : {type: req.body.type,add:req.body.add,user:req.body.user,doctor:req.body.doctor}},
        function(err, doc) {
            if (err){
                console.warn(err.message); 
