@@ -163,9 +163,6 @@
                             <td>
                                 <button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-white" ng-click="edit_book(book)"><i class="fas fa-info-circle" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
                             </td>
-                            <td>
-                                <button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;" ><i class="fas fa-trash-alt" ng-click="decline_book(book._id)" style="font-size:24px;color:red;position: relative;top:7px" ></i></button>
-                            </td>
                          </tr>
                     </tbody>
                   </table>
@@ -255,7 +252,7 @@
                       <th>Secretary Question</th>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="messenger in messenger_list">
+                        <tr ng-repeat="messenger in messengers_list">
                             <td>{{messenger.message}}</td>
                             <td>
                                 <button onclick="document.getElementById('id09').style.display='block'" class="w3-button w3-white" ng-click="edit_message_for_user(messenger)"><i class="fas fa-info-circle" style="font-size:24px;color:green;position: relative;top:7px"></i></button>

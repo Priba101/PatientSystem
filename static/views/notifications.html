@@ -148,9 +148,6 @@
                             <td>
                                 <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white" ng-click="edit_books(booking)" ><i class="fas fa-edit"  style="font-size:24px;color:green;position: relative;top:7px"></i></button>
                             </td>
-                            <td>
-                                <button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;" ><i class="fas fa-trash-alt" style="font-size:24px;color:red;position: relative;top:7px" ng-click="decline_book(book._id)"></i></button>
-                            </td>
                          </tr>
                         </tbody>
                       </table>
@@ -165,7 +162,7 @@
                                     <h2 class="mt-4 mb-3">The patients requires your diagnosis
                                     </h2>
                                     <thead>
-                                    <th>Check up reply</th>
+                                    <th>{{book.add}}</th>
                                     </thead>
                                     <tbody>
                                       <tr>

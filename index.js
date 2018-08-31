@@ -134,7 +134,7 @@ app.delete('/deletePatientMessage/:messenger_id',function(req,res){
         res.json(data);
     });
 });
-app.delete('/deleteBook/:book_id',function(req,res){
+app.delete('/deleteBook/:status',function(req,res){
     patientsystem.collection('books').remove({_id:new MongoId(req.params.book_id)},
     function(err,data){
         res.json(data);
@@ -274,7 +274,7 @@ app.post('/login', function(req, res) {
             }
         }
         else {
-            res.status(401).send('Credentials are incorect!');
+            res.status(401).send('Credentials are incorect!');            
         }}
     });
 });
@@ -343,6 +343,19 @@ app.put('/book/:book_id', function(req, res){
            }
        });
 });
+app.put('/updateStatus/:book_id', function(req, res){    
+    patientsystem.collection('books').findAndModify(
+       {_id: new MongoId(req.params.book_id)},
+       [['_id','asc']],
+       {$set : {status:req.body.status}},
+       function(err, doc) {
+           if (err){
+               console.warn(err.message); 
+           }else{
+               res.json(doc);
+           }
+       });
+});
 app.put('/editBookTime/:book_id', function(req, res){    
     patientsystem.collection('books').findAndModify(
        {_id: new MongoId(req.params.book_id)},
@@ -373,7 +386,7 @@ app.put('/booking/:booking_id', function(req, res){
     patientsystem.collection('books').findAndModify(
        {_id: new MongoId(req.params.booking_id)},
        [['_id','asc']],
-       {$set : {doctor:req.body.doctor}},
+       {$set : {doctor:req.body.doctor,amount:req.body.amount}},
        function(err, doc) {
            if (err){
                console.warn(err.message); 
@@ -498,6 +511,14 @@ app.get('/currentUserHelp/:user',function(request,response) {
         if(err) return console.log(err);
         response.setHeader('Content-Type','application/json');
         response.send(q);
+    })
+});
+app.get('/currentUserMessenger/:user',function(request,response) {
+    request.body.user = request.params.user;
+    patientsystem.collection('messages').find({'username':request.params.user}).toArray((err,messenger)=>{
+        if(err) return console.log(err);
+        response.setHeader('Content-Type','application/json');
+        response.send(messenger);
     })
 });
 app.delete('/deleteEmp/:emp_id', function(req, res){

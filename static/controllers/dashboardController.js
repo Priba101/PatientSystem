@@ -7,6 +7,7 @@ function DashboardController($scope, $rootScope, $http,toastr){
         "JWT" : localStorage.getItem('jwt')
         }
       };
+    
     refresh_help();
     refresh_emp();
     refresh_users();
@@ -26,6 +27,7 @@ function DashboardController($scope, $rootScope, $http,toastr){
     refresh_email();
     get_current_user_help();
     get_email_count();
+    get_current_user_messenger();
     refresh_messenger();
 
     $scope.logout = function(){
@@ -47,6 +49,12 @@ $scope.edit_emp = function(emp){
           type : emp.type,
           spec : emp.spec
       };
+}
+$scope.edit_status=function(book){
+    $scope.book={
+        _id:book._id,
+        status:book.status
+    }
 }
 $scope.add_emp = function() {
     $http.post('/addEmp', $scope.emp).then(function(data) {
@@ -99,6 +107,7 @@ $scope.decline_book = function(_id){
         refresh_books();
     });
 }
+
 $scope.edit_user = function(user){
     $scope.user ={
         _id : user._id,
@@ -107,7 +116,10 @@ $scope.edit_user = function(user){
         place:user.place,
         username:user.username,
         email:user.email,
-        type:user.type
+        type:user.type,
+        zip:user.zip,
+        country:user.country,
+        phone:user.phone
     };
 }
 $scope.edit_task=function(todo){
@@ -205,6 +217,13 @@ $scope.update_book = function(){
       refresh_books();
       toastr.success("Booking record updated successfully!","Booking updated!");
     });
+}
+$scope.update_status=function(){
+    $http.put('/updateStatus/'+$scope.book._id, $scope.book).then(function(data){
+        $scope.book = null;
+        refresh_books();
+        toastr.success("Booking status updated successfully!","Status Updated!");
+      });
 }
 $scope.update_book_time = function(){
     $http.put('/editBookTime/'+$scope.book._id, $scope.book).then(function(data){
@@ -425,6 +444,14 @@ function get_current_user_help(){
         alert(res.status);
     }
 }
+function get_current_user_messenger(){
+    var user=localStorage.getItem('user');
+    $http.get('/currentUserMessenger/'+user,config).then(function(res){
+        $scope.messengers_list=res.data;
+    }),function(res){
+        alert(res.status);
+    }
+}
 var get_question = function (){
     $http.get('/getQuestion', config).then(function(response){
         $scope.pitanje = response.data[0];
@@ -436,6 +463,7 @@ var get_question = function (){
 $scope.answer_question = function(question){
     $scope.question ={
         _id : question._id,
+        mess:question.mess,
         reply:question.reply
     };
 }
@@ -465,6 +493,7 @@ function refresh_question(){
 $scope.edit_books = function(book){
     $scope.book={
         _id:book._id,
+        add:book.add,
         reply:book.reply
     }
 }

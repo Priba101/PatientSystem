@@ -105,7 +105,8 @@
                   <div class="table-responsive">
                     <table class="table">
                       <thead class=" text-primary">
-                        <th>Write a reply</th>
+                        <th>Name</th>
+                        <th>Question asked</th>
                       </thead>
                       <tbody>
                           <tr ng-repeat="question in questions_list">
@@ -125,10 +126,10 @@
                           </header>
                           <div class="w3-container">
                               <table class="table table-hover">
-                                  <h2 class="mt-4 mb-3">You're asked a question by a user
+                                  <h2 class="mt-4 mb-3">Original question asked
                                   </h2>
                                   <thead>
-                                  <th>Your answer</th>
+                                  <th>{{question.mess}}</th>
                                   </thead>
                                   <tbody>
                                     <tr>
