@@ -505,6 +505,14 @@ app.get('/currentDoctorBook/:user',function(request,response) {
         response.send(booking);
     })
 });
+app.get('/currentDoctorPatient/:user',function(request,response) {
+    request.body.user = request.params.user;
+    patientsystem.collection('books').find({'doctor':request.params.user}).toArray((err,bookings)=>{
+        if(err) return console.log(err);
+        response.setHeader('Content-Type','application/json');
+        response.send(bookings);
+    })
+});
 app.get('/currentUserHelp/:user',function(request,response) {
     request.body.user = request.params.user;
     patientsystem.collection('help').find({'user':request.params.user}).toArray((err,q)=>{
@@ -638,6 +646,13 @@ app.get('/schedule/:doctor_username',function(req,res){
         if(err) return console.log(err);
         res.setHeader('Content-Type','application/json');
         res.send(schedule);
+    })
+})
+app.get('/getPatient/:patient_username',function(req,res){
+    patientsystem.collection('users').find({'username':req.params.patient_username}).toArray((err,patients)=>{
+        if(err) return console.log(err);
+        res.setHeader('Content-Type','application/json');
+        res.send(patients);
     })
 })
 app.put('/question/:question_id', function(req, res){    

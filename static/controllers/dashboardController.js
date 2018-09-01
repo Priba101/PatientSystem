@@ -29,6 +29,7 @@ function DashboardController($scope, $rootScope, $http,toastr){
     get_email_count();
     get_current_user_messenger();
     refresh_messenger();
+    get_current_doctor_patient();
 
     $scope.logout = function(){
         localStorage.clear();
@@ -436,6 +437,14 @@ function get_current_doctor_book(){
         alert(res.status);
     }
 }
+function get_current_doctor_patient(){
+    var user=localStorage.getItem('user');
+    $http.get('/currentDoctorPatient/'+user,config).then(function(res){
+        $scope.bookings_list=res.data;
+    }),function(res){
+        alert(res.status);
+    }
+}
 function get_current_user_help(){
     var user=localStorage.getItem('user');
     $http.get('/currentUserHelp/'+user,config).then(function(res){
@@ -597,6 +606,13 @@ var get_doctors = function (){
 $scope.get_schedule=function(book_doctor){
     $http.get('/schedule/'+book_doctor).then(function(res){
         $scope.schedule_list=res.data;
+    }),function(res){
+        alert(res.status);
+    }
+}
+$scope.get_patient=function(patient_username){
+    $http.get('/getPatient/'+patient_username).then(function(res){
+        $scope.patients_list=res.data;
     }),function(res){
         alert(res.status);
     }
