@@ -118,25 +118,25 @@
                       <thead class=" text-primary">
                         <th>Firstname</th>
                         <th>Lastname</th>
-                        <th>Date</th>
-                        <th>Place</th>
-                        <th>Gender</th>
-                        <th>Username</th>
-                        <th>Email</th>
+                        <th ng-hide="check_secretary()">Date</th>
+                        <th ng-hide="check_secretary()">Place</th>
+                        <th ng-hide="check_secretary()">Gender</th>
+                        <th ng-hide="check_secretary()">Username</th>
+                        <th ng-hide="check_secretary()">Email</th>
                         <th>Phone number</th>
-                        <th>Type</th>
+                        <th ng-hide="check_secretary()">Type</th>
                       </thead>
                       <tbody>
                           <tr ng-repeat="user in users_list">
                               <td>{{user.firstname}}</td>
                               <td>{{user.lastname}}</td>
-                              <td>{{user.date | date: 'd MMMM, yyyy'}}</td>
-                              <td>{{user.place}}</td>
-                              <td>{{user.gen}}</td>
-                              <td>{{user.username}}</td>
+                              <td ng-hide="check_secretary()">{{user.date | date: 'd MMMM, yyyy'}}</td>
+                              <td ng-hide="check_secretary()">{{user.place}}</td>
+                              <td ng-hide="check_secretary()">{{user.gen}}</td>
+                              <td ng-hide="check_secretary()">{{user.username}}</td>
                               <td>{{user.email}}</td>
                               <td>{{user.phone}}</td>
-                              <td>{{user.type}}</td>
+                              <td ng-hide="check_secretary()">{{user.type}}</td>
                               <td ng-if="check_admin()">
                                   <button onclick="document.getElementById('id04').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="edit_user(user)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
                                 </td>
@@ -190,7 +190,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" ng-show="check_admin()">
               <div class="card">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title ">Employee Stats</h4>
@@ -298,13 +298,19 @@
                                                 <input class="form-control" placeholder="Salary" ng-model="emp.salary" />
                                              </td>
                                              <td>
-                                                <input class="form-control" placeholder="Country" ng-model="emp.country" />
+                                                <select class="form-control" ng-model="emp.country" ng-options="x for x in country" >
+                                                    <option value="" disabled selected>Country</option>
+                                                  </select>
                                              </td>
                                              <td>
-                                                <input class="form-control" placeholder="Type" ng-model="emp.type" />
+                                                <select class="form-control" placeholder="Type" ng-model="emp.type" ng-options="x for x in type">
+                                                      <option value="" disabled selected>Type</option>
+                                                  </select>
                                              </td>
                                              <td>
-                                                <input class="form-control" placeholder="Type" ng-model="emp.spec" />
+                                                <select class="form-control" placeholder="Specialization" ng-model="emp.spec" ng-options="x for x in specialization" >
+                                                    <option value="" disabled selected>Specialization</option>
+                                                  </select>
                                              </td>
                                            <td>
                                               <div class="btn-group">
@@ -335,7 +341,7 @@
                         <th>Info</th>
                         <th>Patient Username</th>
                         <th>Doctor Username</th>
-                        <th></th>
+                        <th><center>Edit Booking</center></th>
                         <th><center>Edit Status</center></th>
                       </thead>
                       <tbody>
@@ -348,7 +354,7 @@
                               <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="edit_book(book)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
                             </td>
                           <td>
-                              <button onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-white"><i class="far fa-times-circle" ng-click="edit_status(book)" style="font-size:24px;color:blue;position: relative;top:7px"></i></button>
+                              <button onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-white"><i class="fas fa-clipboard-list" ng-click="edit_status(book)" style="font-size:24px;color:blue;position: relative;top:7px"></i></button>
                           </td>
                        </tr>
                       </tbody>
@@ -407,7 +413,9 @@
                                      <tbody>
                                         <tr>
                                            <td>
-                                              <input class="form-control" placeholder="Status" ng-model="book.status" />
+                                              <select class="form-control" ng-model="book.status" ng-options="x for x in status" >
+                                                  <option value="" disabled selected>Status</option>
+                                                </select>
                                            </td>
                                            <td>
                                               <div class="btn-group">

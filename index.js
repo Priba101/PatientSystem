@@ -18,8 +18,8 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-MongoClient.connect('mongodb://priba:NFSMWCJ1997@ds125342.mlab.com:25342/patientsystem', function(err, client) {
-//MongoClient.connect('mongodb://localhost:27017', function(err, client) {
+//MongoClient.connect('mongodb://priba:NFSMWCJ1997@ds125342.mlab.com:25342/patientsystem', function(err, client) {
+MongoClient.connect('mongodb://localhost:27017', function(err, client) {
     if (err) throw err;
     patientsystem = client.db('patientsystem');
     app.listen(8000, () => console.log('Example app listening on port 8000!'))
@@ -139,6 +139,20 @@ app.delete('/deleteBook/:status',function(req,res){
     function(err,data){
         res.json(data);
     });
+});
+
+app.put('/addComment/:book_id', function(req, res){    
+    patientsystem.collection('books').findAndModify(
+       {_id: new MongoId(req.params.book_id)},
+       [['_id','asc']],
+       {$set : {comment:req.body.comment}},
+       function(err, doc) {
+           if (err){
+               console.warn(err.message); 
+           }else{
+               res.json(doc);
+           }
+       });
 });
 app.post('/signup', function(req, res) {
     req.body._id = null;
@@ -578,6 +592,13 @@ app.get('/getBook', function(req, res){
         if(err) return console.log(err);
         res.setHeader('Content-Type', 'application/json');
         res.send(book);
+    })
+});
+app.get('/getBooking', function(req, res){
+    patientsystem.collection('books').find().toArray((err, booking) => {
+        if(err) return console.log(err);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(booking);
     })
 });
 app.post('/addBook/:user', function(req, res){

@@ -155,7 +155,9 @@
                                   <td>{{q.info}}</td>
                                   <td>{{q.occured}}</td>
                                   <td>
-                                      <button onclick="document.getElementById('id07').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="answer(q)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
+                                      <center><div class="btn-group">
+                                          <button class="btn btn-success" onclick="document.getElementById('id07').style.display='block'" style="height:50px" ng-click="answer(q)">Reply</button>
+                                       </div></center>
                                   </td>
                                   <td>
                                       <button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;" ><i class="fas fa-times" ng-click="delete_help(q._id)" style="font-size:24px;color:red;position: relative;top:7px" ></i></button>

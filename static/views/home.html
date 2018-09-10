@@ -38,7 +38,7 @@
               <a class="nav-link" href="#!user">Profile</a>
           </div>
           <div ng-if="check_login() && check_admin()">
-              <a class="nav-link" href="#!dashboard1">Dash</a>
+              <a class="nav-link" href="#!dashboard1" ng-click="welcome_admin()">Dash</a>
           </div>
           <div ng-if="check_login() && check_doctor()">
               <a class="nav-link" href="#!user">Dash</a>

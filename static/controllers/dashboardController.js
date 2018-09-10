@@ -30,6 +30,7 @@ function DashboardController($scope, $rootScope, $http,toastr){
     get_current_user_messenger();
     refresh_messenger();
     get_current_doctor_patient();
+    refresh_booking();
 
     $scope.logout = function(){
         localStorage.clear();
@@ -177,6 +178,13 @@ $scope.edit_email_question=function(question_email){
         reply:question_email.reply
     }
 }
+$scope.add_comment = function(){
+    $http.put('/addComment/'+$scope.book._id, $scope.book).then(function(data){
+      $scope.book = null;
+      toastr.success("1 new comment added!","Comment added!");
+      refresh_booking();
+    });
+}
 $scope.add_user = function(){
       $http.post('/signup', $scope.user).then(function(data){
         $scope.user = null;
@@ -188,6 +196,7 @@ $scope.add_task=function(){
     $http.post('/addTask',$scope.todo).then(function(data){
         $scope.todo = null;
         $scope.todo_list.push(data);
+        refresh_tasks();
         toastr.success("1 new task added!","Task added!");
     });
 }
@@ -331,7 +340,6 @@ function refresh_tasks(){
     }
   };
 function refresh_books(){
-  //var user=localStorage.getItem('user');
   $http.get('/getBook').then(function(res){
       $scope.books_list = res.data;
   }),
@@ -339,6 +347,15 @@ function refresh_books(){
       alert(res.status);
   }
 };
+function refresh_booking(){
+    var user=localStorage.getItem('user');
+    $http.get('/currentDoctorBook/'+user).then(function(res){
+        $scope.booking_list = res.data;
+    }),
+    function(res){
+        alert(res.status);
+    }
+  };
 $scope.add_book = function(){
   var user=localStorage.getItem('user');
   $http.post('/addBook/'+user,$scope.book).then(function(data){
