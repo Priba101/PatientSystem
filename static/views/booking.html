@@ -85,6 +85,7 @@
                         <textarea ng-model="book.add" name="add" rows="10" cols="100" class="form-control" id="message" placeholder="Can you tell us something about your problem" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
                         <h>Did you have problem before with your issue?</h><input type="radio" name="issue" ng-model="book.issue" value="Yes">Yes<input type="radio" name="issue" ng-model="book.issue" value="No">No<br>
                         <h>Medical records will be sent to the doctor</h><input type="radio" ng-model="book.records" name="record" value="Yes" required>
+                        <br>
                         <button value="submit" type="submit" ng-click="add_book()">Submit</button>
                     </div>
                 </form>

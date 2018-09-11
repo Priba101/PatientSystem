@@ -106,14 +106,18 @@
                   <table class="table">
                     <thead class=" text-primary">
                       <th>Original message</th>
-                      <th><center>Answer</center></th>
+                      <th>Date Asked</th>
+                      <th>Date Answered</th>
+                      <th>Answer</th>
+                      <th>Doctor</th>
                     </thead>
                     <tbody>
                         <tr ng-repeat="message in message_list">
                             <td>{{message.mess}}</td>
-                            <td>
-                                <button onclick="document.getElementById('id07').style.display='block'" class="w3-button w3-white" ng-click="answer_question(message)"><i class="fas fa-info-circle" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
-                              </td>
+                            <th>{{message.current_user_date}}</th>
+                            <td>{{message.current_date}}</td>
+                            <td>{{message.reply}}</td>
+                            <td>{{message.doctor}}</td>
                               <td>
                                   <button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;" ><i class="fas fa-trash-alt" ng-click="delete_question(message._id)" style="font-size:24px;color:red;position: relative;top:7px" ></i></button>
                               </td>
@@ -155,11 +159,13 @@
                   <table class="table">
                     <thead class=" text-primary">
                       <th>Original message</th>
+                      <th>Date made</th>
                       <th><center>Check up reply's</center></th>
                     </thead>
                     <tbody>
                         <tr ng-repeat="book in book_list">
                             <td>{{book.add}}</td>
+                            <td>{{book.current_date}}</td>
                             <td>
                                 <button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-white" ng-click="edit_book(book)"><i class="fas fa-info-circle" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
                             </td>
@@ -177,10 +183,12 @@
                                 <h2 class="mt-4 mb-3">Your recent check up
                                 </h2>
                                 <thead>
+                                  <th>Date replied</th>
                                 <th>Reply</th>
                                 </thead>
                                 <tbody>
                                     <tr>
+                                      <td>{{book.current_doctor_date}}</td>
                                       <td>{{book.reply}}</td>
                                     </tr>
                                 </tbody>
@@ -226,11 +234,13 @@
                                 <h2 class="mt-4 mb-3">Your most recent message
                                 </h2>
                                 <thead>
-                                <th><center>Answer</center></th>
+                                <th>Answer</th>
+                                <th>Date answered</th>
                                 </thead>
                                 <tbody>
                                     <tr>
                                       <td>{{q.reply}}</td>
+                                      <td>{{q.current_admin_date}}</td>
                                     </tr>
                                 </tbody>
                               </table>

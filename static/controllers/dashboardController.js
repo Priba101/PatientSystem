@@ -31,6 +31,7 @@ function DashboardController($scope, $rootScope, $http,toastr){
     refresh_messenger();
     get_current_doctor_patient();
     refresh_booking();
+    refresh_today();
 
     $scope.logout = function(){
         localStorage.clear();
@@ -141,7 +142,9 @@ $scope.edit_book = function(book){
         date:book.date,
         time:book.time,
         doctor:book.doctor,
-        user:book.user
+        user:book.user,
+        current_doctor_date:book.current_doctor_date,
+        current_doctor_time:book.current_doctor_time
     };
 }
 $scope.edit_booking=function(booking){
@@ -163,7 +166,7 @@ $scope.answer=function(q){
 $scope.edit_message_for_user=function(messenger){
     $scope.messenger={
         _id:messenger._id,
-        username:messenger.username,
+        user:messenger.user,
         message:messenger.message,
         reply:messenger.reply
     }
@@ -201,17 +204,26 @@ $scope.add_task=function(){
     });
 }
 $scope.send_message_to_patient=function(){
-    $http.post('/sendMessageToPatient',$scope.messenger).then(function(data){
+    var user=$scope.book.user;
+    $http.post('/sendMessageToPatient/'+user,$scope.messenger).then(function(data){
         $scope.messenger = null;
         $scope.messenger_list.push(data);
         toastr.success("A question was sent to the patient!","Question sent!");
+        refresh_messenger();
+    });
+}
+$scope.reply_to_patient=function(){
+    $http.post('/sendMessageToPatient/'+$scope.messenger._id,$scope.messenger).then(function(data){
+        $scope.messenger = null;
+        toastr.success("A question was sent to the patient!","Question sent!");
+        refresh_messenger();
     });
 }
 $scope.update_emp = function(){
     $http.put('/emp/'+$scope.emp._id, $scope.emp).then(function(data){
-      refresh_emp();
       $scope.emp = null;
       toastr.success("Employee records updated successfully!","Employee updated!");
+      refresh_emp();
     });
 }
 $scope.send_message_to_secretary=function(){
@@ -289,8 +301,8 @@ $scope.delete_emp = function(_id){
 }
 $scope.delete_help = function(_id){
     $http.delete('/deleteHelp/'+_id).then(function(data){
-      refresh_help();
       toastr.success("1 help question deleted successfully!","Help question deleted");
+      refresh_help();
     });
 }
 $scope.delete_email_question=function(_id){
@@ -357,8 +369,10 @@ function refresh_booking(){
     }
   };
 $scope.add_book = function(){
+    var current_date = $scope.current_date;
+    var current_time = $scope.current_time;
   var user=localStorage.getItem('user');
-  $http.post('/addBook/'+user,$scope.book).then(function(data){
+  $http.post('/addBook/'+user+'/'+current_date+'/'+current_time,$scope.book).then(function(data){
     $scope.book = null;
     $scope.books_list.push(data);
     toastr.success("1 new apointment added!","Apointment added!");
@@ -494,7 +508,10 @@ $scope.answer_question = function(question){
     };
 }
 $scope.update_question = function(){
-    $http.put('/question/'+$scope.question._id, $scope.question).then(function(data){
+    var doctor=localStorage.getItem('user');
+    var current_date = $scope.current_date;
+    var current_time = $scope.current_time;
+    $http.put('/question/'+$scope.question._id+'/'+doctor+'/'+current_date+'/'+current_time, $scope.question).then(function(data){
       refresh_question();
       $scope.question = null;
       toastr.success("Question answer sent successfully!","Question answered!");
@@ -502,7 +519,9 @@ $scope.update_question = function(){
   }    
 $scope.ques=function(){
     var user=localStorage.getItem('user');
-    $http.post('/question/'+user,$scope.question).then(function(data){
+    var current_user_date = $scope.current_date;
+    var current_user_time = $scope.current_time;
+    $http.post('/question/'+user+'/'+current_user_date+'/'+current_user_time,$scope.question).then(function(data){
         $scope.question=null;
         $scope.questions_list.push(data);
         toastr.success("We will get back at you in 24h!","Question sent!")
@@ -511,6 +530,15 @@ $scope.ques=function(){
 function refresh_question(){
     $http.get('/getQuestion').then(function(res){
         $scope.questions_list = res.data;
+    }),
+    function(res){
+        alert(res.status);
+    }
+}
+function refresh_today(){
+    var current_date = $scope.current_date;
+    $http.get('/getTodaysPatients/'+current_date).then(function(res){
+        $scope.todays_list = res.data;
     }),
     function(res){
         alert(res.status);
@@ -526,11 +554,14 @@ $scope.edit_books = function(book){
 $scope.edit_help=function(q){
     $scope.q={
         _id:q._id,
-        reply:q.reply
+        reply:q.reply,
+        current_admin_date:q.current_admin_date
     }
 }
 $scope.update_books = function(){
-    $http.put('/books/'+$scope.book._id, $scope.book).then(function(data){
+    var current_doctor_date = $scope.current_date;
+    var current_doctor_time = $scope.current_time;
+    $http.put('/books/'+$scope.book._id+'/'+current_doctor_date+'/'+current_doctor_time, $scope.book).then(function(data){
       refresh_books();
       $scope.book = null;
       toastr.success("Booking record updated successfully!","Booking updated!");
@@ -544,22 +575,28 @@ $scope.send_feedback=function(){
     });
 }
 $scope.answer_help=function(){
-    $http.put('/answerHelp/'+$scope.q._id,$scope.q).then(function(data){
+    var current_admin_date = $scope.current_date;
+    var current_admin_time = $scope.current_time;
+    $http.put('/answerHelp/'+$scope.q._id+'/'+current_admin_date+'/'+current_admin_time,$scope.q).then(function(data){
         refresh_help();
         $scope.q=null;
         toastr.success("A reply to the user has been sent!","Answer sent!")
     })
 }
 $scope.answer_email_question=function(){
-    $http.put('/answerEmailQuestion/'+$scope.question_email._id,$scope.question_email).then(function(data){
+    var current_admin_date = $scope.current_date;
+    var current_admin_time = $scope.current_time;
+    $http.put('/answerEmailQuestion/'+$scope.question_email._id+'/'+current_admin_date+'/'+current_admin_time,$scope.question_email).then(function(data){
         $scope.question_email=null;
         refresh_email();
         toastr.success("A reply has been sent!","Answer sent!")
     })
 }
 $scope.send_help=function(){
+    var current_date = $scope.current_date;
+    var current_time = $scope.current_time;
     var user=localStorage.getItem('user');
-    $http.post('/helpQuestion/'+user,$scope.q).then(function(data){
+    $http.post('/helpQuestion/'+user+'/'+current_date+'/'+current_time,$scope.q).then(function(data){
         $scope.q=null;
         $scope.q_list.push(data);
         toastr.success("Thank you for reporting the problem!","Problem report sent");
@@ -642,14 +679,16 @@ var get_patients = function (){
     }
 };  
 $scope.email_question=function(){
-    $http.post('/emailQuestion', $scope.question_email).then(function(response){
+    var current_date = $scope.current_date;
+    var current_time = $scope.current_time;
+    $http.post('/emailQuestion/'+current_date+'/'+current_time,$scope.question_email).then(function(response){
         toastr.success('We will get back at you via email in the next 24h!','Question sent!');
     }),function(error){
         console.log(error);
     }
 }
 $scope.send_email=function(question_email){
-    $http.post('/sendEmail/', $scope.question_email).then(function(response){
+    $http.post('/sendEmail',$scope.question_email).then(function(response){
         toastr.success('Answer to the questions sent via email!','Email sent!');
     }),function(error){
         console.log(error);

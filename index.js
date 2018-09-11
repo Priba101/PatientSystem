@@ -292,11 +292,13 @@ app.post('/login', function(req, res) {
         }}
     });
 });
-app.put('/answerHelp/:q_id',function(req,res){
+app.put('/answerHelp/:q_id/:current_admin_date/:current_admin_time',function(req,res){
+    req.body.current_admin_date=req.params.current_admin_date;
+    req.body.current_admin_time=req.params.current_admin_time;
     patientsystem.collection('help').findAndModify(
         {_id: new MongoId(req.params.q_id)},
         [['_id','asc']],
-        {$set : {reply: req.body.reply}},
+        {$set : {reply: req.body.reply,current_admin_date:req.body.current_admin_date,current_admin_time:req.body.current_admin_time}},
         function(err, doc) {
             if (err){
                 console.warn(err.message); 
@@ -305,11 +307,13 @@ app.put('/answerHelp/:q_id',function(req,res){
             }
         });
 })
-app.put('/answerEmailQuestion/:question_email_id',function(req,res){
+app.put('/answerEmailQuestion/:question_email_id/:current_admin_date/:current_admin_time',function(req,res){
+    req.body.current_admin_date=req.params.current_admin_date;
+    req.body.current_admin_time=req.params.current_admin_time;
     patientsystem.collection('email').findAndModify(
         {_id: new MongoId(req.params.question_email_id)},
         [['_id','asc']],
-        {$set : {reply: req.body.reply}},
+        {$set : {reply: req.body.reply,current_admin_date:req.body.current_admin_date,current_admin_time:req.body.current_admin_time}},
         function(err, doc) {
             if (err){
                 console.warn(err.message); 
@@ -383,11 +387,13 @@ app.put('/editBookTime/:book_id', function(req, res){
            }
        });
 });
-app.put('/books/:books_id', function(req, res){    
+app.put('/books/:books_id/:current_doctor_date/:current_doctor_time', function(req, res){
+    req.body.current_doctor_date=req.params.current_doctor_date;
+    req.body.current_doctor_time=req.params.current_doctor_time;
     patientsystem.collection('books').findAndModify(
        {_id: new MongoId(req.params.books_id)},
        [['_id','asc']],
-       {$set : {reply:req.body.reply}},
+       {$set : {reply:req.body.reply,current_doctor_date:req.body.current_doctor_date,current_doctor_time:req.body.current_doctor_time}},
        function(err, doc) {
            if (err){
                console.warn(err.message); 
@@ -400,7 +406,20 @@ app.put('/booking/:booking_id', function(req, res){
     patientsystem.collection('books').findAndModify(
        {_id: new MongoId(req.params.booking_id)},
        [['_id','asc']],
-       {$set : {doctor:req.body.doctor,amount:req.body.amount}},
+       {$set : {doctor:req.body.doctor,amount:req.body.amount,status:req.body.status}},
+       function(err, doc) {
+           if (err){
+               console.warn(err.message); 
+           }else{
+               res.json(doc);
+           }
+       });
+});
+app.put('/sendMessageToPatient/:reply_id', function(req, res){    
+    patientsystem.collection('messages').findAndModify(
+       {_id: new MongoId(req.params.reply_id)},
+       [['_id','asc']],
+       {$set : {reply:req.body.reply}},
        function(err, doc) {
            if (err){
                console.warn(err.message); 
@@ -448,7 +467,9 @@ app.put('/users/:user_id', function(req, res){
            }
        });
 });*/
-app.post('/emailQuestion', function(req, res){
+app.post('/emailQuestion/:current_date/:current_time', function(req, res){
+    req.body.current_date=req.params.current_date;
+    req.body.current_time=req.params.current_time;
     var question_email = req.body;
     patientsystem.collection('email').insert(question_email, function(err, data){
         if(err) return console.log(err);
@@ -465,8 +486,8 @@ app.post('/addEmp', function(req, res){
         res.send(emp);
     })
 });
-app.post('/sendMessageToPatient', function(req, res){
-    req.body._id = null;
+app.post('/sendMessageToPatient/:user', function(req, res){
+    req.body.user = req.params.user;
     var messenger = req.body;
     patientsystem.collection('messages').insert(messenger, function(err, data){
         if(err) return console.log(err);
@@ -537,7 +558,7 @@ app.get('/currentUserHelp/:user',function(request,response) {
 });
 app.get('/currentUserMessenger/:user',function(request,response) {
     request.body.user = request.params.user;
-    patientsystem.collection('messages').find({'username':request.params.user}).toArray((err,messenger)=>{
+    patientsystem.collection('messages').find({'user':request.params.user}).toArray((err,messenger)=>{
         if(err) return console.log(err);
         response.setHeader('Content-Type','application/json');
         response.send(messenger);
@@ -601,8 +622,10 @@ app.get('/getBooking', function(req, res){
         res.send(booking);
     })
 });
-app.post('/addBook/:user', function(req, res){
+app.post('/addBook/:user/:current_date/:current_time', function(req, res){
     req.body.user = req.params.user;
+    req.body.current_date=req.params.current_date;
+    req.body.current_time=req.params.current_time;
     var book = req.body;
     patientsystem.collection('books').insert(book, function(err, data){
         if(err) return console.log(err);
@@ -610,8 +633,10 @@ app.post('/addBook/:user', function(req, res){
         res.send(data);
     })
 });
-app.post('/question/:user',function(req,res){
+app.post('/question/:user/:current_user_date/:current_user_time',function(req,res){
     req.body.user = req.params.user;
+    req.body.current_user_date=req.params.current_user_date;
+    req.body.current_user_time=req.params.current_user_time;
     var question=req.body;
     patientsystem.collection('questions').insert(question,function(err,data){
         if(err) return console.log(err);
@@ -619,7 +644,9 @@ app.post('/question/:user',function(req,res){
         res.send(data);
     })
 })
-app.post('/helpQuestion/:user',function(req,res){
+app.post('/helpQuestion/:user/:current_date/:current_time',function(req,res){
+    req.body.current_date=req.params.current_date;
+    req.body.current_time=req.params.current_time;
     req.body.user = req.params.user;
     var q=req.body;
     patientsystem.collection('help').insert(q,function(err,data){
@@ -662,6 +689,14 @@ app.get('/getQuestion', function(request, response) {
         response.send(question);
     })
 });
+app.get('/getTodaysPatients/:current_date', function(request, response) {
+    request.body.current_date=request.params.current_date;
+    patientsystem.collection('books').find({'date':request.params.current_date}).toArray((err, today) => {
+        if (err) return console.log(err);
+        response.setHeader('Content-Type', 'application/json');
+        response.send(today);
+    })
+});
 app.get('/schedule/:doctor_username',function(req,res){
     patientsystem.collection('books').find({'doctor':req.params.doctor_username}).toArray((err,schedule)=>{
         if(err) return console.log(err);
@@ -676,11 +711,14 @@ app.get('/getPatient/:patient_username',function(req,res){
         res.send(patients);
     })
 })
-app.put('/question/:question_id', function(req, res){    
+app.put('/question/:question_id/:doctor/:current_date/:current_time', function(req, res){
+    req.body.doctor = req.params.doctor;   
+    req.body.current_date=req.params.current_date;
+    req.body.current_time=req.params.current_time; 
     patientsystem.collection('questions').findAndModify(
        {_id: new MongoId(req.params.question_id)},
        [['_id','asc']],
-       {$set : {reply:req.body.reply}},
+       {$set : {reply:req.body.reply,current_date:req.body.current_date,current_time:req.body.current_time,doctor:req.body.doctor}},
        function(err, doc) {
            if (err){
                console.warn(err.message); 
@@ -737,7 +775,7 @@ app.post('/sendEmail', function(request, response){
       });
       var mailOptions = {
         from: 'patientsyswebapp@gmail.com',
-        to: 'pribajaba@gmail.com',//question_email.email,
+        to: question_email.email,
         subject: 'Admins Answer',
         text: "Dear Mr/Mrs "+question_email.name+",\n\n"+question_email.reply+"\n\nSincerly\n\nThe Admin Team.\n\n\n\nPatient Management System\nMarka Marulica 57\nSarajevo,71000\nAll Right Reserved"
       };

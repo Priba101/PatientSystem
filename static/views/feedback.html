@@ -149,11 +149,13 @@
                           <thead class=" text-primary">
                             <th>Information</th>
                             <th>Ocurred before</th>
+                            <th>Date asked</th>
                           </thead>
                           <tbody>
                               <tr ng-repeat="q in q_list">
                                   <td>{{q.info}}</td>
                                   <td>{{q.occured}}</td>
+                                  <td>{{q.current_date}}</td>
                                   <td>
                                       <center><div class="btn-group">
                                           <button class="btn btn-success" onclick="document.getElementById('id07').style.display='block'" style="height:50px" ng-click="answer(q)">Reply</button>
@@ -213,6 +215,7 @@
                             <th>Number</th>
                             <th>Email</th>
                             <th>Message</th>
+                            <th>Date asked</th>
                           </thead>
                           <tbody>
                               <tr ng-repeat="question_email in email_list">
@@ -220,6 +223,7 @@
                                   <td>{{question_email.num}}</td>
                                   <td>{{question_email.email}}</td>
                                   <td>{{question_email.mess}}</td>
+                                  <td>{{question_email.current_date}}</td>
                                   <td>
                                       <button onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="edit_email_question(question_email)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
                                   </td>

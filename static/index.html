@@ -58,12 +58,15 @@
   app.controller('signupController', SignUpController);
   app.controller('loginController', LoginController);
   app.controller('submitController',SubmitController);
-  app.controller('myCtrl', function($scope) {
-          $scope.names = ["Highly recomend!", "Will recommend!", "Would recommend!","Maybe recommend!","No!"];
-          $scope.country = ["Austria","Belgium","Bosnia and Herzegovina","Croatia","Czech Republic","Denmark","Estonia","Finland","France","Germany","Luxembourg","Montenegro","Netherlands","Serbia","Slovenia","Switzerland","Turkey","United Kingdom"];
-          $scope.specialization = ["Allergists","Cardiologists","Dermatologists","Gastroenterologists","Hematologists","Internists","Nephrologists","Neurologists","Oncologists","Ophthalmologists","Pathologists","Pediatricians","Psychiatrists","Radiologists","Dentist"];
-          $scope.type = ["doctor","secretary","nurse"];
-          $scope.status = ["pending requests","accepted requests","incomming requests","passed requests","cancelled requests"]
+  app.controller('myCtrl', function($scope, $filter) {
+        $scope.names = ["Highly recomend!", "Will recommend!", "Would recommend!","Maybe recommend!","No!"];
+        $scope.country = ["Austria","Belgium","Bosnia and Herzegovina","Croatia","Czech Republic","Denmark","Estonia","Finland","France","Germany","Luxembourg","Montenegro","Netherlands","Serbia","Slovenia","Switzerland","Turkey","United Kingdom"];
+        $scope.specialization = ["Allergists","Cardiologists","Dermatologists","Gastroenterologists","Hematologists","Internists","Nephrologists","Neurologists","Oncologists","Ophthalmologists","Pathologists","Pediatricians","Psychiatrists","Radiologists","Dentist"];
+        $scope.type = ["doctor","secretary","nurse"];
+        $scope.status = ["pending requests","accepted requests","incomming requests","passed requests","cancelled requests"];
+        var date = new Date();
+        $scope.current_date = $filter('date')(new Date(), 'd, MMMM yyyy');
+        $scope.current_time = $filter('date')(new Date(), 'hh:mm a');
   });
   app.config(function($routeProvider){
     $routeProvider.when("/",{
