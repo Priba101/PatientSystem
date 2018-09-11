@@ -18,8 +18,8 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-//MongoClient.connect('mongodb://priba:NFSMWCJ1997@ds125342.mlab.com:25342/patientsystem', function(err, client) {
-MongoClient.connect('mongodb://localhost:27017', function(err, client) {
+MongoClient.connect('mongodb://priba:NFSMWCJ1997@ds125342.mlab.com:25342/patientsystem', function(err, client) {
+//MongoClient.connect('mongodb://localhost:27017', function(err, client) {
     if (err) throw err;
     patientsystem = client.db('patientsystem');
     app.listen(8000, () => console.log('Example app listening on port 8000!'))
