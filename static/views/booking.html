@@ -77,11 +77,16 @@
           <div class="container">
               <h>What specialist can help you with your problem?</h>
                 <form method="POST">
-                    <div class="container"> 
-                        <input type="text" placeholder="What kind of doctor are you looking for?" ng-model="book.type">
+                    <div class="container">
+                      What kind of doctor are you looking for?
+                        <select class="form-control" placeholder="Specialization" ng-model="book.type" ng-options="x for x in specialization" >
+                            <option value="" disabled selected>Specialization</option>
+                          </select>
                         <br>
-                        Please enter the desired date:  <input type="date" ng-model="book.date" name="date"><br>
-                        At what time would you like to make an appointment?  <input type="time" ng-model="book.time" name="time"><span class="hours" style="color:gray">Working hours: 9AM to 5PM</span>
+                        Please enter the desired date:  <datepicker date-format="d, MMMM yyyy">
+                          <input ng-model="book.date" type="text" name="date"/>
+                        </datepicker><br>
+                        At what time would you like to make an appointment?  <input type="time" ng-model="book.time" name="time" min="09:00 AM" max="05:00 PM"><span class="hours" style="color:gray">Working hours: 9AM to 5PM</span>
                         <textarea ng-model="book.add" name="add" rows="10" cols="100" class="form-control" id="message" placeholder="Can you tell us something about your problem" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
                         <h>Did you have problem before with your issue?</h><input type="radio" name="issue" ng-model="book.issue" value="Yes">Yes<input type="radio" name="issue" ng-model="book.issue" value="No">No<br>
                         <h>Medical records will be sent to the doctor</h><input type="radio" ng-model="book.records" name="record" value="Yes" required>

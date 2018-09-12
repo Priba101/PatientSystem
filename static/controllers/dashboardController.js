@@ -144,7 +144,8 @@ $scope.edit_book = function(book){
         doctor:book.doctor,
         user:book.user,
         current_doctor_date:book.current_doctor_date,
-        current_doctor_time:book.current_doctor_time
+        current_doctor_time:book.current_doctor_time,
+        status:book.status
     };
 }
 $scope.edit_booking=function(booking){

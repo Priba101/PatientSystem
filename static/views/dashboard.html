@@ -29,7 +29,9 @@
                     <tr>
                         <td><input class="form-control" placeholder="First name" ng-model="user.firstname" /></td>
                         <td><input class="form-control" placeholder="Last name" ng-model="user.lastname" /></td>
-                        <td><input class="form-control" type="date" placeholder="Date" ng-model="user.date" /></td>
+                        <td><datepicker date-format="d, MMMM yyyy">
+                                <input class="form-control" ng-model="user.date" type="text" name="date"/>
+                        </datepicker></td>
                         <td><input class="form-control" placeholder="Place" ng-model="user.place" /></td>
                         <td><input class="form-control" placeholder="Gender" ng-model="user.gen" /></td>
                         <td><input class="form-control" placeholder="Username" ng-model="user.username" /></td>

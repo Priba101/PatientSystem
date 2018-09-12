@@ -107,7 +107,7 @@
                       <table class="table">
                         <thead class=" text-primary">
                           <th>Patients Username</th>
-                          <th>Book time</th>
+                         <th>Book time</th>
                           <th><center>Information</center></th>
                         </thead>
                         <tbody>
@@ -338,11 +338,13 @@
                                            <th>Type needed</th>
                                            <th>Date</th>
                                            <th>Time</th>
+                                           <th>Current status</th>
                                         </tr>
                                         <tr>
                                           <td>{{book.type}}</td>
                                           <td>{{book.date | date: 'd MMMM, yyyy'}}</td>
                                           <td>{{book.time | date: 'HH:mm a'}}</td>
+                                          <td>{{book.status}}</td>
                                         </tr>
                                      </thead>
                                      <tbody>
@@ -350,6 +352,7 @@
                                          <th>Doctor Type</th>
                                          <th>Doctor Username</th>
                                          <th>Price</th>
+                                         <th>Status update</th>
                                        </tr>
                                         <tr>
                                             <td>
@@ -404,7 +407,9 @@
                                                 <input class="form-control" placeholder="Type" ng-model="book.type"/>
                                              </td>
                                            <td>
-                                              <input type="date" class="form-control" placeholder="Date" ng-model="book.date"/>
+                                              <datepicker date-format="d, MMMM yyyy">
+                                                  <input class="form-control" ng-model="book.date" type="text" name="date"/>
+                                                </datepicker>
                                            </td>
                                            <td>
                                             <input type="time" class="form-control" placeholder="Time" ng-model="book.time"/>

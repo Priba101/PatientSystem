@@ -4,6 +4,9 @@
   "main": "app.js",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.2.0",
+    "angular-material": "^1.1.10",
+    "angular-material-time-picker": "^1.0.8",
+    "angularjs-datepicker": "^2.1.23",
     "body-parser": "^1.18.3",
     "config": "^1.30.0",
     "express": "^4.16.3",
