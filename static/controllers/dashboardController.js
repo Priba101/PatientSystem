@@ -1,4 +1,4 @@
-function DashboardController($scope, $rootScope, $http,toastr){
+function DashboardController($scope, $rootScope, $http,toastr,$location){
     console.log("Hello from Dashboard controller");
 
     var config = {headers:  {
@@ -35,6 +35,7 @@ function DashboardController($scope, $rootScope, $http,toastr){
 
     $scope.logout = function(){
         localStorage.clear();
+        $location.url('/');
         toastr.info("See you next time","Logged out!");
     }
     $scope.check_login = function(){
@@ -106,8 +107,8 @@ $scope.delete_feedback = function(_id){
 }
 $scope.decline_book = function(_id){
     $http.delete('/deleteBook/'+_id).then(function(data){
-        toastr.success("1 booking declined!","Booking deleted!");
         refresh_books();
+        toastr.success("1 booking declined!","Booking deleted!");
     });
 }
 
@@ -238,6 +239,7 @@ $scope.update_book = function(){
     $http.put('/book/'+$scope.book._id, $scope.book).then(function(data){
       $scope.book = null;
       refresh_books();
+      refresh_booking();
       toastr.success("Booking record updated successfully!","Booking updated!");
     });
 }
@@ -279,7 +281,7 @@ $scope.complete_user = function(){
 $scope.delete_question = function(_id){
     $http.delete('/deleteQuestion/'+_id).then(function(data){
       refresh_question();
-      toastr.success("Question delettion successfully!","Question deleted!");
+      toastr.success("Question deletion successfully!","Question deleted!");
     });
 }
 $scope.delete_patient_message=function(_id){
@@ -302,8 +304,9 @@ $scope.delete_emp = function(_id){
 }
 $scope.delete_help = function(_id){
     $http.delete('/deleteHelp/'+_id).then(function(data){
-      toastr.success("1 help question deleted successfully!","Help question deleted");
-      refresh_help();
+    refresh_help();
+    toastr.success("1 help question deleted successfully!","Help question deleted");
+
     });
 }
 $scope.delete_email_question=function(_id){
@@ -552,6 +555,19 @@ $scope.edit_books = function(book){
         reply:book.reply
     }
 }
+$scope.edit_boo=function(book){
+    $scope.book={
+        _id : book._id,
+        type:book.type,
+        add:book.add,
+        issue:book.issue,
+        records:book.records,
+        reply:book.reply,
+        doctor:book.doctor,
+        user:book.user,
+        status:book.status
+    }
+}
 $scope.edit_help=function(q){
     $scope.q={
         _id:q._id,
@@ -563,8 +579,8 @@ $scope.update_books = function(){
     var current_doctor_date = $scope.current_date;
     var current_doctor_time = $scope.current_time;
     $http.put('/books/'+$scope.book._id+'/'+current_doctor_date+'/'+current_doctor_time, $scope.book).then(function(data){
-      refresh_books();
       $scope.book = null;
+      refresh_books();
       toastr.success("Booking record updated successfully!","Booking updated!");
     });
 }

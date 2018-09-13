@@ -78,18 +78,20 @@
             </a>
           </li>
             </div>
-          <li class="nav-item ">
-              <a class="nav-link" href="#">
-                <i class="material-icons">home</i>
-                <p>Home</p>
-              </a>
-          </li>
           <!-- <li class="nav-item active-pro ">
                 <a class="nav-link" href="./upgrade.html">
                     <i class="material-icons">unarchive</i>
                     <p>Upgrade to PRO</p>
                 </a>
             </li> -->
+            <div>
+                <li class="nav-item">
+            <a class="nav-link" ng-click="logout()">
+              <i class="material-icons">power_settings_new</i>
+              <p>Log Out</p>
+            </a>
+          </li>
+            </div>
         </ul>
       </div>
     </div>
@@ -107,16 +109,16 @@
                       <thead class=" text-primary">
                         <th>Patient Username</th>
                         <th>Question asked</th>
-                        <th>Answer</th>
                         <th>Date asked</th>
+                        <th>Answer</th>
                         <th>Date answered</th>
                       </thead>
                       <tbody>
                           <tr ng-repeat="question in questions_list">
                               <td>{{question.user}}</td>
                               <td>{{question.mess}}</td>
-                              <td>{{question.reply}}</td>
                               <td>{{question.current_user_date}}</td>
+                              <td>{{question.reply}}</td>
                               <td>{{question.current_date}}</td>
                               <td>
                                   <button onclick="document.getElementById('id07').style.display='block'" class="w3-button w3-white" ng-click="answer_question(question)"><i class="fas fa-edit" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
@@ -179,8 +181,6 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <!-- CSS Files -->
   <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../assets/demo/demo.css" rel="stylesheet" />   
   <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js

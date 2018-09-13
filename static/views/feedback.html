@@ -78,18 +78,20 @@
               </a>
             </li>
               </div>
-            <li class="nav-item ">
-                <a class="nav-link" href="#">
-                  <i class="material-icons">home</i>
-                  <p>Home</p>
-                </a>
-            </li>
             <!-- <li class="nav-item active-pro ">
                   <a class="nav-link" href="./upgrade.html">
                       <i class="material-icons">unarchive</i>
                       <p>Upgrade to PRO</p>
                   </a>
               </li> -->
+              <div>
+                  <li class="nav-item">
+              <a class="nav-link" ng-click="logout()">
+                <i class="material-icons">power_settings_new</i>
+                <p>Log Out</p>
+              </a>
+            </li>
+              </div>
           </ul>
         </div>
       </div>
@@ -150,12 +152,16 @@
                             <th>Information</th>
                             <th>Ocurred before</th>
                             <th>Date asked</th>
+                            <th>Reply</th>
+                            <th>Date Answered</th>
                           </thead>
                           <tbody>
                               <tr ng-repeat="q in q_list">
                                   <td>{{q.info}}</td>
                                   <td>{{q.occured}}</td>
                                   <td>{{q.current_date}}</td>
+                                  <td>{{q.reply}}</td>
+                                  <td>{{q.current_admin_date}}</td>
                                   <td>
                                       <center><div class="btn-group">
                                           <button class="btn btn-success" onclick="document.getElementById('id07').style.display='block'" style="height:50px" ng-click="answer(q)">Reply</button>
@@ -170,34 +176,6 @@
                       </div>
                     </div>
                   </div>
-                  <div id="id07" class="w3-modal">
-                      <div class="w3-modal-content w3-animate-top w3-card-4">
-                        <header class="w3-container w3-green"> 
-                          <span onclick="document.getElementById('id07').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                          <h2>Our user is having a problem</h2>
-                        </header>
-                        <div class="w3-container">
-                            <table class="table table-hover">
-                                <h2 class="mt-4 mb-3">Write a reply for our user in danger!</h2>
-                                    <tr>
-                                      <h3>Reply</h3>
-                                    </tr>
-                                    <tr>
-                                      <td>
-                                        <textarea ng-model="q.reply" rows="10" colspan="2" cols="50" class="form-control" placeholder="Enter message here" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none;"></textarea>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div class="btn-group">
-                                             <button class="btn btn-success" style="height:50px;width:200px" ng-click="answer_help()">Send Help</button>
-                                          </div>
-                                       </td>
-                                    </tr>
-                            </table>
-                          </div>
-                      </div>
-                    </div>
                 </div>
               </div>
               <div class="row">
@@ -216,6 +194,8 @@
                             <th>Email</th>
                             <th>Message</th>
                             <th>Date asked</th>
+                            <th>Reply</th>
+                            <th>Date Answered</th>
                           </thead>
                           <tbody>
                               <tr ng-repeat="question_email in email_list">
@@ -224,8 +204,10 @@
                                   <td>{{question_email.email}}</td>
                                   <td>{{question_email.mess}}</td>
                                   <td>{{question_email.current_date}}</td>
+                                  <td>{{question_email.reply}}</td>
+                                  <td>{{question_email.current_admin_date}}</td>
                                   <td>
-                                      <button onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="edit_email_question(question_email)" style="font-size:24px;color:green;position: relative;top:7px"></i></button>
+                                      <button class="btn btn-success" onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-white" style="height:50px" ng-click="edit_email_question(question_email)">Reply</button>
                                   </td>
                                   <td>
                                       <button onclick="document.getElementById('id00').style.display='block'" class="w3-button w3-white"><i class="far fa-envelope" ng-click="edit_email_question(question_email)" style="font-size:24px;color:blue;position: relative;top:7px"></i></button>
@@ -290,6 +272,34 @@
                     </div>
                 </div>
               </div>
+              <div id="id07" class="w3-modal">
+                  <div class="w3-modal-content w3-animate-top w3-card-4">
+                    <header class="w3-container w3-green"> 
+                      <span onclick="document.getElementById('id07').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                      <h2>Our user is having a problem</h2>
+                    </header>
+                    <div class="w3-container">
+                        <table class="table table-hover">
+                            <h2 class="mt-4 mb-3">Write a reply for our user in danger!</h2>
+                                <tr>
+                                  <h3>Reply</h3>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <textarea ng-model="q.reply" rows="10" colspan="2" cols="50" class="form-control" placeholder="Enter message here" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none;"></textarea>
+                                  </td>
+                                </tr>
+                                <tr>
+                                   <td>
+                                      <div class="btn-group">
+                                         <button class="btn btn-success" style="height:50px;width:200px" ng-click="answer_help()">Send Help</button>
+                                      </div>
+                                   </td>
+                                </tr>
+                        </table>
+                      </div>
+                  </div>
+                </div>
           </div>
         </div>
         <footer>
@@ -319,6 +329,4 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <!-- CSS Files -->
     <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../assets/demo/demo.css" rel="stylesheet" />   
   </body>

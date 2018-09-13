@@ -7,7 +7,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo">
-        <a href="#!dashboard1" class="simple-text logo-normal">
+        <a href="#" class="simple-text logo-normal">
           Patient Management <br>
               System
         </a>
@@ -78,18 +78,20 @@
             </a>
           </li>
             </div>
-          <li class="nav-item ">
-              <a class="nav-link" href="#">
-                <i class="material-icons">home</i>
-                <p>Home</p>
-              </a>
-          </li>
           <!-- <li class="nav-item active-pro ">
                 <a class="nav-link" href="./upgrade.html">
                     <i class="material-icons">unarchive</i>
                     <p>Upgrade to PRO</p>
                 </a>
             </li> -->
+            <div>
+                <li class="nav-item">
+            <a class="nav-link" ng-click="logout()">
+              <i class="material-icons">power_settings_new</i>
+              <p>Log Out</p>
+            </a>
+          </li>
+            </div>
         </ul>
       </div>
     </div>
@@ -110,6 +112,34 @@
               </li>
             </ul>
           </div>
+          <div id="id04" class="w3-modal">
+              <div class="w3-modal-content w3-animate-top w3-card-4">
+                <header class="w3-container w3-green"> 
+                  <span onclick="document.getElementById('id04').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                  <h2>Here you can add a new task!</h2>
+                </header>
+                <div class="w3-container">
+                    <table class="table table-hover">
+                        <h1 class="mt-4 mb-3">Task description</h1>
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                            </tr>
+                         </thead>
+                         <tbody>
+                            <tr>
+                                <td><input class="form-control" placeholder="Task" ng-model="todo.task" /></td>
+                               <td>
+                                  <div class="btn-group">
+                                     <button class="btn btn-success" style="height:50px;width:200px" ng-click="add_task(todo)">Add Task</button>
+                                  </div>
+                               </td>
+                            </tr>
+                         </tbody>
+                      </table>
+                </div>
+              </div>
+            </div>
         </div>
       </nav>
       <!-- End Navbar -->
@@ -282,34 +312,6 @@
                                </tr>
                           </tbody>
                       </table>
-                      <div id="id04" class="w3-modal">
-                          <div class="w3-modal-content w3-animate-top w3-card-4">
-                            <header class="w3-container w3-green"> 
-                              <span onclick="document.getElementById('id04').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                              <h2>Here you can add a new task!</h2>
-                            </header>
-                            <div class="w3-container">
-                                <table class="table table-hover">
-                                    <h1 class="mt-4 mb-3">Task description</h1>
-                                    <thead>
-                                        <tr>
-                                            <th>Task</th>
-                                        </tr>
-                                     </thead>
-                                     <tbody>
-                                        <tr>
-                                            <td><input class="form-control" placeholder="Task" ng-model="todo.task" /></td>
-                                           <td>
-                                              <div class="btn-group">
-                                                 <button class="btn btn-success" style="height:50px;width:200px" ng-click="add_task(todo)">Add Task</button>
-                                              </div>
-                                           </td>
-                                        </tr>
-                                     </tbody>
-                                  </table>
-                            </div>
-                          </div>
-                        </div>
                     </div>
                   </div>
                 </div>

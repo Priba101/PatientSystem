@@ -432,7 +432,7 @@ app.put('/user/:user_id', function(req, res){
     patientsystem.collection('users').findAndModify(
        {_id: new MongoId(req.params.user_id)},
        [['_id','asc']],
-       {$set : {firstname: req.body.firstname,lastname: req.body.lastname,place:req.body.place,username:req.body.username,email:req.body.email,type:req.body.type}},
+       {$set : {username:req.body.username,email:req.body.email,phone:req.body.phone,place:req.body.place,country:req.body.country,zip:req.body.zip}},
        function(err, doc) {
            if (err){
                console.warn(err.message); 

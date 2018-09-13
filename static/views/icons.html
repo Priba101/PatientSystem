@@ -78,18 +78,20 @@
             </a>
           </li>
             </div>
-          <li class="nav-item ">
-              <a class="nav-link" href="#">
-                <i class="material-icons">home</i>
-                <p>Home</p>
-              </a>
-          </li>
           <!-- <li class="nav-item active-pro ">
                 <a class="nav-link" href="./upgrade.html">
                     <i class="material-icons">unarchive</i>
                     <p>Upgrade to PRO</p>
                 </a>
             </li> -->
+            <div>
+                <li class="nav-item">
+            <a class="nav-link" ng-click="logout()">
+              <i class="material-icons">power_settings_new</i>
+              <p>Log Out</p>
+            </a>
+          </li>
+            </div>
         </ul>
       </div>
     </div>
@@ -120,33 +122,6 @@
                          </tr>
                         </tbody>
                       </table>
-                      <div id="id12" class="w3-modal">
-                          <div class="w3-modal-content w3-animate-top w3-card-4">
-                            <header class="w3-container w3-green"> 
-                              <span onclick="document.getElementById('id12').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                              <h2>Here you can see todays patients info!</h2>
-                            </header>
-                            <div class="w3-container">
-                                <table class="table table-hover">
-                                    <h2 class="mt-4 mb-3">Information</h2>
-                                    <thead>
-                                        <tr>
-                                           <th>Issue</th>
-                                           <th>Occured before</th>
-                                           <th>Doctor</th>
-                                        </tr>
-                                        <tr>
-                                          <td>{{book.add}}</td>
-                                          <td>{{book.issue}}</td>
-                                          <td>{{book.doctor}}</td>
-                                        </tr>
-                                     </thead>
-                                     <tbody>
-                                     </tbody>
-                                  </table>
-                            </div>
-                          </div>
-                        </div>
                     </div>
                   </div>
                 </div>
@@ -166,7 +141,7 @@
                             <th><center>Schedule</center></th>
                           </thead>
                           <tbody>
-                            <tr ng-repeat="emp in emp_list">
+                            <tr ng-repeat="emp in emp_list | filter:'doctor'">
                               <td>{{emp.username}}</td>
                               <td>{{emp.spec}}</td>
                               <td>
@@ -175,33 +150,6 @@
                            </tr>
                           </tbody>
                         </table>
-                        <div id="id10" class="w3-modal">
-                            <div class="w3-modal-content w3-animate-top w3-card-4">
-                              <header class="w3-container w3-green"> 
-                                <span onclick="document.getElementById('id10').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                                <h2>Here you can see the doctors schedule!</h2>
-                              </header>
-                              <div class="w3-container">
-                                  <table class="table table-hover">
-                                      <h2 class="mt-4 mb-3">Schedule</h2>
-                                      <thead>
-                                          <tr>
-                                             <th>Patient username</th>
-                                             <th>Date</th>
-                                             <th>Time</th>
-                                          </tr>
-                                          <tr ng-repeat="schedule in schedule_list | orderBy:'time' | orderBy:'date'">
-                                            <td>{{schedule.user}}</td>
-                                            <td>{{schedule.date | date: 'd MMMM, yyyy'}}</td>
-                                            <td>{{schedule.time | date: 'HH:mm a'}}</td>
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                       </tbody>
-                                    </table>
-                              </div>
-                            </div>
-                          </div>
                       </div>
                     </div>
                   </div>
@@ -227,7 +175,7 @@
                           <th><center>Update Status</center></th>
                         </thead>
                         <tbody>
-                          <tr ng-repeat="book in books_list | filter:'pending requests' | orderBy:'date'">
+                          <tr ng-repeat="book in books_list | filter:'pending requests' | orderBy:'time' | orderBy:'date'">
                             <td>{{book.status}}</td>
                             <td>{{book.user}}</td>
                             <td>{{book.type}}</td>
@@ -240,13 +188,13 @@
                               <button onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="edit_book(book)" style="font-size:24px;color:teal;position: relative;top:7px"></i></button>
                           </td>
                           <td>
-                            <button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-white" ><i class="far fa-comment" ng-click="edit_book(book)" style="font-size:24px;color:blue;position: relative;top:7px"></i></button>
+                            <button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-white" ><i class="far fa-comment" ng-click="edit_boo(book)" style="font-size:24px;color:blue;position: relative;top:7px"></i></button>
                         </td>
                             <td>
                                 <button onclick="document.getElementById('id04').style.display='block'" class="w3-button w3-white"><i class="fas fa-clipboard-list" ng-click="edit_status(book)" style="font-size:24px;color:orange;position: relative;top:7px"></i></button>
                               </td>
                          </tr>
-                         <tr ng-repeat="book in books_list | filter:'accepted requests' | orderBy:'date'">
+                         <tr ng-repeat="book in books_list | filter:'accepted requests'  | orderBy:'time' | orderBy:'date'">
                             <td>{{book.status}}</td>
                             <td>{{book.user}}</td>
                             <td>{{book.type}}</td>
@@ -259,13 +207,13 @@
                               <button onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="edit_book(book)" style="font-size:24px;color:teal;position: relative;top:7px"></i></button>
                           </td>
                           <td>
-                            <button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-white" ><i class="far fa-comment" style="font-size:24px;color:blue;position: relative;top:7px"></i></button>
+                            <button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-white" ><i class="far fa-comment" ng-click="edit_boo(book)" style="font-size:24px;color:blue;position: relative;top:7px"></i></button>
                         </td>
                             <td>
                                 <button onclick="document.getElementById('id04').style.display='block'" class="w3-button w3-white"><i class="fas fa-clipboard-list" ng-click="edit_status(book)" style="font-size:24px;color:orange;position: relative;top:7px"></i></button>
                               </td>
                          </tr>
-                         <tr ng-repeat="book in books_list | filter:'incomming requests' | orderBy:'date'">
+                         <tr ng-repeat="book in books_list | filter:'incomming requests'  | orderBy:'time' | orderBy:'date'">
                             <td>{{book.status}}</td>
                             <td>{{book.user}}</td>
                             <td>{{book.type}}</td>
@@ -278,13 +226,13 @@
                               <button onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="edit_book(book)" style="font-size:24px;color:teal;position: relative;top:7px"></i></button>
                           </td>
                           <td>
-                            <button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-white" ><i class="far fa-comment" style="font-size:24px;color:blue;position: relative;top:7px"></i></button>
+                            <button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-white" ><i class="far fa-comment" ng-click="edit_boo(book)" style="font-size:24px;color:blue;position: relative;top:7px"></i></button>
                         </td>
                             <td>
                                 <button onclick="document.getElementById('id04').style.display='block'" class="w3-button w3-white"><i class="fas fa-clipboard-list" ng-click="edit_status(book)" style="font-size:24px;color:orange;position: relative;top:7px"></i></button>
                               </td>
                          </tr>
-                         <tr ng-repeat="book in books_list | filter:'passed requests' | orderBy:'date'">
+                         <tr ng-repeat="book in books_list | filter:'passed requests'  | orderBy:'time' | orderBy:'date'">
                             <td>{{book.status}}</td>
                             <td>{{book.user}}</td>
                             <td>{{book.type}}</td>
@@ -297,13 +245,13 @@
                               <button onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="edit_book(book)" style="font-size:24px;color:teal;position: relative;top:7px"></i></button>
                           </td>
                           <td>
-                            <button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-white" ><i class="far fa-comment" style="font-size:24px;color:blue;position: relative;top:7px"></i></button>
+                            <button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-white" ><i class="far fa-comment" ng-click="edit_boo(book)" style="font-size:24px;color:blue;position: relative;top:7px"></i></button>
                         </td>
                             <td>
                                 <button onclick="document.getElementById('id04').style.display='block'" class="w3-button w3-white"><i class="fas fa-clipboard-list" ng-click="edit_status(book)" style="font-size:24px;color:orange;position: relative;top:7px"></i></button>
                               </td>
                          </tr>
-                         <tr ng-repeat="book in books_list | filter:'cancelled requests' | orderBy:'date'">
+                         <tr ng-repeat="book in books_list | filter:'cancelled requests'  | orderBy:'time' | orderBy:'date'">
                             <td>{{book.status}}</td>
                             <td>{{book.user}}</td>
                             <td>{{book.type}}</td>
@@ -316,7 +264,7 @@
                               <button onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-white"><i class="fas fa-edit" ng-click="edit_book(book)" style="font-size:24px;color:teal;position: relative;top:7px"></i></button>
                           </td>
                           <td>
-                            <button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-white" ><i class="far fa-comment" style="font-size:24px;color:blue;position: relative;top:7px"></i></button>
+                            <button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-white" ><i class="far fa-comment" ng-click="edit_boo(book)" style="font-size:24px;color:blue;position: relative;top:7px"></i></button>
                         </td>
                             <td>
                                 <button onclick="document.getElementById('id04').style.display='block'" class="w3-button w3-white"><i class="fas fa-clipboard-list" ng-click="edit_status(book)" style="font-size:24px;color:orange;position: relative;top:7px"></i></button>
@@ -324,168 +272,6 @@
                          </tr>
                         </tbody>
                       </table>
-                      <div id="id01" class="w3-modal">
-                          <div class="w3-modal-content w3-animate-top w3-card-4">
-                            <header class="w3-container w3-green"> 
-                              <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                              <h2>Here you assign bookings to doctors!</h2>
-                            </header>
-                            <div class="w3-container">
-                                <table class="table table-hover">
-                                    <h2 class="mt-4 mb-3">Pending bookings</h2>
-                                    <thead>
-                                        <tr>
-                                           <th>Type needed</th>
-                                           <th>Date</th>
-                                           <th>Time</th>
-                                           <th>Current status</th>
-                                        </tr>
-                                        <tr>
-                                          <td>{{book.type}}</td>
-                                          <td>{{book.date | date: 'd MMMM, yyyy'}}</td>
-                                          <td>{{book.time | date: 'HH:mm a'}}</td>
-                                          <td>{{book.status}}</td>
-                                        </tr>
-                                     </thead>
-                                     <tbody>
-                                       <tr>
-                                         <th>Doctor Type</th>
-                                         <th>Doctor Username</th>
-                                         <th>Price</th>
-                                         <th>Status update</th>
-                                       </tr>
-                                        <tr>
-                                            <td>
-                                                <input class="form-control" placeholder="Type" ng-model="book.type"/>
-                                             </td>
-                                           <td>
-                                              <input class="form-control" placeholder="Doctor" ng-model="book.doctor"/>
-                                           </td>
-                                           <td>
-                                             <input class="form-control" placeholder="Amount" ng-model="book.amount">
-                                           </td>
-                                           <td>
-                                             <select ng-model="book.status">
-                                               <option value="accepted requests">Accepted Request</option>
-                                             </select>
-                                           </td>
-                                           <td>
-                                              <div class="btn-group">
-                                                 <button class="btn btn-success" style="height:50px;width:200px" ng-click="booking()">Finalize Booking</button>
-                                              </div>
-                                           </td>
-                                        </tr>
-                                     </tbody>
-                                  </table>
-                            </div>
-                          </div>
-                        </div>
-                        <div id="id02" class="w3-modal">
-                          <div class="w3-modal-content w3-animate-top w3-card-4">
-                            <header class="w3-container w3-green"> 
-                              <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                              <h2>Here you assign bookings to doctors!</h2>
-                            </header>
-                            <div class="w3-container">
-                                <table class="table table-hover">
-                                    <h2 class="mt-4 mb-3">Pending bookings</h2>
-                                    <thead>
-                                        <tr>
-                                           <th>Type needed</th>
-                                           <th>Date</th>
-                                           <th>Time</th>
-                                        </tr>
-                                        <tr>
-                                          <td>{{book.type}}</td>
-                                          <td>{{book.date | date: 'd MMMM, yyyy'}}</td>
-                                          <td>{{book.time | date: 'HH:mm a'}}</td>
-                                        </tr>
-                                     </thead>
-                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <input class="form-control" placeholder="Type" ng-model="book.type"/>
-                                             </td>
-                                           <td>
-                                              <datepicker date-format="d, MMMM yyyy">
-                                                  <input class="form-control" ng-model="book.date" type="text" name="date"/>
-                                                </datepicker>
-                                           </td>
-                                           <td>
-                                            <input type="time" class="form-control" placeholder="Time" ng-model="book.time"/>
-                                         </td>
-                                           <td>
-                                              <div class="btn-group">
-                                                 <button class="btn btn-success" style="height:50px;width:200px" ng-click="update_book_time()">Update Booking</button>
-                                              </div>
-                                           </td>
-                                        </tr>
-                                     </tbody>
-                                  </table>
-                            </div>
-                          </div>
-                        </div>
-                        <div id="id03" class="w3-modal">
-                          <div class="w3-modal-content w3-animate-top w3-card-4">
-                            <header class="w3-container w3-green"> 
-                              <span onclick="document.getElementById('id03').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                              <h2>Arrange a new appointment for our patients!</h2>
-                            </header>
-                            <div class="w3-container">
-                                <table class="table table-hover">
-                                    <h2 class="mt-4 mb-3">Suggest a new time?</h2>
-                                    <thead>
-                                        <tr>
-                                           <th>Patient username</th>
-                                           <th>Message</th>
-                                        </tr>
-                                     </thead>
-                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <input class="form-control" placeholder="Username" ng-model="book.user"/>
-                                             </td>
-                                           <td>
-                                              <input class="form-control" placeholder="Message" ng-model="messenger.message"/>
-                                           </td>
-                                           <td>
-                                              <div class="btn-group">
-                                                 <button class="btn btn-success" style="height:50px;width:200px" ng-click="send_message_to_patient()">Send Message</button>
-                                              </div>
-                                           </td>
-                                        </tr>
-                                     </tbody>
-                                  </table>
-                            </div>
-                          </div>
-                        </div>
-                        <div id="id04" class="w3-modal">
-                            <div class="w3-modal-content w3-animate-top w3-card-4">
-                              <header class="w3-container w3-green"> 
-                                <span onclick="document.getElementById('id04').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                                <h2>Here you can update the booking status!</h2>
-                              </header>
-                              <div class="w3-container">
-                                  <table class="table table-hover">
-                                      <h1 class="mt-4 mb-3">Status</h1>
-                                       <tbody>
-                                          <tr>
-                                             <td>
-                                                <select class="form-control" ng-model="book.status" ng-options="x for x in status" >
-                                                    <option value="" disabled selected>Status</option>
-                                                  </select>
-                                             </td>
-                                             <td>
-                                                <div class="btn-group">
-                                                   <button class="btn btn-success" style="height:50px;width:200px" ng-click="update_status()">Update Status</button>
-                                                </div>
-                                             </td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
-                              </div>
-                            </div>
-                          </div>
                     </div>
                   </div>
                 </div>
@@ -522,40 +308,6 @@
                     </div>
                   </div>
                 </div>
-                <div id="id15" class="w3-modal">
-                    <div class="w3-modal-content w3-animate-top w3-card-4">
-                      <header class="w3-container w3-green"> 
-                        <span onclick="document.getElementById('id15').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                        <h2>Arrange a new appointment for our patients!</h2>
-                      </header>
-                      <div class="w3-container">
-                          <table class="table table-hover">
-                              <h2 class="mt-4 mb-3">Suggest a new time?</h2>
-                              <thead>
-                                  <tr>
-                                     <th>Patient username</th>
-                                     <th>Message</th>
-                                  </tr>
-                               </thead>
-                               <tbody>
-                                  <tr>
-                                      <td>
-                                          <input class="form-control" placeholder="Username" ng-model="messenger.user"/>
-                                       </td>
-                                     <td>
-                                        <input class="form-control" placeholder="Message" ng-model="messenger.message"/>
-                                     </td>
-                                     <td>
-                                        <div class="btn-group">
-                                           <button class="btn btn-success" style="height:50px;width:200px" ng-click="reply_to_patient()">Send Message</button>
-                                        </div>
-                                     </td>
-                                  </tr>
-                               </tbody>
-                            </table>
-                      </div>
-                    </div>
-                  </div>
                 <div class="col-md-12" ng-hide="check_doctor()">
                     <div class="card">
                       <div class="card-header card-header-primary">
@@ -614,32 +366,282 @@
                            </tr>
                           </tbody>
                         </table>
-                        <div id="id07" class="w3-modal">
-                            <div class="w3-modal-content w3-animate-top w3-card-4">
-                              <header class="w3-container w3-green"> 
-                                <span onclick="document.getElementById('id07').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                                <h2>Give a comment</h2>
-                              </header>
-                              <div class="w3-container">
-                                  <table class="table table-hover">
-                                      <h2 class="mt-4 mb-3">Write your comment below
-                                      </h2>
-                                      <thead>
-                                          <textarea ng-model="book.comment" name="comment" rows="1" cols="10" class="form-control" id="comment" placeholder="Add Comment" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
-                                      </thead>
-                                      <tbody>
-                                        <tr>
-                                            <td><button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;" ng-click="add_comment()"><i class="fas fa-save" style="font-size:24px;color:green;position: relative;top:7px" ></i></button></td>
-                                          </tr>
-                                      </tbody>
-                                    </table>
-                              </div>
-                            </div>
-                          </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <div id="id12" class="w3-modal">
+                    <div class="w3-modal-content w3-animate-top w3-card-4">
+                      <header class="w3-container w3-green"> 
+                        <span onclick="document.getElementById('id12').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                        <h2>Here you can see todays patients info!</h2>
+                      </header>
+                      <div class="w3-container">
+                          <table class="table table-hover">
+                              <h2 class="mt-4 mb-3">Information</h2>
+                              <thead>
+                                  <tr>
+                                     <th>Issue</th>
+                                     <th>Occured before</th>
+                                     <th>Doctor</th>
+                                  </tr>
+                                  <tr>
+                                    <td>{{book.add}}</td>
+                                    <td>{{book.issue}}</td>
+                                    <td>{{book.doctor}}</td>
+                                  </tr>
+                               </thead>
+                               <tbody>
+                               </tbody>
+                            </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="id10" class="w3-modal">
+                      <div class="w3-modal-content w3-animate-top w3-card-4">
+                        <header class="w3-container w3-green"> 
+                          <span onclick="document.getElementById('id10').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                          <h2>Here you can see the doctors schedule!</h2>
+                        </header>
+                        <div class="w3-container">
+                            <table class="table table-hover">
+                                <h2 class="mt-4 mb-3">Schedule</h2>
+                                <thead>
+                                    <tr>
+                                       <th>Patient username</th>
+                                       <th>Date</th>
+                                       <th>Time</th>
+                                    </tr>
+                                    <tr ng-repeat="schedule in schedule_list | orderBy:'time' | orderBy:'date'">
+                                      <td>{{schedule.user}}</td>
+                                      <td>{{schedule.date | date: 'd MMMM, yyyy'}}</td>
+                                      <td>{{schedule.time | date: 'HH:mm a'}}</td>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                 </tbody>
+                              </table>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="id01" class="w3-modal">
+                        <div class="w3-modal-content w3-animate-top w3-card-4">
+                          <header class="w3-container w3-green"> 
+                            <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                            <h2>Here you assign bookings to doctors!</h2>
+                          </header>
+                          <div class="w3-container">
+                              <table class="table table-hover">
+                                  <h2 class="mt-4 mb-3">Pending bookings</h2>
+                                  <thead>
+                                      <tr>
+                                         <th>Type needed</th>
+                                         <th>Date</th>
+                                         <th>Time</th>
+                                         <th>Current status</th>
+                                      </tr>
+                                      <tr>
+                                        <td>{{book.type}}</td>
+                                        <td>{{book.date | date: 'd MMMM, yyyy'}}</td>
+                                        <td>{{book.time | date: 'HH:mm a'}}</td>
+                                        <td>{{book.status}}</td>
+                                      </tr>
+                                   </thead>
+                                   <tbody>
+                                     <tr>
+                                       <th>Doctor Type</th>
+                                       <th>Doctor Username</th>
+                                       <th>Price</th>
+                                       <th>Status update</th>
+                                     </tr>
+                                      <tr>
+                                          <td>
+                                              <input class="form-control" placeholder="Type" ng-model="book.type"/>
+                                           </td>
+                                         <td>
+                                            <input class="form-control" placeholder="Doctor" ng-model="book.doctor"/>
+                                         </td>
+                                         <td>
+                                           <input class="form-control" placeholder="Amount" ng-model="book.amount">
+                                         </td>
+                                         <td>
+                                           <select ng-model="book.status">
+                                             <option value="accepted requests">Accepted Request</option>
+                                           </select>
+                                         </td>
+                                         <td>
+                                            <div class="btn-group">
+                                               <button class="btn btn-success" style="height:50px;width:200px" ng-click="booking()">Finalize Booking</button>
+                                            </div>
+                                         </td>
+                                      </tr>
+                                   </tbody>
+                                </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="id02" class="w3-modal">
+                        <div class="w3-modal-content w3-animate-top w3-card-4">
+                          <header class="w3-container w3-teal"> 
+                            <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                            <h2>Here you assign bookings to doctors!</h2>
+                          </header>
+                          <div class="w3-container">
+                              <table class="table table-hover">
+                                  <h2 class="mt-4 mb-3">Pending bookings</h2>
+                                  <thead>
+                                      <tr>
+                                         <th>Type needed</th>
+                                         <th>Date</th>
+                                         <th>Time</th>
+                                      </tr>
+                                      <tr>
+                                        <td>{{book.type}}</td>
+                                        <td>{{book.date | date: 'd MMMM, yyyy'}}</td>
+                                        <td>{{book.time | date: 'HH:mm a'}}</td>
+                                      </tr>
+                                   </thead>
+                                   <tbody>
+                                      <tr>
+                                          <td>
+                                              <input class="form-control" placeholder="Type" ng-model="book.type"/>
+                                           </td>
+                                         <td>
+                                            <datepicker date-format="d, MMMM yyyy">
+                                                <input class="form-control" ng-model="book.date" type="text" name="date"/>
+                                              </datepicker>
+                                         </td>
+                                         <td>
+                                          <input type="time" class="form-control" placeholder="Time" ng-model="book.time"/>
+                                       </td>
+                                         <td>
+                                            <div class="btn-group">
+                                               <button class="w3-button w3-teal" style="height:50px;width:200px" ng-click="update_book_time()">Update Booking</button>
+                                            </div>
+                                         </td>
+                                      </tr>
+                                   </tbody>
+                                </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="id03" class="w3-modal">
+                        <div class="w3-modal-content w3-animate-top w3-card-4">
+                          <header class="w3-container w3-blue"> 
+                            <span onclick="document.getElementById('id03').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                            <h2>Arrange a new appointment for our patients!</h2>
+                          </header>
+                          <div class="w3-container">
+                              <table class="table table-hover">
+                                  <h2 class="mt-4 mb-3">Suggest a new time?</h2>
+                                  <thead>
+                                      <tr>
+                                         <th>Patient username</th>
+                                         <th>Message</th>
+                                      </tr>
+                                   </thead>
+                                   <tbody>
+                                      <tr>
+                                          <td>
+                                              <input class="form-control" placeholder="Username" ng-model="book.user"/>
+                                           </td>
+                                         <td>
+                                            <input class="form-control" placeholder="Message" ng-model="messenger.message"/>
+                                         </td>
+                                         <td>
+                                            <div class="btn-group">
+                                               <button class="w3-button w3-blue" style="height:50px;width:200px" ng-click="send_message_to_patient()">Send Message</button>
+                                            </div>
+                                         </td>
+                                      </tr>
+                                   </tbody>
+                                </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="id04" class="w3-modal">
+                          <div class="w3-modal-content w3-animate-top w3-card-4">
+                            <header class="w3-container w3-orange"> 
+                              <span onclick="document.getElementById('id04').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                              <h2>Here you can update the booking status!</h2>
+                            </header>
+                            <div class="w3-container">
+                                <table class="table table-hover">
+                                    <h1 class="mt-4 mb-3">Status</h1>
+                                     <tbody>
+                                        <tr>
+                                           <td>
+                                              <select class="form-control" ng-model="book.status" ng-options="x for x in status" >
+                                                  <option value="" disabled selected>Status</option>
+                                                </select>
+                                           </td>
+                                           <td>
+                                              <div class="btn-group">
+                                                 <button class="w3-button w3-orange" style="height:50px;width:200px" ng-click="update_status()">Update Status</button>
+                                              </div>
+                                           </td>
+                                        </tr>
+                                     </tbody>
+                                  </table>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="id15" class="w3-modal">
+                            <div class="w3-modal-content w3-animate-top w3-card-4">
+                              <header class="w3-container w3-green"> 
+                                <span onclick="document.getElementById('id15').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                                <h2>Arrange a new appointment for our patients!</h2>
+                              </header>
+                              <div class="w3-container">
+                                  <table class="table table-hover">
+                                      <h2 class="mt-4 mb-3">Suggest a new time?</h2>
+                                      <thead>
+                                          <tr>
+                                             <th>Patient username</th>
+                                             <th>Message</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr>
+                                              <td>
+                                                  <input class="form-control" placeholder="Username" ng-model="messenger.user"/>
+                                               </td>
+                                             <td>
+                                                <input class="form-control" placeholder="Message" ng-model="messenger.message"/>
+                                             </td>
+                                             <td>
+                                                <div class="btn-group">
+                                                   <button class="btn btn-success" style="height:50px;width:200px" ng-click="reply_to_patient()">Send Message</button>
+                                                </div>
+                                             </td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="id07" class="w3-modal">
+                              <div class="w3-modal-content w3-animate-top w3-card-4">
+                                <header class="w3-container w3-green"> 
+                                  <span onclick="document.getElementById('id07').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                                  <h2>Give a comment</h2>
+                                </header>
+                                <div class="w3-container">
+                                    <table class="table table-hover">
+                                        <h2 class="mt-4 mb-3">Write your comment below
+                                        </h2>
+                                        <thead>
+                                            <textarea ng-model="book.comment" name="comment" rows="1" cols="10" class="form-control" id="comment" placeholder="Add Comment" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                              <td><button class="btn btn-link btn-sm" style:"min-width: 80px;max-width: 80px;" ng-click="add_comment()"><i class="fas fa-save" style="font-size:24px;color:green;position: relative;top:7px" ></i></button></td>
+                                            </tr>
+                                        </tbody>
+                                      </table>
+                                </div>
+                              </div>
+                            </div>
         </div>
       </div>
       <footer>
